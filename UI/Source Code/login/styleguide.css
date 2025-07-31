@@ -1,0 +1,35 @@
+:root {
+  --muted: rgba(217, 217, 217, 1);
+  --action-sec: rgba(12, 42, 146, 1);
+  --edf-2f-7: rgba(237, 242, 247, 1);
+  --kit-component-stroke: var(--colors-colors-indigo);
+  --colors-colors-indigo: rgba(97, 85, 245, 1);
+}
+
+/*
+
+To enable a theme in your HTML, simply add one of the following data attributes to an HTML element, like so:
+
+<body data-colors-mode="light">
+    <!-- the rest of your content -->
+</body>
+
+You can apply the theme on any DOM node, not just the `body`
+
+*/
+
+[data-colors-mode="light"] {
+  --colors-colors-indigo: rgba(97, 85, 245, 1);
+}
+
+[data-colors-mode="dark"] {
+  --colors-colors-indigo: rgba(107, 93, 255, 1);
+}
+
+[data-colors-mode="IC-light"] {
+  --colors-colors-indigo: rgba(86, 74, 222, 1);
+}
+
+[data-colors-mode="IC-dark"] {
+  --colors-colors-indigo: rgba(167, 170, 255, 1);
+}
