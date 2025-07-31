@@ -1,0 +1,50 @@
+:root {
+  --header-bg: #ffeafe;
+  --hero-bg: #eaddff; /* Guessed from visual design, as data was conflicting */
+  --footer-bg: #debdfd;
+  --text-light: #ffffff;
+  --text-dark: #4F4F4F; /* Using a readable dark color instead of the light one from data */
+  --avatar-bg: #eaddff;
+  --text-primary: #6a1b9a; /* A darker purple for member text */
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #ffffff;
+  color: var(--text-dark);
+}
+
+.page-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, p {
+  margin: 0;
+}
+
+.container {
+  padding-left: 40px;
+  padding-right: 40px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
