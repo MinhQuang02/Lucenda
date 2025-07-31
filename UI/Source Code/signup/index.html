@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generated Page</title>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="global.css">
+  <style id="sections-styles">
+/* CSS for section section:signup */
+.signup-container {
+    display: flex;
+    width: 100%;
+    max-width: 1536px;
+    min-height: 1024px;
+    background-color: var(--background-color);
+    border-radius: 45px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-panel {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+  }
+
+  .form-content {
+    width: 100%;
+    max-width: 404px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-header {
+    margin-bottom: 33px;
+  }
+
+  .form-header h1 {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 48px;
+    color: var(--text-color-primary);
+    margin: 0 0 3px 0;
+  }
+
+  .form-header .subtitle {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    color: var(--text-color-primary);
+    margin: 0;
+  }
+
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    color: var(--text-color-primary);
+    margin-bottom: 8px;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  .form-group input::placeholder {
+    color: var(--text-color-secondary);
+    font-size: 10px;
+    font-weight: 500;
+  }
+
+  .terms-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: -1px;
+    margin-bottom: 30px;
+  }
+
+  .terms-group input[type="checkbox"] {
+    width: 10px;
+    height: 10px;
+    border: 1px solid var(--text-color-primary);
+    border-radius: 2px;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+  }
+  
+  .terms-group input[type="checkbox"]:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+
+  .terms-group label {
+    font-size: 9px;
+    font-weight: 500;
+    line-height: 13.5px;
+    color: var(--text-color-primary);
+  }
+
+  .terms-group a {
+    text-decoration: underline;
+    color: inherit;
+  }
+
+  .btn {
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 8px;
+    background-color: var(--button-bg-color);
+    color: var(--background-color);
+    border: none;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 19.5px;
+  }
+
+  .separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 59px 0 62px;
+    color: var(--text-color-primary);
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .separator::before,
+  .separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 2px solid var(--separator-color);
+  }
+
+  .separator span {
+    padding: 0 10px;
+    background-color: var(--background-color);
+    position: relative;
+    top: -1px;
+  }
+
+  .social-login {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 23px;
+  }
+
+  .btn-social {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 4px 20px;
+    border: 1px solid var(--border-color);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    color: var(--text-color-primary);
+    background-color: var(--background-color);
+  }
+
+  .btn-social img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .login-prompt {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    color: var(--text-color-primary);
+    margin: 0;
+  }
+
+  .login-prompt a {
+    font-weight: 500;
+    color: var(--primary-color);
+  }
+
+  .image-panel {
+    flex: 1;
+    min-width: 50%;
+  }
+
+  .image-panel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0 45px 45px 0;
+  }
+
+  /* Responsive Styles */
+  @media (max-width: 1200px) {
+    .signup-container {
+      flex-direction: column;
+      min-height: auto;
+      max-width: 600px;
+      margin: auto;
+    }
+    .image-panel {
+      order: -1;
+      height: 350px;
+      width: 100%;
+    }
+    .image-panel img {
+      border-radius: 45px 45px 0 0;
+    }
+    .form-panel {
+      padding: 40px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    body {
+      padding: 0;
+    }
+    .signup-container {
+      border-radius: 0;
+      box-shadow: none;
+      height: 100%;
+    }
+    .image-panel {
+      height: 300px;
+    }
+    .image-panel img {
+      border-radius: 0;
+    }
+    .form-panel {
+      padding: 32px 24px;
+    }
+    .social-login {
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+  </style>
+  <script src="global.js" defer></script>
+</head>
+<body>
+<main id="signup" class="signup-container">
+  <div class="form-panel">
+    <div class="form-content">
+      <header class="form-header">
+        <h1>Get Started Now</h1>
+        <p class="subtitle">Register now to experience Lucenda.</p>
+      </header>
+
+      <form class="signup-form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" placeholder="Enter your username">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter your password">
+        </div>
+        <div class="terms-group">
+          <input type="checkbox" id="terms" name="terms">
+          <label for="terms">I agree to the <a href="#">terms & policy</a></label>
+        </div>
+        <button type="submit" class="btn btn-primary">Signup</button>
+      </form>
+
+      <div class="separator">
+        <span>Or</span>
+      </div>
+
+      <div class="social-login">
+        <a href="#" class="btn btn-social">
+          <img src="images/I103_24949_122_613.svg" alt="Google icon">
+          <span>Sign in with Google</span>
+        </a>
+        <a href="#" class="btn btn-social">
+          <img src="images/I103_24949_122_621.svg" alt="Apple icon">
+          <span>Sign in with Apple</span>
+        </a>
+      </div>
+
+      <p class="login-prompt">
+        Have an account? <a href="#">Sign In</a>
+      </p>
+    </div>
+  </div>
+  <div class="image-panel">
+    <img src="images/578720adf138afeb8abcfcacb33319be4f02f555.png" alt="Purple flowers against a gradient purple and pink background.">
+  </div>
+</main>
+</body>
+</html>
