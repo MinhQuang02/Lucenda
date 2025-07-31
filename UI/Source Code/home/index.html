@@ -1,1 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generated Page</title>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucenda - Master Your Time</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="global.css">
+  <style id="sections-styles">
+/* CSS for section section:header */
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background-color: var(--color-primary-bg);
+  opacity: 0.96;
+}
 
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 86px;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 48px;
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 40px;
+}
+
+.main-nav a {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.profile-name {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+}
+
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+@media (max-width: 992px) {
+  .main-nav {
+    display: none; /* Simple hide for mobile, a hamburger menu would be better */
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-name {
+    display: none;
+  }
+  .logo {
+    font-size: 24px;
+  }
+}
+
+/* CSS for section section:hero */
+#hero {
+  position: relative;
+  min-height: 785px;
+  display: flex;
+  align-items: center;
+  padding-top: 86px; /* Header height */
+  overflow: hidden;
+  background: linear-gradient(210deg, rgba(209, 243, 255, 0.04) 0%, rgba(142, 203, 227, 0.05) 57.7%, rgba(75, 163, 199, 0.04) 115.41%);
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.bg-gradient {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-container {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-content {
+  flex: 1 1 50%;
+  max-width: 640px;
+}
+
+.hero-title {
+  font-weight: 900;
+  font-size: 48px;
+  line-height: 1.5;
+  margin-bottom: 11px;
+}
+
+.hero-subtitle {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 39px;
+  max-width: 625px;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 62px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 8px;
+  border-radius: 3px;
+}
+
+.btn-primary {
+  background-color: var(--color-button);
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.btn-primary img {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-secondary img {
+  width: 48px;
+  height: 48px;
+}
+
+.hero-image-wrapper {
+  flex: 1 1 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 992px) {
+  .hero-container {
+    flex-direction: column;
+    text-align: center;
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  .hero-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .hero-image-wrapper {
+    margin-top: 40px;
+  }
+  .hero-title {
+    font-size: 36px;
+  }
+}
+
+/* CSS for section section:footer */
+.site-footer {
+  background-color: var(--color-secondary-bg);
+  opacity: 0.96;
+  position: relative;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 57px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.contact-info, .social-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  opacity: 0.6;
+}
+
+.contact-info span {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.contact-info img, .social-links img {
+  width: 25px;
+  height: 25px;
+}
+
+.social-links {
+  gap: 40px;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+  </style>
+  <script src="global.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-container">
+    <a href="#" class="logo">Lucenda</a>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#">Event</a></li>
+        <li><a href="#">Calendar</a></li>
+        <li><a href="#">About us</a></li>
+      </ul>
+    </nav>
+    <div class="profile">
+      <span class="profile-name">mphanquang</span>
+      <img src="images/109_23730.svg" alt="User avatar" class="profile-avatar">
+    </div>
+  </div>
+</header>
+<section id="hero">
+  <!--merged image-->
+  <div class="hero-background">
+    <img src="images/89cdc85296721c37693ff2cf7b6b64dc02929362.png" alt="Abstract background gradient" class="bg-gradient">
+  </div>
+  <div class="container hero-container">
+    <div class="hero-content">
+      <h1 class="hero-title">Master Your Time, Own Your Life</h1>
+      <p class="hero-subtitle">Stay on top of your schedule with a smart personal time manager designed to boost productivity and simplify your life.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-primary">
+          <span>Add event</span>
+          <img src="images/I38_55693_2_85399.svg" alt="Add event icon">
+        </a>
+        <a href="#" class="btn btn-secondary">
+          <img src="images/38_55714.svg" alt="Play icon">
+          <span>Watch Calendars</span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-image-wrapper">
+      <img src="images/45b23ce33e28629ee6d4fab80d3bee2bdc36a0ad.png" alt="Illustration of people managing time with a large clock" class="hero-image">
+    </div>
+  </div>
+</section>
+<footer class="site-footer">
+  <div class="container footer-container">
+    <div class="contact-info">
+      <img src="images/32_23178.svg" alt="Phone icon">
+      <span>+84 912 991 873</span>
+    </div>
+    <div class="social-links">
+      <a href="#" aria-label="Facebook"><img src="images/32_23173.svg" alt="Facebook"></a>
+      <a href="#" aria-label="Mail"><img src="images/32_23175.svg" alt="Mail"></a>
+      <a href="#" aria-label="Github"><img src="images/32_23174.svg" alt="Github"></a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
