@@ -1,1 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generated Page</title>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us - Lucenda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="global.css">
+  <style id="sections-styles">
+/* CSS for section section:header */
+.site-header {
+  background-color: var(--header-bg);
+  opacity: 0.96;
+  min-height: 86px;
+  display: flex;
+  align-items: center;
+}
 
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.brand-logo {
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--text-primary);
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 30px;
+}
+
+.main-nav a {
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--text-primary);
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--text-primary);
+}
+
+.user-profile .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.mobile-nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .main-nav, .user-profile {
+    display: none;
+  }
+  .mobile-nav-toggle {
+    display: block;
+  }
+  .header-container {
+    justify-content: space-between;
+  }
+}
+
+/* CSS for section section:about-hero */
+.about-hero-section {
+  background-color: var(--hero-bg);
+  color: var(--text-light);
+  text-align: center;
+  padding: 30px 0 94px;
+}
+
+.about-title {
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 54px;
+  margin-bottom: 30px;
+}
+
+.about-description {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* CSS for section section:team */
+.team-section {
+  padding: 67px 0 100px;
+  background-color: #ffffff;
+  border-top: 1px solid #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 185px;
+  column-gap: 100px; /* Adjusted for better spacing */
+  max-width: 1162px;
+  margin: 0 auto;
+}
+
+.team-member {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.team-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: var(--avatar-bg);
+  flex-shrink: 0;
+}
+
+.member-info {
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.member-name {
+  font-weight: 500;
+}
+
+.member-role {
+  font-weight: 500;
+}
+
+.team-member-wrapper {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 1200px) {
+  .team-grid {
+    column-gap: 50px;
+  }
+}
+
+@media (max-width: 900px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+    row-gap: 60px;
+    justify-items: center;
+  }
+  .team-member {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+}
+
+/* CSS for section section:footer */
+.site-footer {
+  background-color: var(--footer-bg);
+  opacity: 0.96;
+  color: var(--text-light);
+  min-height: 57px;
+  display: flex;
+  align-items: center;
+  padding: 16px 0;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.contact-info, .social-links {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  opacity: 0.6;
+}
+
+.contact-info span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.social-links {
+  gap: 30px;
+}
+
+.contact-info img, .social-links img {
+  width: 25px;
+  height: 25px;
+}
+
+@media (max-width: 600px) {
+  .footer-container {
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+  </style>
+  <script src="global.js" defer></script>
+</head>
+<body>
+<section id="section-header">
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="#" class="brand-logo">Lucenda</a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Event</a></li>
+          <li><a href="#">Calendar</a></li>
+          <li><a href="#about-hero">About us</a></li>
+        </ul>
+      </nav>
+      <div class="user-profile">
+        <span>mphanquang</span>
+        <img src="images/109_23935.svg" alt="User avatar" class="avatar">
+      </div>
+      <button class="mobile-nav-toggle">☰</button>
+    </div>
+  </header>
+</section>
+<section id="about-hero" class="about-hero-section">
+  <div class="container">
+    <h2 class="about-title">About us</h2>
+    <p class="about-description">
+      Lucenda is a personal schedule and task management website created by a team of five university students, dedicated to helping individuals organize their time more efficiently and live more productive lives.
+    </p>
+  </div>
+</section>
+<section id="team" class="team-section">
+  <div class="container">
+    <div class="team-grid">
+      <article class="team-member">
+        <img src="images/109_24312.svg" alt="Avatar of Nguyen Tran Minh Tuan" class="team-avatar">
+        <div class="member-info">
+          <p class="member-name">Nguyen Tran Minh Tuan</p>
+          <p class="member-role">Lead Team</p>
+        </div>
+      </article>
+      <article class="team-member">
+        <img src="images/109_24306.svg" alt="Avatar of Nguyen Ho Anh Quoc" class="team-avatar">
+        <div class="member-info">
+          <p class="member-name">Nguyen Ho Anh Quoc</p>
+          <p class="member-role">Back-end Developer</p>
+        </div>
+      </article>
+      <article class="team-member">
+        <img src="images/109_24309.svg" alt="Avatar of Le Nhut Huy" class="team-avatar">
+        <div class="member-info">
+          <p class="member-name">Le Nhut Huy</p>
+          <p class="member-role">Front-end Developer</p>
+        </div>
+      </article>
+      <article class="team-member">
+        <img src="images/109_24303.svg" alt="Avatar of Phan Quang Minh" class="team-avatar">
+        <div class="member-info">
+          <p class="member-name">Phan Quang Minh</p>
+          <p class="member-role">UI/UX Designer</p>
+        </div>
+      </article>
+      <div class="team-member-wrapper">
+        <article class="team-member">
+          <img src="images/109_24300.svg" alt="Avatar of Tran Quoc Viet" class="team-avatar">
+          <div class="member-info">
+            <p class="member-name">Tran Quoc Viet</p>
+            <p class="member-role">Database Designer</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="section-footer">
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="contact-info">
+        <img src="images/109_23987.svg" alt="Phone icon">
+        <span>+84 912 991 873</span>
+      </div>
+      <div class="social-links">
+        <a href="#"><img src="images/109_23982.svg" alt="Facebook"></a>
+        <a href="#"><img src="images/109_23984.svg" alt="Mail"></a>
+        <a href="#"><img src="images/109_23983.svg" alt="Github"></a>
+      </div>
+    </div>
+  </footer>
+</section>
+</body>
+</html>
