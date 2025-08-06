@@ -1,0 +1,26 @@
+:root {
+  --primary-text-color: #000000;
+  --link-color: #a698f5;
+  --link-alt-color: #6155f5;
+  --button-bg-color: #b297f3;
+  --button-text-color: #ffffff;
+  --border-color: #d9d9d9;
+  --placeholder-color: #d9d9d9;
+  --divider-color: #f5f5f5;
+  --bg-color: #ffffff;
+  --page-bg-color: #f0f2f5;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--page-bg-color);
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}

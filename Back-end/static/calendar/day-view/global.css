@@ -1,0 +1,57 @@
+:root {
+  --primary-color: #6155f5;
+  --primary-bg: #8f52d1;
+  --text-primary: #333333;
+  --text-secondary: #49454f;
+  --text-light: #ffffff;
+  --border-color: #dadce0;
+  --bg-light-gray: #d9d9d9;
+  --bg-white: #ffffff;
+  --font-poppins: 'Poppins', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-roboto: 'Roboto', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-poppins);
+  background-color: var(--bg-white);
+  color: var(--text-primary);
+}
+
+.page-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  background-color: var(--bg-white);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a, button {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  border: none;
+  background: none;
+  padding: 0;
+  font-family: inherit;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}

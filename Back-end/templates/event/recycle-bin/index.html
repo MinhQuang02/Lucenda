@@ -1,0 +1,402 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recycle Bin - Event</title>
+  <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'event/recycle-bin/global.css' %}">
+  <style id="sections-styles">
+/* CSS for section section:header */
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 42px;
+  background-color: var(--color-bg-header);
+  opacity: 0.96;
+  height: 86px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 93px;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-text-light);
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 42px;
+}
+
+.main-nav a {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--color-text-light);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-name {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--color-text-light);
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+@media (max-width: 1024px) {
+  .site-header {
+    flex-direction: column;
+    height: auto;
+    padding: 20px;
+    gap: 20px;
+  }
+  .header-left {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .main-nav ul {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+/* CSS for section section:main */
+.main-content {
+  display: flex;
+  min-height: 937px; /* Based on Figma height */
+}
+
+.sidebar {
+  width: 262px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-widget {
+  padding: 14px 27px 14px 27px;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 23px;
+}
+
+.calendar-header p {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-text-dark);
+}
+
+.calendar-header .year {
+  font-family: var(--font-secondary);
+  font-weight: 400;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px 0;
+  text-align: center;
+}
+
+.day-name {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--color-text-dark);
+  opacity: 0.7;
+  margin-bottom: 4px;
+}
+
+.day-date {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--color-text-dark);
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 99px;
+}
+
+.day-date.active {
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+}
+
+.day-date.other-month {
+  opacity: 0.3;
+}
+
+.events-widget {
+  padding: 14px 22px;
+  flex-grow: 1;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.events-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 36px;
+}
+
+.events-title {
+  display: flex;
+  align-items: center;
+  gap: 12.5px;
+}
+
+.events-title h3 {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-text-dark);
+}
+
+.new-event-btn {
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+  border: none;
+  border-radius: 3px;
+  padding: 7px 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  font-size: 8px;
+  font-weight: 500;
+}
+
+.event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.event-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 2px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.event-list li.active {
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+  padding: 4px;
+}
+
+.event-list li img {
+  width: 8px;
+  height: 8px;
+}
+
+.sidebar-footer-link {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 16px 27px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-text-dark);
+}
+
+.content-panel {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 37px;
+}
+
+.content-header {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.content-header h2 {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-text-dark);
+}
+
+.empty-state {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty-state p {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--color-text-body);
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .content-panel {
+    min-height: 300px;
+  }
+}
+ </style>
+  <script src="{% static 'event/recycle-bin/global.js' %}" defer></script>
+</head>
+<body>
+<section id="header">
+  <header class="site-header">
+    <div class="header-left">
+      <a href="{% url 'home' %}" class="logo">Lucenda</a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'event_main' %}">Event</a></li>
+          <li><a href="{% url 'calendar' %}">Calendar</a></li>
+          <li><a href="{% url 'about' %}">About us</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="header-right">
+      <a href="{% url 'profile' %}" class="user-profile">
+        <span class="user-name">{{ user }}</span>
+        <img src="{% static 'event/recycle-bin/images/109_23875.svg' %}" alt="User Avatar" class="user-avatar">
+      </a>
+    </div>
+  </header>
+</section>
+
+<section id="dashboard">
+  <main class="main-content">
+    <aside class="sidebar">
+      <div class="calendar-widget">
+        <div class="calendar-header">
+          <img src="{% static 'event/recycle-bin/images/185_28427.svg' %}" alt="Calendar icon">
+          <p>January <span class="year">2022</span></p>
+        </div>
+        <div class="calendar-grid">
+          <div class="day-name">m</div>
+          <div class="day-name">t</div>
+          <div class="day-name">w</div>
+          <div class="day-name">t</div>
+          <div class="day-name">f</div>
+          <div class="day-name">s</div>
+          <div class="day-name">s</div>
+          <div class="day-date">01</div>
+          <div class="day-date active">02</div>
+          <div class="day-date">03</div>
+          <div class="day-date">04</div>
+          <div class="day-date">05</div>
+          <div class="day-date">06</div>
+          <div class="day-date">07</div>
+          <div class="day-date">08</div>
+          <div class="day-date">09</div>
+          <div class="day-date">10</div>
+          <div class="day-date">11</div>
+          <div class="day-date">12</div>
+          <div class="day-date">13</div>
+          <div class="day-date">14</div>
+          <div class="day-date">15</div>
+          <div class="day-date">16</div>
+          <div class="day-date">17</div>
+          <div class="day-date">18</div>
+          <div class="day-date">19</div>
+          <div class="day-date">20</div>
+          <div class="day-date">21</div>
+          <div class="day-date">22</div>
+          <div class="day-date">23</div>
+          <div class="day-date">24</div>
+          <div class="day-date">25</div>
+          <div class="day-date">26</div>
+          <div class="day-date">27</div>
+          <div class="day-date">28</div>
+          <div class="day-date">29</div>
+          <div class="day-date">30</div>
+          <div class="day-date">31</div>
+          <div class="day-date other-month">01</div>
+          <div class="day-date other-month">02</div>
+          <div class="day-date other-month">03</div>
+          <div class="day-date other-month">04</div>
+        </div>
+      </div>
+      <div class="events-widget">
+        <div class="events-header">
+          <div class="events-title">
+            <img src="{% static 'event/recycle-bin/images/185_28421.svg' %}" alt="Events icon">
+            <h3>Events</h3>
+          </div>
+          <button class="new-event-btn">
+            <span>New event</span>
+            <img src="{% static 'event/recycle-bin/images/I185_28414_2_85399.svg' %}" alt="Add icon">
+          </button>
+        </div>
+        <ul class="event-list">
+          <li><img src="{% static 'event/recycle-bin/images/I185_28409_1_57.svg' %}" alt="event dot"><span>Daily Day by Aurora</span></li>
+          <li><img src="{% static 'event/recycle-bin/images/I185_28410_3_89923.svg' %}" alt="event dot"><span>Budget Review by me</span></li>
+          <li><img src="{% static 'event/recycle-bin/images/I185_28411_10_89018.svg' %}" alt="event dot"><span>Sasha Jay 121 by Aurora</span></li>
+          <li><img src="{% static 'event/recycle-bin/images/I185_28412_10_88596.svg' %}" alt="event dot"><span>Web Team Progress Update by me</span></li>
+          <li><img src="{% static 'event/recycle-bin/images/I185_28413_1_57.svg' %}" alt="event dot"><span>Social team briefing by Beeth</span></li>
+          <li class="active"><img src="{% static 'event/recycle-bin/images/185_28416.svg' %}" alt="event dot"><span>Social team briefing by Beeth</span></li>
+        </ul>
+      </div>
+      <a href="{% url 'event_recycle' %}" class="sidebar-footer-link">
+        <img src="{% static 'event/recycle-bin/images/185_28406.svg' %}" alt="Recycle Bin icon">
+        <span>Recycle Bin</span>
+      </a>
+    </aside>
+
+    <section class="content-panel">
+      <header class="content-header">
+        <img src="{% static 'event/recycle-bin/images/40_129336.svg' %}" alt="Recycle Bin icon">
+        <h2>Recycle Bin</h2>
+      </header>
+      <div class="empty-state">
+        <p>No events in Recycle Bin</p>
+      </div>
+    </section>
+  </main>
+</section>
+</body>
+</html>

@@ -1,0 +1,6 @@
+Date Created: 30/7/2025
+Link Figma: https://www.figma.com/design/zvr1ZBzr0YNjISx0ke9pbM/Untitled?m=auto&t=2DsIxFNYL1dFlPik-6
+
+Bản chỉnh sửa 1: 31/7/2025 (Phan Quang Minh)
+    +) Tạo liên kết từ trang cập nhập - UI tới trang web figma chứa giao diện website.
+    +) Tạo cấu trúc thư mục UI.

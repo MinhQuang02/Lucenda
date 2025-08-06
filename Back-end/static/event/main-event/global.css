@@ -1,0 +1,28 @@
+:root {
+  --primary-color: #6155f5;
+  --primary-text-color: #000000;
+  --secondary-text-color: #333333;
+  --placeholder-color: #d9d9d9;
+  --border-color: #dadce0;
+  --background-color: #ffffff;
+  --header-bg-color: #8f52d1;
+  --active-bg-color: #ece6f0;
+  --white-color: #ffffff;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f0f2f5;
+  color: var(--primary-text-color);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.page-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  background-color: var(--background-color);
+}

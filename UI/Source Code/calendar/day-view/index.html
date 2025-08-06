@@ -1,0 +1,1976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar - Lucenda</title>
+  <link rel="icon" type="image/png" href="../../images/logo.svg">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Event Detail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@275;400;500;600;700&family=Roboto:wght@400&family=Inter:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="global.css">
+  <style id="sections-styles">
+/* CSS for section section:header */
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background: linear-gradient(to left, rgba(220, 140, 216, 0.96), rgba(232, 150, 249, 0.96));
+  height: var(--header-height);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  left: 20px;
+  top: -27px; /* Hangs off the top based on Figma coordinates */
+  width: 129px;
+  height: 129px;
+  z-index: 11;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.main-nav {
+  flex-grow: 1;
+  margin-left: 165px; /* Space for the absolute positioned logo */
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 40px;
+}
+
+.main-nav a {
+  /* style_27 */
+  font-size: 20px;
+  font-weight: 500;
+  /* NOTE: Text color from JSON is #ffffff, which has poor contrast on the light header background. Using a darker color for visibility based on the image. */
+  color: #1f1f1f;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+}
+
+.profile-section a {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* khoảng cách giữa chữ và ảnh */
+  text-decoration: none;
+  color: inherit;
+}
+
+.profile-name {
+  /* style_26 */
+  font-size: 20px;
+  font-weight: 500;
+  /* NOTE: Text color from JSON is #ffffff. Using a darker color for visibility. */
+  color: #1f1f1f;
+}
+
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* style_25 */
+}
+
+.mobile-nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 12;
+}
+
+.mobile-nav-toggle .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #1f1f1f;
+}
+
+/* Responsive Header */
+@media (max-width: 1024px) {
+  .main-nav {
+    margin-left: 180px;
+  }
+  .main-nav ul {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 880px) {
+  .main-nav, .profile-section {
+    display: none; /* Hide for mobile, to be handled by JS */
+  }
+  .mobile-nav-toggle {
+    display: block;
+  }
+  .header-container {
+    justify-content: flex-end;
+  }
+  .logo {
+    left: 30px;
+    width: 100px;
+    height: 100px;
+    top: -10px;
+  }
+}
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background: linear-gradient(to left, rgba(220, 140, 216, 0.96), rgba(232, 150, 249, 0.96));
+  height: var(--header-height);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  left: 20px;
+  top: -27px; /* Hangs off the top based on Figma coordinates */
+  width: 129px;
+  height: 129px;
+  z-index: 11;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.main-nav {
+  flex-grow: 1;
+  margin-left: 165px; /* Space for the absolute positioned logo */
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 40px;
+}
+
+.main-nav a {
+  /* style_27 */
+  font-size: 20px;
+  font-weight: 500;
+  /* NOTE: Text color from JSON is #ffffff, which has poor contrast on the light header background. Using a darker color for visibility based on the image. */
+  color: #1f1f1f;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+}
+
+.profile-section a {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* khoảng cách giữa chữ và ảnh */
+  text-decoration: none;
+  color: inherit;
+}
+
+.profile-name {
+  /* style_26 */
+  font-size: 20px;
+  font-weight: 500;
+  /* NOTE: Text color from JSON is #ffffff. Using a darker color for visibility. */
+  color: #1f1f1f;
+}
+
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* style_25 */
+}
+
+.mobile-nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 12;
+}
+
+.mobile-nav-toggle .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #1f1f1f;
+}
+
+/* Responsive Header */
+@media (max-width: 1024px) {
+  .main-nav {
+    margin-left: 180px;
+  }
+  .main-nav ul {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 880px) {
+  .main-nav, .profile-section {
+    display: none; /* Hide for mobile, to be handled by JS */
+  }
+  .mobile-nav-toggle {
+    display: block;
+  }
+  .header-container {
+    justify-content: flex-end;
+  }
+  .logo {
+    left: 30px;
+    width: 100px;
+    height: 100px;
+    top: -10px;
+  }
+}
+
+/* CSS for section section:event-view */
+.event-view-wrapper {
+    display: flex;
+    min-height: calc(100vh - 86px); /* Full height minus header */
+    margin-top: 82px;
+  }
+
+  .sidebar {
+    width: 262px;
+    flex-shrink: 0;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .sidebar-top {
+    padding: 27px 20px 0;
+  }
+
+  .calendar-widget {
+    padding-bottom: 27px;
+  }
+
+  .calendar-header {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 10px;
+  }
+
+  .calendar-header h2 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-light);
+    margin: 0;
+  }
+
+  .calendar-header .year {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px 4px;
+    text-align: center;
+  }
+
+  .day-name {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-light);
+    opacity: 0.7;
+    text-transform: capitalize;
+  }
+
+  .date-num {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-light);
+    padding: 5px;
+    border-radius: 99px;
+  }
+
+  .date-num.today {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bold;
+  }
+
+  .date-num.active {
+    background-color: var(--primary-color);
+    color: var(--text-white);
+  }
+
+  .date-num.dimmed  {
+    opacity: 0.3;
+  }
+
+  .events-section {
+    padding-top: 27px;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .events-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .events-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .events-title h3 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-light);
+    margin: 0;
+  }
+
+  .event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    max-height: 520px; /* Chiều cao tối đa của vùng cuộn */
+    overflow-y: auto;  /* Cho phép cuộn khi vượt quá */
+    scrollbar-gutter: stable; /* Giữ chỗ cố định cho thanh cuộn (nếu được hỗ trợ) */
+  }
+
+  .event-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 4px;
+    border-radius: 3px;
+  }
+
+  .event-list li.active {
+    background-color: var(--primary-color);
+    color: var(--text-white);
+  }
+
+  .event-list .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .event-list::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+
+
+
+.sidebar-bottom {
+  border-top: 1px solid var(--border-color);
+  padding: 23.85px 20px;
+}
+
+
+  .recycle-bin-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-light);
+  }
+
+  .main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 24px 20px 24px;
+  }
+
+  .content-body {
+    flex-grow: 1;
+  }
+
+  .event-title-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 21px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .event-title-header h1 {
+    font-size: 26px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .notification-toggle {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  .event-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 21px 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .event-time {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 275;
+  }
+
+  .dropdown-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 4px;
+    background-color: white;
+    border: 1px solid var(--primary-color);
+    border-radius: 3px;
+    list-style: none;
+    padding: 4px 0;
+    display: none;
+    z-index: 1000;
+    width: 100px;
+    font-size: 12px;
+  }
+
+  .dropdown-menu li {
+    padding: 8px 12px;
+    cursor: pointer;
+    color: var(--primary-color);
+  }
+
+  .dropdown-menu li:hover {
+    background-color: var(--primary-color);
+    color: white;
+  }
+
+
+  .each-week-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 500;
+    background: white;
+    cursor: pointer;
+  }
+
+  .dropdown-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+    background-color: white;
+    border: 1px solid #ccc;
+    min-width: 150px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    padding: 5px 0;
+  }
+
+  .dropdown-options div {
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+
+  .dropdown-options div:hover {
+    background-color: #f0f0f0;
+  }
+
+  .custom-day-input {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    border-top: 1px solid #ccc;
+  }
+
+  .custom-day-input input {
+    width: 50px;
+    padding: 4px;
+  }
+
+  .custom-day-input button {
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .date-created {
+    margin-left: auto;
+    font-size: 16px;
+    font-weight: 275;
+  }
+
+  .event-sharing {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 21px 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .share-search-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #ece6f0;
+    padding: 11px 16px;
+    border-radius: 28px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #49454f;
+  }
+
+  .avatar-group {
+    display: flex;
+    align-items: center;
+  }
+
+  .avatar, .avatar-overflow {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    border: 2px solid var(--background-light);
+  }
+  
+  .avatar:not(:first-child), .avatar-overflow:not(:first-child) {
+    margin-left: -8px;
+  }
+
+  .avatar {
+    background-color: var(--avatar-bg);
+    color: var(--avatar-text);
+  }
+
+  .avatar-overflow {
+    background-color: #f5f5f5;
+    color: #757575;
+  }
+
+  .event-details-section {
+    padding-top: 21px;
+  }
+
+  .event-details-section h2 {
+    font-size: 26px;
+    font-weight: 600;
+    margin: 0 0 13px 0;
+  }
+
+  .event-details-textarea {
+    width: 100%;
+    height: 525px;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    resize: vertical; /* Cho phép kéo chiều cao */
+    font-family: inherit;
+  }
+
+
+  .content-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    margin-top: auto; /* Pushes footer to the bottom */
+  }
+
+  .delete-btn {
+    font-size: 20px;
+    font-weight: 275;
+    color: var(--text-dark);
+  }
+
+  .save-btn {
+    font-size: 22px;
+    font-weight: 700;
+    color: #4e3f77;
+  }
+
+  @media (max-width: 1200px) {
+    .event-meta {
+      flex-wrap: wrap;
+    }
+    .date-created {
+      margin-left: 0;
+      width: 100%;
+      text-align: right;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .event-view-wrapper {
+      flex-direction: column;
+    }
+    .sidebar {
+      width: 100%;
+      border-right: none;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .main-content {
+      padding: 20px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header-container {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .site-header {
+      height: auto;
+      padding: 10px;
+    }
+    .logo img {
+      width: 80px;
+      height: 80px;
+      margin-top: 0;
+    }
+    .main-nav ul {
+      gap: 20px;
+    }
+    .main-nav a, .profile-name {
+      font-size: 16px;
+    }
+    .profile-section {
+      align-self: flex-end;
+    }
+    .event-meta, .event-sharing {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .date-created {
+      text-align: left;
+    }
+  }
+
+  .calendar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .calendar-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Đẩy ảnh ra bên phải */
+    padding: 10px 16px;
+    /* border-bottom: 1px solid #ddd; */ /* Đã xóa đường kẻ */
+  }
+
+  .calendar-list li a {
+    flex-grow: 1; /* Chiếm phần còn lại của dòng */
+    text-decoration: none;
+    color: #333;
+  }
+
+  .calendar-list li button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+
+  .calendar-list li button img {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* --- Main View --- */
+  .calendar-view {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .calendar-view-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border-color);
+    height: 72px;
+  }
+  .header-left, .header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .sidebar-toggle {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-light);
+  }
+  .calendar-view-header h2 {
+    font-size: 30px;
+    font-weight: 500;
+    margin: 0;
+  }
+  .calendar-view-header h2 span {
+    font-family: var(--font-inter);
+    font-weight: 400;
+  }
+  .view-switcher {
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: 3px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .nav-arrows img {
+    display: block;
+  }
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #ece6f0;
+    border-radius: 28px;
+    opacity: 0.8;
+    padding: 4px;
+  }
+  .search-bar input {
+    border: none;
+    background: transparent;
+    padding: 4px 16px;
+    font-family: var(--font-roboto);
+    font-size: 16px;
+  }
+  .search-bar input:focus {
+    outline: none;
+  }
+  .search-bar button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .add-event-btn {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border-radius: 3px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /* --- Calendar Grid --- */
+  .calendar-grid-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    border-left: 1px solid var(--border-color);
+  }
+  .grid-header {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .grid-header-cell {
+    flex: 1;
+    text-align: center;
+    padding: 12px 0;
+    font-size: 12px;
+    font-weight: 500;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  .grid-header-cell.spacer {
+    flex: 0 0 54px;
+  }
+  .grid-header-cell.weekend {
+    background-color: var(--bg-alt);
+  }
+  .grid-header-cell img {
+    width: 15px;
+    height: 15px;
+  }
+  .grid-body {
+    display: flex;
+  }
+  .time-column {
+    width: 54px;
+    flex-shrink: 0;
+  }
+  .time-label-slot {
+    height: 80.9px;
+    position: relative;
+  }
+  .time-label-slot span {
+    position: absolute;
+    top: -0.5em;
+    right: 10px;
+    font-size: 12px;
+    color: var(--text-primary);
+  }
+  .day-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border-color);
+  }
+  .day-column.weekend {
+    background-color: var(--bg-alt);
+  }
+  .time-slot {
+    height: 80.9px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  @media (max-width: 768px) {
+    .sidebar {
+      display: none; /* Hidden on mobile */
+    }
+    .calendar-view-header {
+      flex-wrap: wrap;
+      height: auto;
+      gap: 10px;
+    }
+    .calendar-grid-container {
+      overflow-x: auto;
+    }
+    .grid-body, .grid-header {
+      min-width: 800px;
+    }
+  }
+
+  /* SEARCH BAR và SUGGESTIONS */
+  .search-bar {
+    position: relative;      /* để .search-suggestions có thể đặt tuyệt đối */
+    width: fit-content;      /* chỉ chiếm đúng phần input */
+  }
+
+  .search-input-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: #f3eef8;
+    border-radius: 20px;
+    padding: 0 10px;
+    width: 280px;
+    position: relative; /* để button định vị bên trong */
+  }
+
+  .search-input-wrapper input {
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    padding: 10px 10px 10px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+    width: 100%;
+  }
+
+  .search-input-wrapper button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .search-input-wrapper img {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* SUGGESTIONS */
+  .search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    list-style: none;
+    margin-top: 4px;
+    padding: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    max-height: 250px;
+    overflow-y: auto;
+  }
+
+  .search-suggestions li {
+    padding: 10px 15px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .search-suggestions li:hover {
+    background-color: #f3eef8;
+  }
+
+  .grid-body-scroll-wrapper {
+    height: 850px; /* bạn có thể thay đổi chiều cao tùy ý */
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .grid-body-scroll-wrapper::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .grid-body-scroll-wrapper::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+  }
+
+  .grid-body-scroll-wrapper::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+  }
+
+.month-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.week-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-bottom: 1px solid #ddd;
+}
+
+.day-cell {
+  height: 300px;
+  border-right: 1px solid #ddd;
+  padding: 5px;
+  position: relative;
+}
+
+.day-cell .day-number {
+  position: absolute;
+  top: 12px;
+  left: 15px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
+}
+
+.year-view-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  padding: 20px;
+}
+
+.month-block {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fdfdfd;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 10px;
+  height: 265px;
+  display: flex;
+  flex-direction: column;
+}
+
+.month-title {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #3c1e59; /* tuỳ màu sắc chủ đề */
+}
+
+.month-content {
+  flex-grow: 1;
+  background-color: #f7f7fa;
+  border: 1px dashed #ccc;
+  border-radius: 4px;
+  padding: 5px;
+  overflow: auto;
+}
+
+.popup-menu {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  border: 1px solid #ddd;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  padding: 24px;
+  border-radius: 12px;
+  min-width: 280px;
+  font-family: "Segoe UI", "Roboto", sans-serif;
+  color: #333;
+}
+
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.popup-option {
+  padding: 12px 16px;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  transition: background-color 0.2s, transform 0.1s;
+  font-size: 15px;
+}
+
+.popup-option:hover {
+  background-color: #e9ecef;
+  transform: translateY(-1px);
+}
+
+.popup-option.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#popupCloseBtn {
+  margin-top: 16px;
+  padding: 10px 16px;
+  background: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+#popupCloseBtn:hover {
+  background: #e2e2e2;
+}
+
+.popup-menu input,
+.popup-menu textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.popup-menu input:focus,
+.popup-menu textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+  outline: none;
+}
+
+
+.new-calendar-btn {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.new-calendar-btn:hover {
+  background-color: #b0a3b128;
+}
+
+
+  </style>
+  <script src="global.js" defer></script>
+</head>
+<body>
+<section id="section-header">
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="../../home/index.html" class="logo">
+        <img src="images/24489db95d7c8b23ff71ea38f01643e97c6a9ede.png" alt="Lucenda Logo" class="logo-img">
+      </a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="../../home/index.html">Home</a></li>
+          <li><a href="../../event/main-event/index.html">Event</a></li>
+          <li><a href="#">Calendar</a></li>
+          <li><a href="../../aboutus/">About us</a></li>
+        </ul>
+      </nav>
+      <div class="profile-section">
+        <a href="../../profile/index.html">
+          <span class="profile-name">Login/Signup</span>
+          <img src="images/299_23747.svg" alt="User avatar" class="profile-avatar">
+        </a>
+      </div>
+    </div>
+  </header>
+</section>
+<div class="event-view-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-top">
+    <div class="calendar-widget">
+      <div class="calendar-header">
+        <img src="images/38_56003.svg" alt="Calendar icon">
+        <h2 id="month-name">Month <span class="year">Year</span></h2>
+      </div>
+      <div class="calendar-grid">
+        <div class="day-name">m</div>
+        <div class="day-name">t</div>
+        <div class="day-name">w</div>
+        <div class="day-name">t</div>
+        <div class="day-name">f</div>
+        <div class="day-name">s</div>
+        <div class="day-name">s</div>
+        <!-- Dates will be inserted by JS -->
+      </div>
+    </div>
+      <div class="events-section">
+        <div class="events-header">
+          <div class="events-title">
+            <img src="images/38_55997.svg" alt="List icon">
+            <h3>Calendars</h3>
+          </div>
+        </div>
+          <ul class="event-list scrollable">
+            <ul class="calendar-list">
+              <li class="active">
+                <a href="#">My Calendar</a>
+                <button class="options-btn"><img src="images/185_26344.svg" alt="Options"></button>
+              </li>
+              <li>
+                <a href="#">Vacation Plan</a>
+                <button class="options-btn"><img src="images/185_26341.svg" alt="Options"></button>
+              </li>
+              <li>
+                <a href="#">Learning Calendar</a>
+                <button class="options-btn"><img src="images/185_26338.svg" alt="Options"></button>
+              </li>
+              <li>
+                <a href="#">Work Calendar</a>
+                <button class="options-btn"><img src="images/185_26335.svg" alt="Options"></button>
+              </li>
+              <li>
+                <a href="#">Work Calendar</a>
+                <button class="options-btn"><img src="images/185_26335.svg" alt="Options"></button>
+              </li>
+              <li>
+                <a href="#">Work Calendar</a>
+                <button><img src="images/185_26335.svg" alt="Options"></button>
+              </li>
+            </ul>
+            <div id="popupMenu" class="popup-menu" style="display: none;">
+              <div class="popup-content">
+                <div class="popup-option" id="renameOption">Rename</div>
+                <div class="popup-option disabled">Share with ID</div>
+                <div class="popup-option disabled">Delete</div>
+                <button id="popupCloseBtn">Close</button>
+              </div>
+            </div>
+            <button id="addCalendarBtn" class="new-calendar-btn">➕ &nbsp;&nbsp;New Calendar</button>
+          </ul>
+      </div>
+    </div>
+    <div class="sidebar-bottom">
+      <a href="../recycle-bin/index.html" class="recycle-bin-link">
+        <img src="images/38_55975.svg" alt="Trash can icon">
+        <span>Recycle Bin</span>
+      </a>
+    </div>
+  </aside>
+    <main class="calendar-view">
+      <header class="calendar-view-header">
+        <div class="header-left">
+          <button class="sidebar-toggle"><img src="images/I14_2748_1_43894_17_1821.svg" alt="Toggle Sidebar"></button>
+          
+          <h2 id="dateRange">01-07 January <span>2022</span></h2>
+          
+          <div class="dropdown">
+            <button class="view-switcher" id="viewSwitcherBtn">
+              <span id="currentView">Week</span>
+              <img src="images/I14_2750_2_85414.svg" alt="Dropdown">
+            </button>
+            <ul class="dropdown-menu" id="viewDropdown">
+              <li>Day</li>
+              <li>Week</li>
+              <li>Month</li>
+              <li>Year</li>
+            </ul>
+          </div>
+          
+          <div class="nav-arrows">
+            <button id="prevDayBtn"><img src="images/14_2401_left.svg" alt="Previous Day"></button>
+            <button id="nextDayBtn"><img src="images/14_2401_right.svg" alt="Next Day"></button>
+          </div>
+        </div>
+
+        <div class="header-right">
+        <form id="searchForm" class="search-bar">
+          <div class="search-input-wrapper">
+            <input type="text" id="searchInput" placeholder="Search event" autocomplete="off">
+            <button type="submit">
+              <img src="images/I185_26280_52977_33954_57994_10133_57994_9720.svg" alt="Search">
+            </button>
+          </div>
+          <ul class="search-suggestions" id="suggestions"></ul>
+        </form>
+
+        <button class="add-event-btn" id="addEventBtn">
+          <span>Add event</span>
+          <img src="images/I14_2406_2_85399.svg" alt="Add">
+        </button>
+      </div>
+
+      </header>
+      <div id="dayView" style="display: none;">
+        <div class="grid-body-scroll-wrapper">
+          <div class="grid-body">
+            <div class="calendar-grid-container">
+              
+              <!-- HEADER -->
+              <div class="grid-header">
+                <div class="grid-header-cell"><img src="images/f8c312986eba0ca83f2b29b2ef6f91b98eafff59.png" alt="">Thursday, Aug 7</div>
+              </div>
+
+              <!-- BODY: 24 khung giờ trong ngày -->
+              <div class="grid-body">
+                <div class="time-column">
+                  <div class="time-label-slot"><span>00:00</span></div>
+                  <div class="time-label-slot"><span>01:00</span></div>
+                  <div class="time-label-slot"><span>02:00</span></div>
+                  <div class="time-label-slot"><span>03:00</span></div>
+                  <div class="time-label-slot"><span>04:00</span></div>
+                  <div class="time-label-slot"><span>05:00</span></div>
+                  <div class="time-label-slot"><span>06:00</span></div>
+                  <div class="time-label-slot"><span>07:00</span></div>
+                  <div class="time-label-slot"><span>08:00</span></div>
+                  <div class="time-label-slot"><span>09:00</span></div>
+                  <div class="time-label-slot"><span>10:00</span></div>
+                  <div class="time-label-slot"><span>11:00</span></div>
+                  <div class="time-label-slot"><span>12:00</span></div>
+                  <div class="time-label-slot"><span>13:00</span></div>
+                  <div class="time-label-slot"><span>14:00</span></div>
+                  <div class="time-label-slot"><span>15:00</span></div>
+                  <div class="time-label-slot"><span>16:00</span></div>
+                  <div class="time-label-slot"><span>17:00</span></div>
+                  <div class="time-label-slot"><span>18:00</span></div>
+                  <div class="time-label-slot"><span>19:00</span></div>
+                  <div class="time-label-slot"><span>20:00</span></div>
+                  <div class="time-label-slot"><span>21:00</span></div>
+                  <div class="time-label-slot"><span>22:00</span></div>
+                  <div class="time-label-slot"><span>23:00</span></div>
+                </div>
+
+                <!-- Cột chứa slot sự kiện của ngày hôm đó -->
+                <div class="day-column">
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                  <div class="time-slot"></div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="weekView">
+        <div class="grid-body-scroll-wrapper">
+        <div class="grid-body">
+        <div class="calendar-grid-container">
+          <div class="grid-header">
+            <div class="grid-header-cell spacer"></div>
+            <div class="grid-header-cell"><img src="images/f8c312986eba0ca83f2b29b2ef6f91b98eafff59.png" alt="">Mon</div>
+            <div class="grid-header-cell"><img src="images/4b3b62bf2adedda581f52a1cdd98109d4ecac200.png" alt="">Tue</div>
+            <div class="grid-header-cell"><img src="images/2d6f76ca3652540a7e9ed83dc513836986ab4571.png" alt="">Wed</div>
+            <div class="grid-header-cell"><img src="images/03fcd075629ea1d2f9d61a8404f94cc284cd1a5f.png" alt="">Thur</div>
+            <div class="grid-header-cell"><img src="images/f54bd5e51e8900e37f4cad527826d8cb79d06aa3.png" alt="">Fri</div>
+            <div class="grid-header-cell weekend"><img src="images/b5dcd34dd2abd25e1e2a28fb0d889f2cae7cffb2.png" alt="">Sat</div>
+            <div class="grid-header-cell weekend"><img src="images/fe58c1537c2ca935becc72d08cec29611cbec1d7.png" alt="">Sun</div>
+          </div>
+          <div class="grid-body">
+            <div class="time-column">
+              <div class="time-label-slot"><span>00:00</span></div>
+              <div class="time-label-slot"><span>01:00</span></div>
+              <div class="time-label-slot"><span>02:00</span></div>
+              <div class="time-label-slot"><span>03:00</span></div>
+              <div class="time-label-slot"><span>04:00</span></div>
+              <div class="time-label-slot"><span>05:00</span></div>
+              <div class="time-label-slot"><span>06:00</span></div>
+              <div class="time-label-slot"><span>07:00</span></div>
+              <div class="time-label-slot"><span>08:00</span></div>
+              <div class="time-label-slot"><span>09:00</span></div>
+              <div class="time-label-slot"><span>10:00</span></div>
+              <div class="time-label-slot"><span>11:00</span></div>
+              <div class="time-label-slot"><span>12:00</span></div>
+              <div class="time-label-slot"><span>13:00</span></div>
+              <div class="time-label-slot"><span>14:00</span></div>
+              <div class="time-label-slot"><span>15:00</span></div>
+              <div class="time-label-slot"><span>16:00</span></div>
+              <div class="time-label-slot"><span>17:00</span></div>
+              <div class="time-label-slot"><span>18:00</span></div>
+              <div class="time-label-slot"><span>19:00</span></div>
+              <div class="time-label-slot"><span>20:00</span></div>
+              <div class="time-label-slot"><span>21:00</span></div>
+              <div class="time-label-slot"><span>22:00</span></div>
+              <div class="time-label-slot"><span>23:00</span></div>
+            </div>
+            <div class="day-column">
+              <div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div>
+            </div>
+            <div class="day-column">
+              <div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div>
+            </div>
+            <div class="day-column">
+              <div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div>
+            </div>
+            <div class="day-column">
+              <div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div>
+            </div>
+            <div class="day-column">
+              <div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div>
+            </div>
+            <div class="day-column weekend">
+              <div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div>
+            </div>
+            <div class="day-column weekend">
+              <div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div><div class="time-slot"></div>
+            </div>
+          </div>
+        </div>
+        </div>
+        </div>
+      </div>
+
+      <div id="monthView" style="display: none;">
+        <div class="grid-body-scroll-wrapper">
+          <div class="grid-body">
+            <div class="calendar-grid-container">
+              <!-- Header: Thứ trong tuần -->
+              <div class="grid-header">
+                <div class="grid-header-cell"><img src="images/f8c312986eba0ca83f2b29b2ef6f91b98eafff59.png" alt="">Mon</div>
+                <div class="grid-header-cell"><img src="images/4b3b62bf2adedda581f52a1cdd98109d4ecac200.png" alt="">Tue</div>
+                <div class="grid-header-cell"><img src="images/2d6f76ca3652540a7e9ed83dc513836986ab4571.png" alt="">Wed</div>
+                <div class="grid-header-cell"><img src="images/03fcd075629ea1d2f9d61a8404f94cc284cd1a5f.png" alt="">Thu</div>
+                <div class="grid-header-cell"><img src="images/f54bd5e51e8900e37f4cad527826d8cb79d06aa3.png" alt="">Fri</div>
+                <div class="grid-header-cell weekend"><img src="images/b5dcd34dd2abd25e1e2a28fb0d889f2cae7cffb2.png" alt="">Sat</div>
+                <div class="grid-header-cell weekend"><img src="images/fe58c1537c2ca935becc72d08cec29611cbec1d7.png" alt="">Sun</div>
+              </div>
+
+              <!-- Body: Các ngày trong tháng -->
+              <div class="month-grid">
+                <!-- Mỗi dòng là một tuần -->
+                <div class="week-row">
+                  <div class="day-cell"><span class="day-number">28</span></div>
+                  <div class="day-cell"><span class="day-number">29</span></div>
+                  <div class="day-cell"><span class="day-number">30</span></div>
+                  <div class="day-cell"><span class="day-number">31</span></div>
+                  <div class="day-cell"><span class="day-number">1</span></div>
+                  <div class="day-cell weekend"><span class="day-number">2</span></div>
+                  <div class="day-cell weekend"><span class="day-number">3</span></div>
+                </div>
+                <div class="week-row">
+                  <div class="day-cell"><span class="day-number">4</span></div>
+                  <div class="day-cell"><span class="day-number">5</span></div>
+                  <div class="day-cell"><span class="day-number">6</span></div>
+                  <div class="day-cell"><span class="day-number">7</span></div>
+                  <div class="day-cell"><span class="day-number">8</span></div>
+                  <div class="day-cell weekend"><span class="day-number">9</span></div>
+                  <div class="day-cell weekend"><span class="day-number">10</span></div>
+                </div>
+                <!-- Các hàng tuần tiếp theo tương tự -->
+                <!-- ... -->
+                <div class="week-row">
+                  <div class="day-cell"><span class="day-number">25</span></div>
+                  <div class="day-cell"><span class="day-number">26</span></div>
+                  <div class="day-cell"><span class="day-number">27</span></div>
+                  <div class="day-cell"><span class="day-number">28</span></div>
+                  <div class="day-cell"><span class="day-number">29</span></div>
+                  <div class="day-cell weekend"><span class="day-number">30</span></div>
+                  <div class="day-cell weekend"><span class="day-number">31</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="yearView" style="display: none;">
+        <div class="year-view-grid">
+          <div class="month-block" data-month="1">
+            <div class="month-title">January</div>
+            <div class="month-content"></div>
+          </div>
+          <div class="month-block" data-month="2">
+            <div class="month-title">February</div>
+            <div class="month-content"></div>
+          </div>
+          <div class="month-block" data-month="3">
+            <div class="month-title">March</div>
+            <div class="month-content"></div>
+          </div>
+          <div class="month-block" data-month="4">
+            <div class="month-title">April</div>
+            <div class="month-content"></div>
+          </div>
+          <div class="month-block" data-month="5">
+            <div class="month-title">May</div>
+            <div class="month-content"></div>
+          </div>
+          <div class="month-block" data-month="6">
+            <div class="month-title">June</div>
+            <div class="month-content"></div>
+          </div>
+          <div class="month-block" data-month="7">
+            <div class="month-title">July</div>
+            <div class="month-content"></div>
+          </div>
+          <div class="month-block" data-month="8">
+            <div class="month-title">August</div>
+            <div class="month-content"></div>
+          </div>
+          <div class="month-block" data-month="9">
+            <div class="month-title">September</div>
+            <div class="month-content"></div>
+          </div>
+          <div class="month-block" data-month="10">
+            <div class="month-title">October</div>
+            <div class="month-content"></div>
+          </div>
+          <div class="month-block" data-month="11">
+            <div class="month-title">November</div>
+            <div class="month-content"></div>
+          </div>
+          <div class="month-block" data-month="12">
+            <div class="month-title">December</div>
+            <div class="month-content"></div>
+          </div>
+        </div>
+      </div>
+
+
+    </main>
+
+</div>
+</body>
+<script>
+  function toggleDropdown() {
+    const dropdown = document.getElementById("dropdown");
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+  }
+
+  function selectOption(option) {
+    document.getElementById("selected-option").innerText = option;
+    document.getElementById("dropdown").style.display = "none";
+  }
+
+  function applyCustomDays() {
+    const input = document.getElementById("dayInput");
+    const value = parseInt(input.value);
+    if (!isNaN(value) && value >= 1 && value <= 1000) {
+      selectOption(`Each ${value} days`);
+    } else {
+      alert("Please enter a number between 1 and 1000.");
+    }
+  }
+
+  // Optional: Hide dropdown if clicked outside
+  window.addEventListener("click", function(e) {
+    const dropdown = document.getElementById("dropdown");
+    const button = document.querySelector(".each-week-btn");
+    if (!dropdown.contains(e.target) && !button.contains(e.target)) {
+      dropdown.style.display = "none";
+    }
+  });
+
+  // Calendar generation script
+  function generateCalendar() {
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth();
+    const currentDate = today.getDate();
+
+    const monthNames = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+
+    const monthTitle = document.getElementById("month-name");
+    monthTitle.innerHTML = `${monthNames[currentMonth]} <span class="year">${currentYear}</span>`;
+
+    const firstDay = new Date(currentYear, currentMonth, 1);
+    const startDay = (firstDay.getDay() + 6) % 7; // Monday = 0
+    const lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+    const prevLastDate = new Date(currentYear, currentMonth, 0).getDate();
+
+    const calendarGrid = document.querySelector(".calendar-grid");
+
+    // Xóa các ngày cũ
+    document.querySelectorAll(".date-num").forEach(el => el.remove());
+
+    // Tổng cộng 35 ô
+    for (let i = 0; i < 35; i++) {
+      const dateEl = document.createElement("div");
+      dateEl.classList.add("date-num");
+
+      const dateNum = i - startDay + 1;
+
+      if (i < startDay) {
+        // Ngày của tháng trước
+        dateEl.textContent = prevLastDate - (startDay - i - 1);
+        dateEl.classList.add("dimmed");
+      } else if (dateNum > lastDate) {
+        // Ngày của tháng sau
+        dateEl.textContent = String(dateNum - lastDate).padStart(2, '0');
+        dateEl.classList.add("dimmed");
+      } else {
+        // Ngày của tháng hiện tại
+        dateEl.textContent = String(dateNum).padStart(2, '0');
+        if (dateNum === currentDate) {
+          dateEl.classList.add("today");
+        }
+      }
+
+      calendarGrid.appendChild(dateEl);
+    }
+  }
+
+  generateCalendar();
+
+  // DOM
+  const dateRangeEl = document.getElementById("dateRange");
+  const prevBtn = document.getElementById("prevDayBtn");
+  const nextBtn = document.getElementById("nextDayBtn");
+
+  // Khởi tạo ngày hiện tại
+  let currentDate = new Date();
+  let currentView = "Week"; // Giá trị mặc định
+  let weekOffset = 0;
+  let monthOffset = 0;
+  let yearOffset = 0;
+
+  // Hàm cập nhật hiển thị ngày tùy theo view
+  function updateDateDisplay() {
+    const displayEl = dateRangeEl;
+
+    if (currentView === "Day") {
+      const options = { day: '2-digit', month: 'long', year: 'numeric' };
+      displayEl.innerHTML = currentDate.toLocaleDateString('en-GB', options);
+    } else if (currentView === "Week") {
+      const startOfWeek = new Date(currentDate);
+      startOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + 1 + weekOffset * 7);
+
+      const endOfWeek = new Date(startOfWeek);
+      endOfWeek.setDate(startOfWeek.getDate() + 6);
+
+      const dayStart = String(startOfWeek.getDate()).padStart(2, '0');
+      const dayEnd = String(endOfWeek.getDate()).padStart(2, '0');
+      const month = startOfWeek.toLocaleDateString('en-GB', { month: 'long' });
+      const year = startOfWeek.getFullYear();
+
+      displayEl.innerHTML = `${dayStart} - ${dayEnd} ${month} <span>${year}</span>`;
+    } else if (currentView === "Month") {
+      const date = new Date(currentDate);
+      date.setMonth(currentDate.getMonth() + monthOffset);
+
+      const month = date.toLocaleDateString('en-GB', { month: 'long' });
+      const year = date.getFullYear();
+
+      displayEl.innerHTML = `${month} <span>${year}</span>`;
+    } else if (currentView === "Year") {
+      const date = new Date(currentDate);
+      date.setFullYear(currentDate.getFullYear() + yearOffset);
+
+      const year = date.getFullYear();
+      displayEl.innerHTML = `${year}`;
+    }
+  }
+
+  // Nút chuyển ngày
+  prevBtn.addEventListener("click", () => {
+    if (currentView === "Day") {
+      currentDate.setDate(currentDate.getDate() - 1);
+    } else if (currentView === "Week") {
+      weekOffset -= 1;
+    } else if (currentView === "Month") {
+      monthOffset -= 1;
+    } else if (currentView === "Year") {
+      yearOffset -= 1;
+    }
+    updateDateDisplay();
+  });
+
+  nextBtn.addEventListener("click", () => {
+    if (currentView === "Day") {
+      currentDate.setDate(currentDate.getDate() + 1);
+    } else if (currentView === "Week") {
+      weekOffset += 1;
+    } else if (currentView === "Month") {
+      monthOffset += 1;
+    } else if (currentView === "Year") {
+      yearOffset += 1;
+    }
+    updateDateDisplay();
+  });
+
+  // View switcher dropdown
+  const viewSwitcherBtn = document.getElementById("viewSwitcherBtn");
+  const dropdownMenu = document.getElementById("viewDropdown");
+
+  const views = {
+    Day: document.getElementById("dayView"),
+    Week: document.getElementById("weekView"),
+    Month: document.getElementById("monthView"),
+    Year: document.getElementById("yearView")
+  };
+
+  // Mở / đóng dropdown
+  viewSwitcherBtn.addEventListener("click", () => {
+    dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+  });
+
+  // Xử lý chọn chế độ
+  dropdownMenu.querySelectorAll("li").forEach(item => {
+    item.addEventListener("click", () => {
+      const selected = item.textContent.trim();
+      currentView = selected;
+
+      // Reset các offset khi chuyển chế độ
+      weekOffset = 0;
+      monthOffset = 0;
+      yearOffset = 0;
+
+      // Cập nhật chữ trên nút
+      document.getElementById("currentView").textContent = selected;
+
+      // Hiện đúng view
+      Object.values(views).forEach(view => view.style.display = "none");
+      views[selected].style.display = "block";
+
+      // Cập nhật hiển thị ngày
+      updateDateDisplay();
+
+      // Ẩn dropdown
+      dropdownMenu.style.display = "none";
+    });
+  });
+
+  // Đóng dropdown khi click ra ngoài
+  document.addEventListener("click", (e) => {
+    if (!viewSwitcherBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+      dropdownMenu.style.display = "none";
+    }
+  });
+
+  // Gọi hiển thị ban đầu
+  updateDateDisplay();
+
+  // Tìm kiếm sự kiện và thêm sự kiện mới
+  const events = [
+    "Meeting with John", "Design Review", "Lunch with Sarah",
+    "Project Deadline", "Team Building", "Annual Report",
+    "Marketing Campaign", "Code Review", "Budget Planning",
+    "Client Presentation"
+  ];
+
+  const searchInput = document.getElementById("searchInput");
+  const suggestions = document.getElementById("suggestions");
+  const form = document.getElementById("searchForm");
+  const addBtn = document.getElementById("addEventBtn");
+
+  let selectedEvent = "";
+
+  function showSuggestions(value) {
+    const filtered = events.filter(event =>
+      event.toLowerCase().startsWith(value)
+    );
+
+    suggestions.innerHTML = "";
+
+    if (filtered.length === 0) {
+      const li = document.createElement("li");
+      li.textContent = "No matches found";
+      li.style.color = "#aaa";
+      suggestions.appendChild(li);
+      return;
+    }
+
+    filtered.forEach(match => {
+      const li = document.createElement("li");
+      li.textContent = match;
+      li.addEventListener("click", () => {
+        searchInput.value = match;
+        selectedEvent = match;
+        suggestions.innerHTML = "";
+      });
+      suggestions.appendChild(li);
+    });
+  }
+
+  searchInput.addEventListener("input", () => {
+    const value = searchInput.value.toLowerCase().trim();
+    if (value) {
+      showSuggestions(value);
+    } else {
+      suggestions.innerHTML = "";
+    }
+  });
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const value = searchInput.value.trim();
+    if (value) {
+      selectedEvent = value;
+      alert(`You searched for: ${value}`);
+      suggestions.innerHTML = "";
+    }
+  });
+
+  addBtn.addEventListener("click", () => {
+    const value = searchInput.value.trim();
+    if (!value) {
+      alert("Please enter an event name before adding.");
+      return;
+    }
+
+    selectedEvent = value;
+    alert(`Event "${selectedEvent}" has been added.`);
+
+    // Reset UI
+    searchInput.value = "";
+    selectedEvent = "";
+    suggestions.innerHTML = "";
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!form.contains(e.target)) {
+      suggestions.innerHTML = "";
+    }
+  });
+
+  // Lựa chọn lịch
+  // Lấy tất cả các mục lịch (li)
+  const calendarItems = document.querySelectorAll(".calendar-list li");
+
+  calendarItems.forEach(item => {
+    item.addEventListener("click", () => {
+      // Bỏ class 'active' khỏi tất cả mục
+      calendarItems.forEach(el => el.classList.remove("active"));
+
+      // Thêm class 'active' vào mục được click
+      item.classList.add("active");
+    });
+  });
+
+  // Chỉnh sửa lịch
+  const optionsButtons = document.querySelectorAll(".options-btn");
+  const popupMenu = document.getElementById("popupMenu");
+  const renameOption = document.getElementById("renameOption");
+  const popupCloseBtn = document.getElementById("popupCloseBtn");
+
+  let currentItem = null; // Lưu mục lịch đang thao tác
+
+  // Mở popup khi click vào nút options
+  optionsButtons.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      currentItem = btn.closest("li");
+      popupMenu.style.display = "block";
+    });
+  });
+
+  // Đóng popup
+  popupCloseBtn.addEventListener("click", () => {
+    popupMenu.style.display = "none";
+  });
+
+  // Click “Sửa tên” → hiển thị ô input để chỉnh sửa tên
+  renameOption.addEventListener("click", () => {
+    if (!currentItem) return;
+
+    const nameLink = currentItem.querySelector("a");
+    const oldName = nameLink.textContent.trim();
+
+    // Tạo input để nhập tên mới
+    const input = document.createElement("input");
+    input.type = "text";
+    input.value = oldName;
+    input.style.width = "100%";
+    input.style.padding = "4px";
+
+    nameLink.replaceWith(input);
+    input.focus();
+
+    // Khi mất focus hoặc nhấn Enter -> lưu tên
+    function saveName() {
+      const newName = input.value.trim() || oldName;
+      const newLink = document.createElement("a");
+      newLink.href = "#";
+      newLink.textContent = newName;
+      input.replaceWith(newLink);
+      popupMenu.style.display = "none";
+    }
+
+    input.addEventListener("blur", saveName);
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        saveName();
+      }
+    });
+  });
+
+  // Thêm lịch mới
+  const addCalendarBtn = document.getElementById("addCalendarBtn");
+  const calendarList = document.querySelector(".calendar-list");
+
+  addCalendarBtn.addEventListener("click", () => {
+    // Tạo phần tử lịch mới
+    const newItem = document.createElement("li");
+
+    // Tạo input để đặt tên ngay
+    const input = document.createElement("input");
+    input.type = "text";
+    input.value = "New Calendar";
+    input.style.width = "100%";
+    input.style.padding = "4px";
+
+    // Tạo nút option
+    const optionBtn = document.createElement("button");
+    optionBtn.classList.add("options-btn");
+    optionBtn.innerHTML = `<img src="images/185_26335.svg" alt="Options">`;
+
+    // Gắn phần tử con vào li
+    newItem.appendChild(input);
+    newItem.appendChild(optionBtn);
+    calendarList.appendChild(newItem);
+
+    input.focus();
+
+    // Khi người dùng nhấn Enter hoặc rời khỏi ô -> đổi input thành <a>
+    function saveNewCalendarName() {
+      const name = input.value.trim() || "New Calendar";
+      const link = document.createElement("a");
+      link.href = "#";
+      link.textContent = name;
+      input.replaceWith(link);
+    }
+
+    input.addEventListener("blur", saveNewCalendarName);
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") saveNewCalendarName();
+    });
+
+    // Gắn sự kiện cho nút option (nếu cần gọi lại popup)
+    optionBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      currentItem = newItem;
+      popupMenu.style.display = "block";
+    });
+  });
+
+
+  </script>
+
+</html>

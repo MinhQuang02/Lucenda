@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Lucenda</title>
+  <link rel="icon" type="image/png" href="../images/logo.svg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="global.css">
+  <style id="sections-styles">
+/* CSS for section section:login */
+.login-container {
+    display: flex;
+    max-width: 1440px;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 45px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-section {
+    flex: 1.2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+  }
+
+  .form-content {
+    width: 100%;
+    max-width: 404px;
+  }
+
+  .image-section {
+    flex: 1;
+    background-color: #e0d9f5; /* Fallback color */
+  }
+
+  .image-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .form-header {
+    margin-bottom: 30px;
+  }
+
+  .form-header h1 {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1.5;
+    margin: 0 0 5px 0;
+    color: #000000;
+  }
+
+  .form-header p {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    margin: 0;
+    color: #000000;
+  }
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .label-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #000000;
+  }
+
+  .forgot-password {
+    font-size: 10px;
+    font-weight: 500;
+    color: #6155f5;
+    text-decoration: none;
+  }
+  .forgot-password:hover {
+    text-decoration: underline;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #d9d9d9;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+  }
+
+  .form-group input::placeholder {
+    color: #d9d9d9;
+    font-size: 12px;
+  }
+
+  .form-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 25px;
+  }
+
+  .form-check input[type="checkbox"] {
+    width: 12px;
+    height: 12px;
+    accent-color: #b297f3;
+    border: 1px solid #000000;
+  }
+
+  .form-check label {
+    font-size: 10px;
+    font-weight: 500;
+    color: #000000;
+  }
+
+  .btn {
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-login {
+    background-color: #b297f3;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 14px;
+    width: 100%;
+  }
+  .btn-login:hover {
+    background-color: #a184e3;
+  }
+
+  .separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+    margin: 40px 0;
+    font-size: 10px;
+    font-weight: 500;
+  }
+
+  .separator::before,
+  .separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 2px solid #f5f5f5;
+  }
+
+  .separator span {
+    padding: 0 10px;
+  }
+
+  .social-logins {
+    display: flex;
+    gap: 23px;
+    margin-bottom: 40px;
+  }
+
+  .btn-social {
+    flex: 1;
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #d9d9d9;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .btn-social:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .btn-social img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .signup-link {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: #000000;
+  }
+
+  .signup-link a {
+    color: #a698f5;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .signup-link a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 992px) {
+    .login-container {
+      flex-direction: column;
+      max-width: 500px;
+      margin: 20px auto;
+    }
+    .image-section {
+      display: none;
+    }
+    .form-section {
+      flex: 1;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .social-logins {
+      flex-direction: column;
+      gap: 15px;
+    }
+    .form-section {
+      padding: 25px;
+    }
+    .form-header h1 {
+      font-size: 28px;
+    }
+    .form-header p {
+      font-size: 14px;
+    }
+  }
+  </style>
+  <script src="global.js" defer></script>
+</head>
+<body>
+<main class="login-container">
+  <div class="form-section">
+    <div class="form-content">
+      <header class="form-header">
+        <h1>Welcome back!</h1>
+        <p>Sign in to Lucenda with your account credentials</p>
+      </header>
+
+      <form class="login-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" placeholder="Enter your username">
+        </div>
+
+        <div class="form-group">
+          <div class="label-wrapper">
+            <label for="password">Password</label>
+            <a href="../forgotpassword/index.html" class="forgot-password">forgot password</a>
+          </div>
+          <input type="password" id="password" placeholder="Enter your password">
+        </div>
+
+        <div class="form-check">
+          <input type="checkbox" id="remember-me">
+          <label for="remember-me">Remember for 30 days</label>
+        </div>
+
+        <a href="../home/index.html" class="btn btn-login">Login</a>
+      </form>
+
+      <div class="separator">
+        <span>Or</span>
+      </div>
+
+      <div class="social-logins">
+        <a href="#" class="btn btn-social">
+          <img src="images/103_24972.svg" alt="Google icon">
+          <span>Sign in with Google</span>
+        </a>
+        <a href="#" class="btn btn-social">
+          <img src="images/103_24980.svg" alt="Apple icon">
+          <span>Sign in with Apple</span>
+        </a>
+      </div>
+
+      <p class="signup-link">
+        Don’t have an account? <a href="../signup/index.html">Sign Up</a>
+      </p>
+    </div>
+  </div>
+  <div class="image-section">
+    <img src="images/053f99493558590015694fd4eddb0d3da9fd4fad.png" alt="A purple flower against a light purple background.">
+  </div>
+</main>
+</body>
+</html>

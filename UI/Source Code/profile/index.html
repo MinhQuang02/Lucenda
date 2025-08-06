@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - Lucenda</title>
+  <link rel="icon" type="image/png" href="../images/logo.svg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="global.css">
+  <style id="sections-styles">
+/* CSS for section section:header */
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background: linear-gradient(to left, rgba(220, 140, 216, 0.96), rgba(232, 150, 249, 0.96));
+  height: var(--header-height);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  left: 20px;
+  top: -27px; /* Hangs off the top based on Figma coordinates */
+  width: 129px;
+  height: 129px;
+  z-index: 11;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.main-nav {
+  flex-grow: 1;
+  margin-left: 165px; /* Space for the absolute positioned logo */
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 40px;
+}
+
+.main-nav a {
+  /* style_27 */
+  font-size: 20px;
+  font-weight: 500;
+  /* NOTE: Text color from JSON is #ffffff, which has poor contrast on the light header background. Using a darker color for visibility based on the image. */
+  color: #1f1f1f;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+}
+
+.profile-section a {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* khoảng cách giữa chữ và ảnh */
+  text-decoration: none;
+  color: inherit;
+}
+
+.profile-name {
+  /* style_26 */
+  font-size: 20px;
+  font-weight: 500;
+  /* NOTE: Text color from JSON is #ffffff. Using a darker color for visibility. */
+  color: #1f1f1f;
+}
+
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* style_25 */
+}
+
+.mobile-nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 12;
+}
+
+.mobile-nav-toggle .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #1f1f1f;
+}
+
+/* Responsive Header */
+@media (max-width: 1024px) {
+  .main-nav {
+    margin-left: 180px;
+  }
+  .main-nav ul {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 880px) {
+  .main-nav, .profile-section {
+    display: none; /* Hide for mobile, to be handled by JS */
+  }
+  .mobile-nav-toggle {
+    display: block;
+  }
+  .header-container {
+    justify-content: flex-end;
+  }
+  .logo {
+    left: 30px;
+    width: 100px;
+    height: 100px;
+    top: -10px;
+  }
+}
+
+
+/* CSS for section section:profile */
+.profile-section {
+  padding-top: 80px;
+  padding-bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+}
+.user-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 35px;
+}
+.main-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: var(--avatar-bg);
+  margin-bottom: 20px;
+}
+.user-name {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--text-dark);
+  margin: 0;
+}
+.user-email, .user-id span {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-accent);
+  margin: 0;
+}
+.user-id {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+.copy-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.copy-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+  width: 100%;
+}
+.details-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px 100px;
+  width: 100%;
+}
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  width: 200px;
+}
+
+.gender-dropdown {
+  margin-top: 5px;
+  display: none;
+}
+
+.gender-dropdown select {
+  padding: 6px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+}
+
+.edit-btn {
+  background: none;       /* Ẩn màu nền */
+  border: none;           /* Ẩn viền */
+  padding: 0;             /* Bỏ khoảng đệm */
+  cursor: pointer;        /* Hiển thị con trỏ dạng tay khi hover */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-btn img {
+  width: 20px;  /* Điều chỉnh kích thước icon nếu cần */
+  height: 20px;
+}
+
+.eye-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+  color: #333;
+}
+
+.password-item {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.username-item {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.detail-item img {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 8px;
+}
+.detail-label {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-dark);
+  margin: 0;
+}
+.detail-value {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-accent);
+  margin: 0;
+}
+
+.password-edit {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 40px;
+  margin-top: 6px;
+}
+
+#password-input {
+  padding: 4px 8px;
+  font-size: 15px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  outline: none;
+  background-color: transparent;
+  color: #333;
+  width: 200px;
+  transition: border-color 0.2s;
+}
+
+#password-input:focus {
+  border-color: #4629f2;
+}
+
+
+#username-input {
+  margin-left: 40px;
+  margin-top: 6px;
+  padding: 4px 8px;
+  font-size: 15px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  outline: none;
+  background-color: transparent;
+  color: #4629f2;
+  width: 200px;
+  transition: border-color 0.2s;
+}
+
+#username-input:focus {
+  border-color: #4629f2;
+}
+
+#datepicker {
+  margin-left: 40px;
+  margin-top: 6px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 15px;
+  color: #4629f2;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-bottom: 1px solid #ccc;
+  transition: border-color 0.2s;
+}
+
+#datepicker:focus {
+  border-color: #4629f2;
+}
+
+.profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 70px;
+  margin-top: 40px;
+}
+.action-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+.action-button img {
+  width: 48px;
+  height: 48px;
+}
+
+@media (max-width: 1024px) {
+  .details-row {
+    gap: 40px 60px;
+  }
+}
+@media (max-width: 768px) {
+  .profile-section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    gap: 40px;
+  }
+  .profile-details {
+    gap: 40px;
+  }
+  .details-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+  .profile-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+}
+
+/* CSS for section section:footer */
+.site-footer {
+  /* style_15 */
+  background-color: #ae76e2;
+  /* style_14 */
+  opacity: 0.96;
+  height: var(--footer-height);
+  display: flex;
+  align-items: center;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  /* style_16 */
+  opacity: 0.6;
+}
+
+.footer-contact {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  /* Đảm bảo nằm sát bên trái */
+  justify-content: flex-start;
+  margin-left: 0;
+  padding-left: 0px; /* Tuỳ chọn: tạo khoảng cách bên trong */
+}
+
+.footer-contact span {
+  /* style_20 */
+  font-weight: 500;
+  font-size: 14px;
+  /* NOTE: Text color from JSON is #ffffff, which has poor contrast on the light footer background. Using a darker color for visibility. */
+  color: #1f1f1f;
+}
+
+.footer-contact img {
+  width: 25px;
+  height: 25px;
+}
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 42px;
+}
+
+.footer-social a {
+  transition: transform 0.2s ease;
+}
+
+.footer-social a:hover {
+  transform: scale(1.2);
+}
+
+.footer-social img {
+  width: 25px;
+  height: 25px;
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+  .site-footer {
+    height: auto;
+    padding: 20px 0;
+  }
+  .footer-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+  </style>
+  <script src="global.js" defer></script>
+</head>
+<body>
+<section id="section-header">
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="../home/index.html" class="logo">
+        <img src="images/24489db95d7c8b23ff71ea38f01643e97c6a9ede.png" alt="Lucenda Logo" class="logo-img">
+      </a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="../home/index.html">Home</a></li>
+          <li><a href="../event/main-event/index.html">Event</a></li>
+          <li><a href="../calendar/day-view/index.html">Calendar</a></li>
+          <li><a href="../aboutus/">About us</a></li>
+        </ul>
+      </nav>
+      <div class="profile-section">
+        <a href="../profile/index.html">
+          <span class="profile-name">Login/Signup</span>
+          <img src="images/299_23831.svg" alt="User avatar" class="profile-avatar">
+        </a>
+      </div>
+    </div>
+  </header>
+</section>
+<section id="profile">
+  <main class="profile-section container">
+    <div class="user-summary">
+      <img src="images/109_24297.svg" alt="User Avatar" class="main-avatar">
+      <h1 class="user-name">Phan Quang Minh</h1>
+      <p class="user-email">mphanquang06@gmail.com</p>
+      <div class="user-id">
+        <span id="user-id-text">Your ID: U001</span>
+        <button class="copy-btn" aria-label="Copy ID" onclick="copyUserId()">
+          <img src="images/186_29036.svg" alt="Copy Icon">
+        </button>
+      </div>
+    </div>
+
+    <div class="profile-details">
+      <div class="details-row">
+        <div class="detail-item">
+          <button class="edit-btn" onclick="toggleGenderDropdown()">
+            <img src="images/186_47362.svg" alt="Edit">
+          </button>
+          <p class="detail-label">Gender</p>
+          <p class="detail-value" id="gender-value">Male</p>
+
+          <!-- Dropdown menu (ẩn mặc định) -->
+          <div class="gender-dropdown" id="gender-dropdown">
+            <select onchange="updateGender(this.value)">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Third Gender">Third Gender</option>
+              <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+          </div>
+        </div>
+        <div class="detail-item">
+          <button class="edit-btn lang-toggle" aria-label="Toggle Language">
+            <img src="images/186_47377.svg" alt="Edit">
+          </button>
+          <p class="detail-label">Language</p>
+          <p class="detail-value" id="language-label">English</p>
+        </div>
+        <div class="detail-item">
+          <span class="dob-toggle" role="button" tabindex="0">
+            <img src="images/186_47372.svg" alt="Edit">
+          </span>
+          <p class="detail-label">Date of Birth</p>
+          <p class="detail-value" id="dob-display">02/11/2005</p>
+
+          <!-- Date picker ẩn ban đầu -->
+          <input type="date" id="dob-picker" style="display: none; margin-top: 5px;" />
+        </div>
+      </div>
+      <div class="details-row">
+        <div class="detail-item username-item">
+          <button class="edit-btn" id="edit-username-btn" aria-label="Edit Username">
+            <img src="images/186_47346.svg" alt="Edit">
+          </button>
+          <p class="detail-label">Username</p>
+          <p class="detail-value" id="username-value">minhpquang</p>
+          <input type="text" id="username-input" maxlength="30" style="display: none;" />
+        </div>
+          <div class="detail-item password-item">
+            <button class="edit-btn" id="edit-password-btn" aria-label="Edit Password">
+              <img src="images/186_47352.svg" alt="Edit">
+            </button>
+            <p class="detail-label">Password</p>
+            <p class="detail-value" id="password-value">**********</p>
+
+            <div class="password-edit" id="password-edit" style="display: none;">
+              <input type="password" id="password-input" maxlength="50" />
+              <button type="button" id="toggle-password" class="eye-btn" aria-label="Show/Hide Password">Show/Hide</button>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="profile-actions">
+      <a href="../login/index.html" class="action-button">
+        <img src="images/189_23700.svg" alt="">
+        <span>Delete Account</span>
+      </a>
+      <a href="../login/index.html" class="action-button">
+        <img src="images/189_23718.svg" alt="">
+        <span>Log out</span>
+      </a>
+    </div>
+  </main>
+</section>
+<section id="section-footer">
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-contact">
+        <img src="images/109_24001.svg" alt="Phone icon">
+        <span>+84 912 991 873</span>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/" aria-label="Facebook"><img src="images/109_23996.svg" alt="Facebook"></a>
+        <a href="mailto:dai.isu152@gmail.com" aria-label="Mail"><img src="images/109_23998.svg" alt="Mail"></a>
+        <a href="https://github.com/MinhQuang02/Lucenda/tree/main" aria-label="Github"><img src="images/109_23997.svg" alt="Github"></a>
+      </div>
+    </div>
+  </footer>
+</section>
+<script>
+  // Copy ID Button Functionality
+  function copyUserId() {
+    const fullText = document.getElementById("user-id-text").textContent;
+    const id = fullText.split(":")[1].trim(); // Lấy phần "U001"
+
+    navigator.clipboard.writeText(id)
+      .then(() => {
+        alert("You have copied your ID: " + id);
+      })
+      .catch(err => {
+        console.error("Copy failed:", err);
+      });
+  }
+
+  // Change gender
+    function toggleGenderDropdown() {
+    const dropdown = document.getElementById("gender-dropdown");
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+  }
+
+  function updateGender(value) {
+    document.getElementById("gender-value").textContent = value;
+    document.getElementById("gender-dropdown").style.display = "none";
+  }
+
+  // Đổi ngôn ngữ
+  document.querySelector('.lang-toggle').addEventListener('click', function () {
+    const langLabel = document.getElementById('language-label');
+    langLabel.textContent = langLabel.textContent === 'English' ? 'Vietnamese' : 'English';
+  });
+
+  // Chỉnh sửa ngày sinh
+  const toggleBtn = document.querySelector('.dob-toggle');
+  const datePicker = document.getElementById('dob-picker');
+  const dobDisplay = document.getElementById('dob-display');
+
+  toggleBtn.addEventListener('click', () => {
+    event.preventDefault();
+    // Toggle hiển thị lịch
+    datePicker.style.display = datePicker.style.display === 'none' ? 'block' : 'none';
+  });
+
+  datePicker.addEventListener('change', () => {
+    // Lấy ngày và hiển thị định dạng dd/mm/yyyy
+    const date = new Date(datePicker.value);
+    const formattedDate = date.toLocaleDateString('en-GB'); // dd/mm/yyyy
+    dobDisplay.textContent = formattedDate;
+    datePicker.style.display = 'none'; // Ẩn lại sau khi chọn
+  });
+
+  // Chỉnh sửa tên người dùng
+  const editBtn = document.getElementById('edit-username-btn');
+  const usernameValue = document.getElementById('username-value');
+  const usernameInput = document.getElementById('username-input');
+
+  editBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    // Gán giá trị cũ cho input
+    usernameInput.value = usernameValue.textContent.trim();
+    usernameValue.style.display = 'none';
+    usernameInput.style.display = 'inline-block';
+    usernameInput.focus();
+  });
+
+  // Khi người dùng nhấn Enter hoặc bỏ focus
+  usernameInput.addEventListener('blur', () => {
+    const newUsername = usernameInput.value.trim();
+    if (newUsername) {
+      usernameValue.textContent = newUsername;
+    }
+    usernameInput.style.display = 'none';
+    usernameValue.style.display = 'block';
+  });
+
+  // Ngăn Enter tạo dòng mới
+  usernameInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      usernameInput.blur();
+    }
+  });
+
+  // Chỉnh sửa mật khẩu
+  const editPasswordBtn = document.getElementById('edit-password-btn');
+  const passwordValue = document.getElementById('password-value');
+  const passwordEditDiv = document.getElementById('password-edit');
+  const passwordInput = document.getElementById('password-input');
+  const togglePasswordBtn = document.getElementById('toggle-password');
+
+  // Nhấn nút edit
+  editPasswordBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    passwordInput.value = '';
+    passwordValue.style.display = 'none';
+    passwordEditDiv.style.display = 'flex';
+    passwordInput.focus();
+  });
+
+  // Toggle hiển thị mật khẩu
+  togglePasswordBtn.addEventListener('click', () => {
+    const isPassword = passwordInput.type === 'password';
+    passwordInput.type = isPassword ? 'text' : 'password';
+    togglePasswordBtn.textContent = isPassword ? '🙈' : 'Show/Hide';
+  });
+
+  // Khi mất focus => ẩn input và cập nhật
+  passwordInput.addEventListener('blur', () => {
+    if (passwordInput.value.trim() !== '') {
+      passwordValue.textContent = '**********'; // luôn hiển thị ẩn
+    }
+    passwordEditDiv.style.display = 'none';
+    passwordValue.style.display = 'block';
+    passwordInput.type = 'password'; // reset về ẩn
+    togglePasswordBtn.textContent = 'Show/Hide'; // reset text
+  });
+
+  // Bấm Enter => lưu
+  passwordInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      passwordInput.blur();
+    }
+  });
+</script>
+</body>
+</html>

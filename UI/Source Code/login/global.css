@@ -1,0 +1,16 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f0f2f5;
+  color: #000000;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recycle Bin - Calendars</title>
+  <link rel="icon" type="image/png" href="../../images/logo.png">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recycle Bin - Calendars</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Inter:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="global.css">
+  <style id="sections-styles">
+/* CSS for section section:header */
+.site-header {
+  background-color: var(--primary-bg);
+  opacity: 0.96;
+  padding: 12px 0;
+}
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 42px;
+}
+.logo {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-light);
+}
+.main-nav ul {
+  display: flex;
+  gap: 42px;
+}
+.main-nav a {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-light);
+}
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-light);
+}
+.avatar-container {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+.avatar-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.avatar-img {
+  z-index: 2;
+}
+.avatar-svg {
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .main-nav {
+        display: none;
+    }
+    .header-container {
+        padding: 0 20px;
+    }
+}
+
+/* CSS for section section:main */
+.main-content {
+  display: flex;
+  min-height: calc(100vh - 86px);
+}
+.sidebar {
+  width: 262px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-section {
+  padding: 24px 14px;
+}
+.mini-calendar-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px 10px;
+}
+.month-year {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-dark);
+  margin: 0;
+}
+.month-year .year {
+  font-family: var(--font-inter);
+  font-weight: 400;
+}
+.mini-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 500;
+  text-align: center;
+}
+.mini-calendar .day {
+  opacity: 0.7;
+  text-transform: capitalize;
+}
+.mini-calendar .date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.mini-calendar .date.active {
+  background-color: var(--highlight-color);
+  color: var(--text-light);
+}
+.mini-calendar .date.other-month {
+  opacity: 0.3;
+}
+.calendars-list-section {
+  flex-grow: 1;
+  padding-top: 0;
+}
+.calendars-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.calendars-header h2 {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+  color: var(--text-dark);
+}
+.calendar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.calendar-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-family: var(--font-inter);
+  font-size: 12px;
+  color: var(--text-black);
+}
+.calendar-item.active {
+  background-color: var(--active-bg);
+}
+.add-new-calendar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 8px 12px;
+  font-family: var(--font-inter);
+  font-size: 12px;
+  color: var(--text-black);
+}
+.sidebar-footer {
+  border-top: 1px solid var(--border-color);
+  padding: 16px 32px;
+}
+.recycle-bin-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+.content-area {
+  flex-grow: 1;
+  padding: 28px 43px;
+  display: flex;
+  flex-direction: column;
+}
+.content-header {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 309px; /* 9245 - 8936 */
+}
+.content-header h1 {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+  color: var(--text-dark);
+}
+.content-body {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.content-body p {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-black);
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+    .content-area {
+        padding: 20px;
+    }
+    .content-header {
+        margin-bottom: 100px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .content-body {
+        align-items: center;
+        padding: 40px 0;
+    }
+}
+  </style>
+  <script src="global.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+    <div class="header-container">
+        <a href="../../home/index.html" class="logo">Lucenda</a>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="../../home/index.html">Home</a></li>
+                <li><a href="../../event/main-event/index.html">Event</a></li>
+                <li><a href="../../calendar/day-view/index.html">Calendar</a></li>
+                <li><a href="../../aboutus/index.html">About us</a></li>
+            </ul>
+        </nav>
+        <div class="user-profile">
+            <a href="../../profile/index.html" class="user-profile">
+                <span class="user-name">mphanquang</span>
+                <img src="images/109_23827.svg" alt="User Avatar" class="user-avatar">
+            </a>
+        </div>
+    </div>
+</header>
+<main class="main-content">
+    <aside class="sidebar">
+        <div class="sidebar-section">
+            <div class="mini-calendar-header">
+                <img src="images/185_27022.svg" alt="Calendar Icon" width="24" height="24">
+                <p class="month-year"><span>August </span><span class="year">2025</span></p>
+            </div>
+            <div class="mini-calendar">
+                <div class="day">m</div>
+                <div class="day">t</div>
+                <div class="day">w</div>
+                <div class="day">t</div>
+                <div class="day">f</div>
+                <div class="day">s</div>
+                <div class="day">s</div>
+                <div class="date">01</div>
+                <div class="date active">02</div>
+                <div class="date">03</div>
+                <div class="date">04</div>
+                <div class="date">05</div>
+                <div class="date">06</div>
+                <div class="date">07</div>
+                <div class="date">08</div>
+                <div class="date">09</div>
+                <div class="date">10</div>
+                <div class="date">11</div>
+                <div class="date">12</div>
+                <div class="date">13</div>
+                <div class="date">14</div>
+                <div class="date">15</div>
+                <div class="date">16</div>
+                <div class="date">17</div>
+                <div class="date">18</div>
+                <div class="date">19</div>
+                <div class="date">20</div>
+                <div class="date">21</div>
+                <div class="date">22</div>
+                <div class="date">23</div>
+                <div class="date">24</div>
+                <div class="date">25</div>
+                <div class="date">26</div>
+                <div class="date">27</div>
+                <div class="date">28</div>
+                <div class="date">29</div>
+                <div class="date">30</div>
+                <div class="date">31</div>
+                <div class="date other-month">01</div>
+                <div class="date other-month">02</div>
+                <div class="date other-month">03</div>
+                <div class="date other-month">04</div>
+            </div>
+        </div>
+        <div class="sidebar-section calendars-list-section">
+            <div class="calendars-header">
+                <img src="images/185_27016.svg" alt="List Icon" width="24" height="24">
+                <h2>Calendars</h2>
+            </div>
+            <ul class="calendar-list">
+                <li class="calendar-item active">
+                    <span>My Calendar</span>
+                    <button><img src="images/185_27013.svg" alt="More options" width="12" height="12"></button>
+                </li>
+                <li class="calendar-item">
+                    <span>Vacation Plan</span>
+                    <button><img src="images/185_27010.svg" alt="More options" width="12" height="12"></button>
+                </li>
+                <li class="calendar-item">
+                    <span>Learning Calendar</span>
+                    <button><img src="images/185_27007.svg" alt="More options" width="12" height="12"></button>
+                </li>
+                <li class="calendar-item">
+                    <span>Work Calendar</span>
+                    <button><img src="images/185_27004.svg" alt="More options" width="12" height="12"></button>
+                </li>
+                <li class="calendar-item">
+                    <span>Vacation With Team</span>
+                    <button><img src="images/185_27001.svg" alt="More options" width="12" height="12"></button>
+                </li>
+            </ul>
+            <button class="add-new-calendar">
+                <img src="images/185_26997.svg" alt="Add new" width="12" height="12">
+                <span>Add new calendar</span>
+            </button>
+        </div>
+        <div class="sidebar-footer">
+            <a href="#" class="recycle-bin-link">
+                <img src="images/185_26993.svg" alt="Recycle Bin" width="24" height="24">
+                <span>Recycle Bin</span>
+            </a>
+        </div>
+    </aside>
+    <section class="content-area">
+        <div class="content-header">
+            <img src="images/31_22937.svg" alt="Recycle Bin Icon" width="24" height="24">
+            <h1>Recycle Bin</h1>
+        </div>
+        <div class="content-body">
+            <p>No calendars in Recycle Bin</p>
+        </div>
+    </section>
+</main>
+</body>
+</html>

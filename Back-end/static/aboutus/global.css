@@ -1,0 +1,147 @@
+:root {
+  --color-primary-lightest: #8f52d1;         /* dùng cho header background */
+  --color-primary-light: #e1d4f6;            /* có thể dùng cho hero background */
+  --color-primary-medium: #debdfd;           /* dùng cho footer background */
+  --color-white: #ffffff;                    /* dùng cho text màu sáng */
+  --color-text-dark: #333333;                /* dùng cho text đậm */
+  --font-family-main: 'Poppins', sans-serif;
+  --color-text-light: #8e7a9e;
+  --color-avatar-bg: #eaddff;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family-main);
+  background-color: var(--color-white);
+  color: var(--color-text-dark);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.page-container, .container {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 24px;
+  overflow: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Header (based on profile layout but using about's color vars) */
+.site-header {
+  background-color: var(--color-primary-lightest);
+  opacity: 0.96;
+  padding-top: 19px;
+  padding-bottom: 19px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+.main-nav {
+  display: flex;
+  gap: 40px;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--color-white);
+}
+
+.user-profile-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--color-white);
+}
+
+.user-avatar-small {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-avatar-bg);
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+  }
+
+  .main-nav {
+    gap: 20px;
+    font-size: 18px;
+  }
+}
+
+/* Footer (based on profile layout but using about's color vars) */
+.site-footer {
+  background-color: var(--color-primary-medium);
+  opacity: 0.96;
+  color: var(--color-white);
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.footer-contact {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.6;
+}
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  opacity: 0.6;
+}
+
+.footer-social img {
+  width: 25px;
+  height: 25px;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    justify-content: center;
+  }
+}

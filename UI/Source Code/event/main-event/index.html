@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event - Lucenda</title>
+  <link rel="icon" type="image/png" href="../../images/logo.svg">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Event Detail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@275;400;500;600;700&family=Roboto:wght@400&family=Inter:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="global.css">
+  <style id="sections-styles">
+/* CSS for section section:header */
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background: linear-gradient(to left, rgba(220, 140, 216, 0.96), rgba(232, 150, 249, 0.96));
+  height: var(--header-height);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  left: 20px;
+  top: -27px; /* Hangs off the top based on Figma coordinates */
+  width: 129px;
+  height: 129px;
+  z-index: 11;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.main-nav {
+  flex-grow: 1;
+  margin-left: 165px; /* Space for the absolute positioned logo */
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 40px;
+}
+
+.main-nav a {
+  /* style_27 */
+  font-size: 20px;
+  font-weight: 500;
+  /* NOTE: Text color from JSON is #ffffff, which has poor contrast on the light header background. Using a darker color for visibility based on the image. */
+  color: #1f1f1f;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+}
+
+.profile-section a {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* khoảng cách giữa chữ và ảnh */
+  text-decoration: none;
+  color: inherit;
+}
+
+.profile-name {
+  /* style_26 */
+  font-size: 20px;
+  font-weight: 500;
+  /* NOTE: Text color from JSON is #ffffff. Using a darker color for visibility. */
+  color: #1f1f1f;
+}
+
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* style_25 */
+}
+
+.mobile-nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 12;
+}
+
+.mobile-nav-toggle .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #1f1f1f;
+}
+
+/* Responsive Header */
+@media (max-width: 1024px) {
+  .main-nav {
+    margin-left: 180px;
+  }
+  .main-nav ul {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 880px) {
+  .main-nav, .profile-section {
+    display: none; /* Hide for mobile, to be handled by JS */
+  }
+  .mobile-nav-toggle {
+    display: block;
+  }
+  .header-container {
+    justify-content: flex-end;
+  }
+  .logo {
+    left: 30px;
+    width: 100px;
+    height: 100px;
+    top: -10px;
+  }
+}
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background: linear-gradient(to left, rgba(220, 140, 216, 0.96), rgba(232, 150, 249, 0.96));
+  height: var(--header-height);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  left: 20px;
+  top: -27px; /* Hangs off the top based on Figma coordinates */
+  width: 129px;
+  height: 129px;
+  z-index: 11;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.main-nav {
+  flex-grow: 1;
+  margin-left: 165px; /* Space for the absolute positioned logo */
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 40px;
+}
+
+.main-nav a {
+  /* style_27 */
+  font-size: 20px;
+  font-weight: 500;
+  /* NOTE: Text color from JSON is #ffffff, which has poor contrast on the light header background. Using a darker color for visibility based on the image. */
+  color: #1f1f1f;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+}
+
+.profile-section a {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* khoảng cách giữa chữ và ảnh */
+  text-decoration: none;
+  color: inherit;
+}
+
+.profile-name {
+  /* style_26 */
+  font-size: 20px;
+  font-weight: 500;
+  /* NOTE: Text color from JSON is #ffffff. Using a darker color for visibility. */
+  color: #1f1f1f;
+}
+
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* style_25 */
+}
+
+.mobile-nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 12;
+}
+
+.mobile-nav-toggle .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #1f1f1f;
+}
+
+/* Responsive Header */
+@media (max-width: 1024px) {
+  .main-nav {
+    margin-left: 180px;
+  }
+  .main-nav ul {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 880px) {
+  .main-nav, .profile-section {
+    display: none; /* Hide for mobile, to be handled by JS */
+  }
+  .mobile-nav-toggle {
+    display: block;
+  }
+  .header-container {
+    justify-content: flex-end;
+  }
+  .logo {
+    left: 30px;
+    width: 100px;
+    height: 100px;
+    top: -10px;
+  }
+}
+
+/* CSS for section section:event-view */
+.event-view-wrapper {
+    display: flex;
+    min-height: calc(100vh - 86px); /* Full height minus header */
+    margin-top: 82px;
+  }
+
+  .sidebar {
+    width: 262px;
+    flex-shrink: 0;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .sidebar-top {
+    padding: 27px 20px 0;
+  }
+
+  .calendar-widget {
+    padding-bottom: 27px;
+  }
+
+  .calendar-header {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 10px;
+  }
+
+  .calendar-header h2 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-light);
+    margin: 0;
+  }
+
+  .calendar-header .year {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px 4px;
+    text-align: center;
+  }
+
+  .day-name {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-light);
+    opacity: 0.7;
+    text-transform: capitalize;
+  }
+
+  .date-num {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-light);
+    padding: 5px;
+    border-radius: 99px;
+  }
+
+  .date-num.today {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bold;
+  }
+
+  .date-num.active {
+    background-color: var(--primary-color);
+    color: var(--text-white);
+  }
+
+  .date-num.dimmed  {
+    opacity: 0.3;
+  }
+
+  .events-section {
+    padding-top: 27px;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .events-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .events-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .events-title h3 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-light);
+    margin: 0;
+  }
+
+  .new-event-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background-color: var(--primary-color);
+    color: var(--text-white);
+    padding: 8px;
+    border-radius: 3px;
+    font-size: 8px;
+    font-weight: 500;
+  }
+
+  .event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    max-height: 520px; /* Chiều cao tối đa của vùng cuộn */
+    overflow-y: auto;  /* Cho phép cuộn khi vượt quá */
+    scrollbar-gutter: stable; /* Giữ chỗ cố định cho thanh cuộn (nếu được hỗ trợ) */
+  }
+
+  .event-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 4px;
+    border-radius: 3px;
+  }
+
+  .event-list li:hover {
+    background-color: #f0f0f0;
+  }
+
+  .event-list li.active {
+    background-color: var(--primary-color);
+    color: var(--text-white);
+  }
+
+  .event-list .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .event-list li.active .dot {
+    background-color: #fff !important;
+  }
+
+  .event-list::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+
+
+
+  .sidebar-bottom {
+    border-top: 1px solid var(--border-color);
+    padding: 23.85px 20px;
+  }
+
+
+  .recycle-bin-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-light);
+  }
+
+  #editableTitle {
+    outline: none;
+    border: none;
+    background: transparent;
+    cursor: text;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    font-size: 24px;
+    font-weight: bold;
+    user-select: text;
+  }
+
+
+  .main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 24px 20px 24px;
+  }
+
+  .content-body {
+    flex-grow: 1;
+  }
+
+  .event-title-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 21px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .event-title-header h1 {
+    font-size: 26px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .notification-toggle {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  .event-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 21px 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .event-time {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+  }
+
+  .event-time:hover {
+    background-color: #f0f0f0;
+  }
+
+  .event-time img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .dropdown-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .each-week-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 500;
+    background: white;
+    cursor: pointer;
+  }
+
+  .dropdown-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+    background-color: white;
+    border: 1px solid #ccc;
+    min-width: 150px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    padding: 5px 0;
+  }
+
+  .dropdown-options div {
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+
+  .dropdown-options div:hover {
+    background-color: #f0f0f0;
+  }
+
+  .custom-day-input {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    border-top: 1px solid #ccc;
+  }
+
+  .custom-day-input input {
+    width: 50px;
+    padding: 4px;
+  }
+
+  .custom-day-input button {
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .date-created {
+    margin-left: auto;
+    font-size: 16px;
+    font-weight: 275;
+  }
+
+  .event-sharing {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 21px 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .share-search-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #ece6f0;
+    padding: 11px 16px;
+    border-radius: 28px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #49454f;
+  }
+
+  .avatar, .avatar-overflow {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    border: 2px solid var(--background-light);
+  }
+  
+  .avatar:not(:first-child), .avatar-overflow:not(:first-child) {
+    margin-left: -8px;
+  }
+
+  .avatar {
+    background-color: var(--avatar-bg);
+    color: var(--avatar-text);
+  }
+
+  .avatar-overflow {
+    background-color: #f5f5f5;
+    color: #757575;
+  }
+
+  .event-details-section {
+    padding-top: 21px;
+  }
+
+  .event-details-section h2 {
+    font-size: 26px;
+    font-weight: 600;
+    margin: 0 0 13px 0;
+  }
+
+  .event-details-textarea {
+    width: 100%;
+    height: 525px;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    resize: vertical; /* Cho phép kéo chiều cao */
+    font-family: inherit;
+  }
+
+
+  .content-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    margin-top: auto; /* Pushes footer to the bottom */
+  }
+
+  .delete-btn {
+    font-size: 20px;
+    font-weight: 275;
+    color: var(--text-dark);
+  }
+
+  .save-btn {
+    font-size: 22px;
+    font-weight: 700;
+    color: #4e3f77;
+  }
+
+  @media (max-width: 1200px) {
+    .event-meta {
+      flex-wrap: wrap;
+    }
+    .date-created {
+      margin-left: 0;
+      width: 100%;
+      text-align: right;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .event-view-wrapper {
+      flex-direction: column;
+    }
+    .sidebar {
+      width: 100%;
+      border-right: none;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .main-content {
+      padding: 20px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header-container {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .site-header {
+      height: auto;
+      padding: 10px;
+    }
+    .logo img {
+      width: 80px;
+      height: 80px;
+      margin-top: 0;
+    }
+    .main-nav ul {
+      gap: 20px;
+    }
+    .main-nav a, .profile-name {
+      font-size: 16px;
+    }
+    .profile-section {
+      align-self: flex-end;
+    }
+    .event-meta, .event-sharing {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .date-created {
+      text-align: left;
+    }
+  }
+  #eventTimePicker {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #floatingDropdown {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    display: none;
+    font-family: sans-serif;
+  }
+
+  #floatingDropdown h3 {
+    margin-top: 0;
+  }
+
+  #floatingDropdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+  }
+
+  #floatingDropdown li {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+  }
+
+  #floatingDropdown input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+
+  #floatingDropdown .close-btn {
+    position: absolute;
+    top: 17px;
+    right: 22px;
+    background: none;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+  }
+
+  </style>
+  <script src="global.js" defer></script>
+</head>
+<body>
+<section id="section-header">
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="../../home/index.html" class="logo">
+        <img src="images/24489db95d7c8b23ff71ea38f01643e97c6a9ede.png" alt="Lucenda Logo" class="logo-img">
+      </a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="../../home/index.html">Home</a></li>
+          <li><a href="#">Event</a></li>
+          <li><a href="../../calendar/day-view/index.html">Calendar</a></li>
+          <li><a href="../../aboutus/">About us</a></li>
+        </ul>
+      </nav>
+      <div class="profile-section">
+        <a href="../../profile/index.html">
+          <span class="profile-name">Login/Signup</span>
+          <img src="images/299_23747.svg" alt="User avatar" class="profile-avatar">
+        </a>
+      </div>
+    </div>
+  </header>
+</section>
+<div class="event-view-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-top">
+    <div class="calendar-widget">
+      <div class="calendar-header">
+        <img src="images/38_56003.svg" alt="Calendar icon">
+        <h2 id="month-name">Month <span class="year">Year</span></h2>
+      </div>
+      <div class="calendar-grid">
+        <div class="day-name">m</div>
+        <div class="day-name">t</div>
+        <div class="day-name">w</div>
+        <div class="day-name">t</div>
+        <div class="day-name">f</div>
+        <div class="day-name">s</div>
+        <div class="day-name">s</div>
+        <!-- Dates will be inserted by JS -->
+      </div>
+    </div>
+      <div class="events-section">
+        <div class="events-header">
+          <div class="events-title">
+            <img src="images/38_55997.svg" alt="List icon">
+            <h3>Events</h3>
+          </div>
+          <button class="new-event-btn">
+            <span>New event</span>
+            <img src="images/I38_56315_2_85399.svg" alt="Add icon">
+          </button>
+        </div>
+          <ul class="event-list scrollable">
+            <li class="clickable"><span class="dot" style="background-color: #4CAF50;"></span> Daily Day by Aurora</li>
+            <li class="clickable"><span class="dot" style="background-color: #F44336;"></span> Budget Review by me</li>
+            <li class="clickable"><span class="dot" style="background-color: #FFC107;"></span> Sasha Jay 121 by Aurora</li>
+            <li class="clickable"><span class="dot" style="background-color: #9C27B0;"></span> Web Team Progress Update by me</li>
+            <li class="clickable"><span class="dot" style="background-color: #3F51B5;"></span> Social team briefing by Beeth</li>
+            <li class="clickable active"><span class="dot" style="background-color: var(--text-white);"></span> Social team briefing by Beeth</li>
+            <li class="clickable"><span class="dot" style="background-color: #4CAF50;"></span> Daily Day by Aurora</li>
+            <li class="clickable"><span class="dot" style="background-color: #F44336;"></span> Budget Review by me</li>
+            <li class="clickable"><span class="dot" style="background-color: #FFC107;"></span> Sasha Jay 121 by Aurora</li>
+            <li class="clickable"><span class="dot" style="background-color: #9C27B0;"></span> Web Team Progress Update by me</li>
+            <li class="clickable"><span class="dot" style="background-color: #3F51B5;"></span> Social team briefing by Beeth</li>
+            <li class="clickable"><span class="dot" style="background-color: #4CAF50;"></span> Daily Day by Aurora</li>
+            <li class="clickable"><span class="dot" style="background-color: #F44336;"></span> Budget Review by me</li>
+            <li class="clickable"><span class="dot" style="background-color: #FFC107;"></span> Sasha Jay 121 by Aurora</li>
+            <li class="clickable"><span class="dot" style="background-color: #9C27B0;"></span> Web Team Progress Update by me</li>
+            <li class="clickable"><span class="dot" style="background-color: #3F51B5;"></span> Social team briefing by Beeth</li>
+          </ul>
+
+      </div>
+    </div>
+    <div class="sidebar-bottom">
+      <a href="../recyelce-bin-event/index.html" class="recycle-bin-link">
+        <img src="images/38_55975.svg" alt="Trash can icon">
+        <span>Recycle Bin</span>
+      </a>
+    </div>
+  </aside>
+  <main class="main-content">
+    <div class="content-body">
+      <div class="event-title-header">
+        <h1 id="editableTitle" contenteditable="true">Tittle can be eddited</h1>
+        <div class="notification-toggle">
+          <a href="">
+            <img src="images/185_24914.svg" alt="Notification bell">
+          </a>
+          <span>Enable</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <!-- Thẻ giống như button để chọn ngày giờ -->
+        <button class="event-time" id="eventTimeBtn">
+          <img src="images/38_56434.svg" alt="Clock icon">
+          <span id="eventTimeText">August 13, 2025 at 2:10 AM</span>
+        </button>
+
+        <!-- Input chọn ngày giờ, sẽ bị ẩn đi -->
+        <input type="datetime-local" id="eventTimePicker" style="display: none;">
+
+        <div class="dropdown-container">
+          <button class="each-week-btn" onclick="toggleDropdown()">
+            <span id="selected-option">Each Week</span>
+            <img src="images/I40_129276_2_85414.svg" alt="Dropdown arrow">
+          </button>
+          <div id="dropdown" class="dropdown-options">
+            <div onclick="selectOption('Each Day')">Each Day</div>
+            <div onclick="selectOption('Each Week')">Each Week</div>
+            <div onclick="selectOption('Each Month')">Each Month</div>
+            <div onclick="selectOption('Each Year')">Each Year</div>
+            <div class="custom-day-input">
+              <label for="dayInput">Each</label>
+              <input type="number" id="dayInput" min="1" max="1000" placeholder="days" />
+              <button onclick="applyCustomDays()">Apply</button>
+            </div>
+          </div>
+        </div>
+
+        <span class="date-created">Date Created: 31/7/2025</span>
+      </div>
+      <div class="event-sharing">
+        <div class="share-search-bar" onclick="toggleFloatingDropdown()">
+          <img src="images/I186_23756_52977_33950_57994_10133_57994_9720.svg" alt="Share icon">
+          <span>Event shared with...&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </div>
+      </div>
+      <div class="event-details-section">
+        <h2>Event Detail</h2>
+        <textarea class="event-details-textarea" placeholder="Write detail of the event..."></textarea>
+        <br>
+        <br>
+      </div>
+    </div>
+    <footer class="content-footer">
+      <button class="delete-btn">Delete</button>
+      <button class="save-btn">Save</button>
+    </footer>
+  </main>
+</div>
+</body>
+<script>
+  function toggleDropdown() {
+    const dropdown = document.getElementById("dropdown");
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+  }
+
+  function selectOption(option) {
+    document.getElementById("selected-option").innerText = option;
+    document.getElementById("dropdown").style.display = "none";
+  }
+
+  function applyCustomDays() {
+    const input = document.getElementById("dayInput");
+    const value = parseInt(input.value);
+    if (!isNaN(value) && value >= 1 && value <= 1000) {
+      selectOption(`Each ${value} days`);
+    } else {
+      alert("Please enter a number between 1 and 1000.");
+    }
+  }
+
+  // Optional: Hide dropdown if clicked outside
+  window.addEventListener("click", function(e) {
+    const dropdown = document.getElementById("dropdown");
+    const button = document.querySelector(".each-week-btn");
+    if (!dropdown.contains(e.target) && !button.contains(e.target)) {
+      dropdown.style.display = "none";
+    }
+  });
+
+  // Calendar generation script
+  function generateCalendar() {
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth();
+    const currentDate = today.getDate();
+
+    const monthNames = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+
+    const monthTitle = document.getElementById("month-name");
+    monthTitle.innerHTML = `${monthNames[currentMonth]} <span class="year">${currentYear}</span>`;
+
+    const firstDay = new Date(currentYear, currentMonth, 1);
+    const startDay = (firstDay.getDay() + 6) % 7; // Monday = 0
+    const lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+    const prevLastDate = new Date(currentYear, currentMonth, 0).getDate();
+
+    const calendarGrid = document.querySelector(".calendar-grid");
+
+    // Xóa các ngày cũ
+    document.querySelectorAll(".date-num").forEach(el => el.remove());
+
+    // Tổng cộng 35 ô
+    for (let i = 0; i < 35; i++) {
+      const dateEl = document.createElement("div");
+      dateEl.classList.add("date-num");
+
+      const dateNum = i - startDay + 1;
+
+      if (i < startDay) {
+        // Ngày của tháng trước
+        dateEl.textContent = prevLastDate - (startDay - i - 1);
+        dateEl.classList.add("dimmed");
+      } else if (dateNum > lastDate) {
+        // Ngày của tháng sau
+        dateEl.textContent = String(dateNum - lastDate).padStart(2, '0');
+        dateEl.classList.add("dimmed");
+      } else {
+        // Ngày của tháng hiện tại
+        dateEl.textContent = String(dateNum).padStart(2, '0');
+        if (dateNum === currentDate) {
+          dateEl.classList.add("today");
+        }
+      }
+
+      calendarGrid.appendChild(dateEl);
+    }
+  }
+
+  generateCalendar();
+
+  // Editable title functionality
+    const editableTitle = document.getElementById("editableTitle");
+  const maxLength = 50;
+
+  editableTitle.addEventListener("input", function () {
+    if (this.innerText.length > maxLength) {
+      this.innerText = this.innerText.slice(0, maxLength);
+
+      // Đặt lại con trỏ về cuối
+      const range = document.createRange();
+      const sel = window.getSelection();
+      range.selectNodeContents(this);
+      range.collapse(false);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+  });
+
+  editableTitle.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      e.preventDefault(); // Chặn xuống dòng
+    }
+  });
+
+  // Chỉnh lịch tới của sự kiện
+  const eventTimeBtn = document.getElementById("eventTimeBtn");
+  const eventTimeText = document.getElementById("eventTimeText");
+  const eventTimePicker = document.getElementById("eventTimePicker");
+
+  eventTimeBtn.addEventListener("click", () => {
+    eventTimePicker.showPicker(); // Mở bộ chọn ngày giờ trên trình duyệt
+  });
+
+  eventTimePicker.addEventListener("change", () => {
+    const value = eventTimePicker.value;
+    if (value) {
+      const date = new Date(value);
+      const options = {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      };
+      const formatted = date.toLocaleString('en-US', options);
+      eventTimeText.textContent = formatted;
+    }
+  });
+
+  // Dropdown của phần shared event
+  const sharedUsers = ["Aurora", "Beeth", "Char"];
+
+  function toggleFloatingDropdown() {
+    let dropdown = document.getElementById("floatingDropdown");
+
+    if (!dropdown) {
+      dropdown = document.createElement("div");
+      dropdown.id = "floatingDropdown";
+      dropdown.innerHTML = `
+        <button class="close-btn" onclick="toggleFloatingDropdown()">×</button>
+        <h3>Event shared with</h3>
+        <ul id="sharedList"></ul>
+        <input type="text" id="newUserInput" placeholder="Enter new id user..." />
+      `;
+      document.body.appendChild(dropdown);
+
+      const input = dropdown.querySelector("#newUserInput");
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          const name = input.value.trim();
+          if (name) {
+            sharedUsers.push(name);
+            input.value = "";
+            renderSharedUsers();
+          }
+        }
+      });
+    }
+
+    const isVisible = dropdown.style.display === "block";
+    dropdown.style.display = isVisible ? "none" : "block";
+
+    if (!isVisible) renderSharedUsers();
+  }
+
+  function renderSharedUsers() {
+    const list = document.getElementById("sharedList");
+    list.innerHTML = "";
+    sharedUsers.forEach((user, index) => {
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <span>${user}</span>
+        <button onclick="removeUser(${index})">❌</button>
+      `;
+      list.appendChild(li);
+    });
+  }
+
+  function removeUser(index) {
+    sharedUsers.splice(index, 1);
+    renderSharedUsers();
+  }
+
+  // Chuyển giữa các sự kiện
+  document.querySelectorAll(".event-list li").forEach(item => {
+    item.addEventListener("click", () => {
+      // Xóa class active khỏi tất cả item
+      document.querySelectorAll(".event-list li").forEach(li => li.classList.remove("active"));
+      
+      // Gán active vào item được nhấn
+      item.classList.add("active");
+    });
+  });
+
+  // Thêm sự kiện
+  const eventList = document.querySelector(".event-list");
+  const newEventBtn = document.querySelector(".new-event-btn");
+
+  newEventBtn.addEventListener("click", () => {
+    const newEventName = prompt("Nhập tên sự kiện mới:");
+    if (!newEventName) return;
+
+    // Màu ngẫu nhiên cho chấm màu
+    const colors = ["#4CAF50", "#F44336", "#FFC107", "#9C27B0", "#3F51B5"];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+    // Tạo thẻ li mới
+    const newLi = document.createElement("li");
+    newLi.classList.add("clickable");
+    newLi.innerHTML = `<span class="dot" style="background-color: ${randomColor};"></span> ${newEventName}`;
+
+    // Gắn sự kiện click để chuyển active
+    newLi.addEventListener("click", () => {
+      document.querySelectorAll(".event-list li").forEach(li => li.classList.remove("active"));
+      newLi.classList.add("active");
+    });
+
+    // Thêm vào danh sách
+    eventList.appendChild(newLi);
+  });
+
+  // Đảm bảo các sự kiện ban đầu có thể nhấn được
+  document.querySelectorAll(".event-list li").forEach(item => {
+    item.addEventListener("click", () => {
+      document.querySelectorAll(".event-list li").forEach(li => li.classList.remove("active"));
+      item.classList.add("active");
+    });
+  });
+
+  // Xóa sự kiện
+  const deleteBtn = document.querySelector(".delete-btn");
+
+  deleteBtn.addEventListener("click", () => {
+    const activeItem = document.querySelector(".event-list li.active");
+    if (!activeItem) return;
+
+    const parent = activeItem.parentElement;
+    activeItem.remove();
+
+    // Tìm item đầu tiên còn lại và đặt làm active
+    const remainingItems = parent.querySelectorAll("li");
+    if (remainingItems.length > 0) {
+      remainingItems[0].classList.add("active");
+    }
+  });
+
+  </script>
+
+</html>

@@ -1,0 +1,78 @@
+:root {
+  --color-white: #ffffff;
+  --color-primary-bg: #8f52d1;
+  --color-secondary-bg: #debdfd;
+  --color-fab: #4629f2;
+  --color-button: rgba(53, 127, 212, 0.7);
+  --font-main: 'Poppins', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-white);
+  color: var(--color-white);
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 42px;
+  padding-right: 42px;
+}
+
+.mobile-nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+@media (max-width: 992px) {
+    .site-header .main-nav, .site-header .profile {
+        display: none;
+    }
+    .mobile-nav-toggle {
+        display: block;
+    }
+    .hero-section .container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .hero-content {
+        align-items: center;
+    }
+    .hero-actions {
+        justify-content: center;
+    }
+    .hero-image {
+        margin-top: 40px;
+    }
+    .site-footer .container {
+        flex-direction: column;
+        gap: 20px;
+    }
+}

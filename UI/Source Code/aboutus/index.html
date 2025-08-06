@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Lucenda</title>
+  <link rel="icon" type="image/png" href="../images/logo.svg">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us - Lucenda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="global.css">
+  <style id="sections-styles">
+/* CSS for section section:header */
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background: linear-gradient(to left, rgba(220, 140, 216, 0.96), rgba(232, 150, 249, 0.96));
+  height: var(--header-height);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  left: 20px;
+  top: -27px; /* Hangs off the top based on Figma coordinates */
+  width: 129px;
+  height: 129px;
+  z-index: 11;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.main-nav {
+  flex-grow: 1;
+  margin-left: 165px; /* Space for the absolute positioned logo */
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 40px;
+}
+
+.main-nav a {
+  /* style_27 */
+  font-size: 20px;
+  font-weight: 500;
+  /* NOTE: Text color from JSON is #ffffff, which has poor contrast on the light header background. Using a darker color for visibility based on the image. */
+  color: #1f1f1f;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+}
+
+.profile-section a {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* khoảng cách giữa chữ và ảnh */
+  text-decoration: none;
+  color: inherit;
+}
+
+.profile-name {
+  /* style_26 */
+  font-size: 20px;
+  font-weight: 500;
+  /* NOTE: Text color from JSON is #ffffff. Using a darker color for visibility. */
+  color: #1f1f1f;
+}
+
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* style_25 */
+}
+
+.mobile-nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 12;
+}
+
+.mobile-nav-toggle .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #1f1f1f;
+}
+
+/* Responsive Header */
+@media (max-width: 1024px) {
+  .main-nav {
+    margin-left: 180px;
+  }
+  .main-nav ul {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 880px) {
+  .main-nav, .profile-section {
+    display: none; /* Hide for mobile, to be handled by JS */
+  }
+  .mobile-nav-toggle {
+    display: block;
+  }
+  .header-container {
+    justify-content: flex-end;
+  }
+  .logo {
+    left: 30px;
+    width: 100px;
+    height: 100px;
+    top: -10px;
+  }
+}
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background: linear-gradient(to left, rgba(220, 140, 216, 0.96), rgba(232, 150, 249, 0.96));
+  height: var(--header-height);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  left: 20px;
+  top: -27px; /* Hangs off the top based on Figma coordinates */
+  width: 129px;
+  height: 129px;
+  z-index: 11;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.main-nav {
+  flex-grow: 1;
+  margin-left: 165px; /* Space for the absolute positioned logo */
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 40px;
+}
+
+.main-nav a {
+  /* style_27 */
+  font-size: 20px;
+  font-weight: 500;
+  /* NOTE: Text color from JSON is #ffffff, which has poor contrast on the light header background. Using a darker color for visibility based on the image. */
+  color: #1f1f1f;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+}
+
+.profile-section a {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* khoảng cách giữa chữ và ảnh */
+  text-decoration: none;
+  color: inherit;
+}
+
+.profile-name {
+  /* style_26 */
+  font-size: 20px;
+  font-weight: 500;
+  /* NOTE: Text color from JSON is #ffffff. Using a darker color for visibility. */
+  color: #1f1f1f;
+}
+
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* style_25 */
+}
+
+.mobile-nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 12;
+}
+
+.mobile-nav-toggle .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #1f1f1f;
+}
+
+/* Responsive Header */
+@media (max-width: 1024px) {
+  .main-nav {
+    margin-left: 180px;
+  }
+  .main-nav ul {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 880px) {
+  .main-nav, .profile-section {
+    display: none; /* Hide for mobile, to be handled by JS */
+  }
+  .mobile-nav-toggle {
+    display: block;
+  }
+  .header-container {
+    justify-content: flex-end;
+  }
+  .logo {
+    left: 30px;
+    width: 100px;
+    height: 100px;
+    top: -10px;
+  }
+}
+
+/* CSS for section section:hero */
+.hero-section {
+  background-color: var(--color-bg-medium);
+  padding: 80px 40px;
+  text-align: center;
+  margin-top: 60px;
+}
+
+.hero-content {
+  max-width: 959px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  color: var(--color-text-light);
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 54px;
+  margin: 0 0 33px 0; /* (3317px - (3223px + 61px)) */
+}
+
+.hero-subtitle {
+  color: var(--color-text-light);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 60px 20px;
+  }
+  .hero-title {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  .hero-subtitle {
+    font-size: 18px;
+  }
+}
+
+/* CSS for section section:features */
+.team-section {
+  padding: 67px 20px 100px; /* Top: 3519 - (3193+259), Bottom: 4074 - (3874+100) */
+  background-color: var(--color-bg-white);
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 480px));
+  justify-content: center;
+  row-gap: 80px; /* 3704 - 3519 */
+  column-gap: 202px; /* 4912 - (4230 + 480) */
+  max-width: 1162px;
+  margin: 0 auto;
+}
+
+.team-member {
+  display: flex;
+  align-items: center;
+  gap: 50px; /* 4380 - (4230 + 100) */
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+}
+
+.member-info {
+  color: var(--color-text-dark);
+}
+
+.member-name,
+.member-role {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.5; /* 30px / 20px */
+  margin: 0;
+}
+
+.team-member-centered {
+  grid-column: 1 / -1;
+  justify-self: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .team-grid {
+    column-gap: 100px;
+    row-gap: 100px;
+    grid-template-columns: repeat(2, minmax(0, 400px));
+  }
+}
+
+@media (max-width: 992px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+    row-gap: 60px;
+    max-width: 400px;
+  }
+  .team-member {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-member {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+}
+
+/* CSS for section section:footer */
+.site-footer {
+  /* style_15 */
+  background-color: #ae76e2;
+  /* style_14 */
+  opacity: 0.96;
+  height: var(--footer-height);
+  display: flex;
+  align-items: center;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  /* style_16 */
+  opacity: 0.6;
+}
+
+.footer-contact {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  /* Đảm bảo nằm sát bên trái */
+  justify-content: flex-start;
+  margin-left: 0;
+  padding-left: 0px; /* Tuỳ chọn: tạo khoảng cách bên trong */
+}
+
+.footer-contact span {
+  /* style_20 */
+  font-weight: 500;
+  font-size: 14px;
+  /* NOTE: Text color from JSON is #ffffff, which has poor contrast on the light footer background. Using a darker color for visibility. */
+  color: #1f1f1f;
+}
+
+.footer-contact img {
+  width: 25px;
+  height: 25px;
+}
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 42px;
+}
+
+.footer-social a {
+  transition: transform 0.2s ease;
+}
+
+.footer-social a:hover {
+  transform: scale(1.2);
+}
+
+.footer-social img {
+  width: 25px;
+  height: 25px;
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+  .site-footer {
+    height: auto;
+    padding: 20px 0;
+  }
+  .footer-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+  </style>
+  <script src="global.js" defer></script>
+</head>
+<body>
+<section id="section-header">
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="../home/index.html" class="logo">
+        <img src="images/24489db95d7c8b23ff71ea38f01643e97c6a9ede.png" alt="Lucenda Logo" class="logo-img">
+      </a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="../home/index.html">Home</a></li>
+          <li><a href="../event/main-event/index.html">Event</a></li>
+          <li><a href="../calendar/day-view/index.html">Calendar</a></li>
+          <li><a href="../aboutus/">About us</a></li>
+        </ul>
+      </nav>
+      <div class="profile-section">
+        <a href="../profile/index.html">
+          <span class="profile-name">Login/Signup</span>
+          <img src="images/299_23819.svg" alt="User avatar" class="profile-avatar">
+        </a>
+      </div>
+    </div>
+  </header>
+</section>
+<section id="section-hero" class="hero-section">
+    <div class="hero-content">
+        <h1 class="hero-title">About us</h1>
+        <p class="hero-subtitle">Lucenda is a personal schedule and task management website created by a team of five university students, dedicated to helping individuals organize their time more efficiently and live more productive lives.</p>
+    </div>
+</section>
+<section id="section-features" class="team-section">
+    <div class="team-grid">
+        <div class="team-member">
+            <img src="images/109_24312.svg" alt="Avatar of Nguyen Tran Minh Tuan" class="avatar">
+            <div class="member-info">
+                <p class="member-name">Nguyen Tran Minh Tuan</p>
+                <p class="member-role">Lead Team</p>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="images/109_24306.svg" alt="Avatar of Nguyen Ho Anh Quoc" class="avatar">
+            <div class="member-info">
+                <p class="member-name">Nguyen Ho Anh Quoc</p>
+                <p class="member-role">Back-end Developer</p>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="images/109_24309.svg" alt="Avatar of Le Nhut Huy" class="avatar">
+            <div class="member-info">
+                <p class="member-name">Le Nhut Huy</p>
+                <p class="member-role">Front-end Developer</p>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="images/109_24303.svg" alt="Avatar of Phan Quang Minh" class="avatar">
+            <div class="member-info">
+                <p class="member-name">Phan Quang Minh</p>
+                <p class="member-role">UI/UX Designer</p>
+            </div>
+        </div>
+        <div class="team-member team-member-centered">
+            <img src="images/109_24300.svg" alt="Avatar of Tran Quoc Viet" class="avatar">
+            <div class="member-info">
+                <p class="member-name">Tran Quoc Viet</p>
+                <p class="member-role">Database Designer</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="section-footer">
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-contact">
+        <img src="images/109_23987.svg" alt="Phone icon">
+        <span>+84 912 991 873</span>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/" aria-label="Facebook"><img src="images/109_23982.svg" alt="Facebook"></a>
+        <a href="mailto:dai.isu152@gmail.com" aria-label="Mail"><img src="images/109_23984.svg" alt="Mail"></a>
+        <a href="https://github.com/MinhQuang02/Lucenda/tree/main" aria-label="Github"><img src="images/109_23983.svg" alt="Github"></a>
+      </div>
+    </div>
+  </footer>
+</section>
+</body>
+</html>

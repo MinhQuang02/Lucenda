@@ -1,0 +1,5 @@
+Date Created: 30/7/2025
+
+Bản chỉnh sửa 1: 31/7/2025 (Phan Quang Minh)
+    +) Tạo script database. Bao gồm tạo database, tạo bảng, các dữ liệu kiểm thử và các câu lệnh truy vấn cơ bản.
+    +) Hoàn thành khung database và có thể cập nhập các câu truy vấn sau.

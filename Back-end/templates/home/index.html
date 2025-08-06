@@ -1,0 +1,241 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Lucenda</title>
+  <link rel="icon" type="image/png" href="{% static 'home/images/logo.png' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'home/global.css' %}">
+  <style id="sections-styles">
+/* CSS for section section:header */
+#header-section {
+  background-color: var(--color-primary-bg);
+  opacity: 0.96;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}
+.site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 86px;
+}
+.logo {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 48px;
+}
+.main-nav ul {
+  display: flex;
+  gap: 35px;
+}
+.main-nav a {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+}
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.profile-name {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+}
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #eaddff;
+}
+
+/* CSS for section section:hero */
+#hero-section {
+  position: relative;
+  min-height: 785px;
+  padding-top: 86px; /* Header height */
+  display: flex;
+  align-items: center;
+  background-image: linear-gradient(210deg, rgba(209, 243, 255, 0.04) 0%, rgba(142, 203, 227, 0.05) 57.7%, rgba(75, 163, 199, 0.04) 115.41%), url('{% static "home/images/89cdc85296721c37693ff2cf7b6b64dc02929362.png" %}');
+  background-size: cover;
+  background-position: center;
+}
+#hero-section .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.hero-content {
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.hero-title {
+  font-weight: 900;
+  font-size: 48px;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+.hero-subtitle {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  max-width: 625px;
+  margin-bottom: 59px;
+}
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+.btn {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+}
+.btn-primary {
+  background-color: var(--color-button);
+  padding: 15px 27px;
+  border-radius: 3px;
+  gap: 4px;
+}
+.btn-secondary {
+  gap: 14px;
+}
+.hero-image {
+  flex-shrink: 0;
+}
+.hero-image img {
+    width: 705px;
+}
+.fab {
+  position: absolute;
+  right: 43px;
+  bottom: 102px;
+  width: 80px;
+  height: 80px;
+  background-color: var(--color-fab);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 30px 60px 0px rgba(70, 41, 242, 0.43);
+}
+.fab img {
+  width: 24px;
+  height: 24px;
+}
+
+/* CSS for section section:footer */
+#footer-section {
+  position: relative;
+}
+.site-footer {
+  background-color: var(--color-secondary-bg);
+  opacity: 0.96;
+  padding: 18px 0;
+}
+.site-footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.contact-info, .social-links {
+  display: flex;
+  align-items: center;
+  opacity: 0.6;
+}
+.contact-info {
+  gap: 20px;
+}
+.contact-info span {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+}
+.social-links {
+  gap: 67px;
+}
+.social-links img {
+  width: 25px;
+  height: 25px;
+}
+  </style>
+  <script src="{% static 'home/global.js' %}" defer></script>
+</head>
+<body>
+<section id="header-section">
+  <header class="site-header">
+    <div class="container">
+      <a href="#" class="logo">Lucenda</a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'event_main' %}">Event</a></li>
+          <li><a href="{% url 'calendar' %}">Calendar</a></li>
+          <li><a href="{% url 'about' %}">About us</a></li>
+        </ul>
+      </nav>
+      <div class="profile">
+        <a href="{% url 'profile' %}" class="user-profile-link">
+          <span class="profile-name">{{ request.session.username }}</span>
+          <img src="{% static 'home/images/109_23730.svg' %}" alt="User avatar" class="profile-avatar">
+        </a>
+      </div>
+    </div>
+  </header>
+</section>
+<section id="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="hero-title">Master Your Time, Own Your Life</h1>
+      <p class="hero-subtitle">Stay on top of your schedule with a smart personal time manager designed to boost productivity and simplify your life.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-primary">
+          <span>New event</span>
+          <img src="{% static 'home/images/I38_55693_2_85399.svg' %}" alt="Add new event icon">
+        </a>
+        <a href="#" class="btn btn-secondary">
+          <img src="{% static 'home/images/38_55714.svg' %}" alt="Play icon">
+          <span>Watch Calendars</span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="{% static 'home/images/45b23ce33e28629ee6d4fab80d3bee2bdc36a0ad.png' %}" alt="Illustration of people relaxing and working around a giant clock">
+    </div>
+  </div>
+  <a href="#" class="fab">
+    <img src="{% static 'home/images/185_23625.svg' %}" alt="Chat icon">
+  </a>
+</section>
+<section id="footer-section">
+  <footer class="site-footer">
+    <div class="container">
+      <div class="contact-info">
+        <img src="{% static 'home/images/32_23178.svg' %}" alt="Phone icon">
+        <span>+84 912 991 873</span>
+      </div>
+      <div class="social-links">
+        <a href="#" aria-label="Facebook"><img src="{% static 'home/images/32_23173.svg' %}" alt="Facebook"></a>
+        <a href="#" aria-label="Mail"><img src="{% static 'home/images/32_23175.svg' %}" alt="Mail"></a>
+        <a href="#" aria-label="Github"><img src="{% static 'home/images/32_23174.svg' %}" alt="Github"></a>
+      </div>
+    </div>
+  </footer>
+</section>
+</body>
+</html>

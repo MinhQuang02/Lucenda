@@ -1,0 +1,36 @@
+:root {
+  --primary-bg: #ffffff;
+  --header-bg: #8f52d1;
+  --footer-bg: #debdfd;
+  --avatar-bg: #eaddff;
+  --text-dark: #3c1e59;
+  --text-light: #8e7a9e;
+  --text-on-dark-bg: #ffffff;
+  --brand-color: #ffffff;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--primary-bg);
+  color: var(--text-dark);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.container {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
