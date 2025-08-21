@@ -5,237 +5,900 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home - Lucenda</title>
-  <link rel="icon" type="image/png" href="{% static 'home/images/logo.png' %}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="{% static 'images/logo.svg' %}">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucenda - Master Your Time</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'home/global.css' %}">
   <style id="sections-styles">
 /* CSS for section section:header */
-#header-section {
-  background-color: var(--color-primary-bg);
-  opacity: 0.96;
+.site-header {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 10;
+  background: linear-gradient(to left, rgba(220, 140, 216, 0.96), rgba(232, 150, 249, 0.96));
+  height: var(--header-height);
 }
-.site-header .container {
+
+.header-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  height: 86px;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
 }
+
 .logo {
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 48px;
+  position: absolute;
+  left: 20px;
+  top: -27px;
+  width: 129px;
+  height: 129px;
+  z-index: 11;
 }
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+  transform-origin: center center; /* phóng từ giữa ảnh */
+  cursor: pointer;
+}
+
+.logo img:hover {
+  transform: scale(1.05); /* phóng to ra ngoài, không bị cắt */
+}
+
+.main-nav {
+  flex-grow: 1;
+  margin-left: 165px; /* Space for the absolute positioned logo */
+}
+
 .main-nav ul {
   display: flex;
-  gap: 35px;
+  gap: 40px;
 }
+
 .main-nav a {
+  font-size: 18px;
   font-weight: 500;
-  font-size: 20px;
-  line-height: 30px;
+  color: #1f1f1f; /* chữ trắng tím nhạt */
+  position: relative;
+  transition: color 0.3s ease;
 }
-.profile {
+
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: #b62db6ff;
+  transition: width 0.3s ease;
+}
+
+.main-nav a:hover {
+  color: #b62db6ff; /* tím nhạt sáng hơn khi hover */
+}
+
+.main-nav a:hover::after {
+  width: 100%; /* gạch chân tím khi hover */
+}
+
+.profile-section a {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
+  text-decoration: none;
+  color: #1f1f1f;
+  transition: color 0.3s ease, transform 0.2s ease;
 }
+
+.profile-section a:hover {
+  color: #b62db6ff;
+  transform: translateY(-1px); /* nổi nhẹ khi hover */
+}
+
 .profile-name {
+  font-size: 18px;
   font-weight: 500;
-  font-size: 20px;
-  line-height: 30px;
 }
+
 .profile-avatar {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  background-color: #eaddff;
+  background: #b62db6ff;
+  padding: 2px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.profile-avatar:hover {
+  transform: scale(1.1);
+}
+
+.mobile-nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 12;
+}
+
+.mobile-nav-toggle .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #1f1f1f;
+}
+
+/* Responsive Header */
+@media (max-width: 1024px) {
+  .main-nav {
+    margin-left: 180px;
+  }
+  .main-nav ul {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 880px) {
+  .main-nav, .profile-section {
+    display: none; /* Hide for mobile, to be handled by JS */
+  }
+  .mobile-nav-toggle {
+    display: block;
+  }
+  .header-container {
+    justify-content: flex-end;
+  }
+  .logo {
+    left: 30px;
+    width: 100px;
+    height: 100px;
+    top: -10px;
+  }
 }
 
 /* CSS for section section:hero */
-#hero-section {
+.hero-section {
   position: relative;
-  min-height: 785px;
-  padding-top: 86px; /* Header height */
-  display: flex;
-  align-items: center;
-  background-image: linear-gradient(210deg, rgba(209, 243, 255, 0.04) 0%, rgba(142, 203, 227, 0.05) 57.7%, rgba(75, 163, 199, 0.04) 115.41%), url('{% static "home/images/89cdc85296721c37693ff2cf7b6b64dc02929362.png" %}');
+  /* style_3: background gradient and image */
+  background: linear-gradient(210deg, rgba(209, 243, 255, 0.04) 0%, rgba(142, 203, 227, 0.05) 57.7%, rgba(75, 163, 199, 0.04) 115.41%), url('{% static 'home/images/89cdc85296721c37693ff2cf7b6b64dc02929362.png' %}');
   background-size: cover;
   background-position: center;
-}
-#hero-section .container {
+  min-height: 785px;
+  padding-top: var(--header-height);
+  box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 20px;
 }
-.hero-content {
-  max-width: 640px;
+
+.hero-container {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  gap: 40px;
 }
+
+.hero-content {
+  flex: 1 1 50%;
+  max-width: 640px;
+}
+
 .hero-title {
-  font-weight: 900;
-  font-size: 48px;
-  line-height: 1.5;
-  margin-bottom: 18px;
+  font-size: 3rem;
+  font-weight: bold;
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.7) 0%,
+    #ffffff 50%,
+    rgba(255,255,255,0.7) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% auto;
+  animation: shimmer 4s linear infinite;
 }
+
 .hero-subtitle {
+  /* style_5 */
   font-weight: 500;
   font-size: 16px;
   line-height: 1.5;
+  color: #ffffff;
   max-width: 625px;
-  margin-bottom: 59px;
+  margin-bottom: 40px;
 }
+
 .hero-actions {
   display: flex;
   align-items: center;
-  gap: 34px;
+  gap: 30px;
 }
+
 .btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
   font-weight: 500;
   font-size: 16px;
-  line-height: 24px;
+  color: #ffffff;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s ease;
 }
+.btn:hover {
+  transform: scale(1.05);
+}
+
 .btn-primary {
-  background-color: var(--color-button);
-  padding: 15px 27px;
-  border-radius: 3px;
-  gap: 4px;
+  background: linear-gradient(135deg, #8c35d4ff, #cc78dcff);
+  color: #fff;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 8px;
 }
-.btn-secondary {
+
+.btn-primary img {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-watch {
   gap: 14px;
 }
+
+.btn-watch {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none; /* (tuỳ chọn) bỏ gạch chân cho <a> */
+  color: white;           /* (tuỳ chọn) đổi màu chữ */
+}
+.hero-image-container {
+  max-width: 42%;
+  flex: 1 1 50%;
+  text-align: center;
+  margin-left: 40px;
+}
+
 .hero-image {
-  flex-shrink: 0;
+  max-width: 100%;
+  height: auto;
+  width: 705px;
 }
-.hero-image img {
-    width: 705px;
+.hero-container {
+  margin-top: -175px; /* hoặc -80px, tuỳ theo bạn muốn kéo lên bao nhiêu */
+  margin-left: 70px; 
 }
+
+/* FAB giữ nguyên */
 .fab {
   position: absolute;
-  right: 43px;
-  bottom: 102px;
-  width: 80px;
-  height: 80px;
-  background-color: var(--color-fab);
-  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(153deg, #8c35d4ff, #cc78dcff);
+  border-radius: 50%;
   box-shadow: 0px 30px 60px 0px rgba(70, 41, 242, 0.43);
+  right: 70px;
+  bottom: 135px;
+  transition: transform 0.2s ease;
+  z-index: 1000;
 }
+.fab:hover {
+  transform: scale(1.1);
+}
+
 .fab img {
   width: 24px;
   height: 24px;
 }
 
-/* CSS for section section:footer */
-#footer-section {
-  position: relative;
+/* Khung chat */
+.chat-widget {
+  position: absolute;
+  right: 40px;
+  bottom: 250px;
+  width: 320px;
+  background-color: #fff;
+  border-radius: 14px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.25);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  z-index: 999;
 }
-.site-footer {
-  background-color: var(--color-secondary-bg);
-  opacity: 0.96;
-  padding: 18px 0;
-}
-.site-footer .container {
+
+.chat-header {
+  background-color: #af29f2ff;
+  color: #fff;
+  padding: 14px;
+  font-weight: 600;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 15px;
+  letter-spacing: 0.3px;
 }
-.contact-info, .social-links {
+
+#chat-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+#chat-close:hover {
+  opacity: 0.8;
+}
+
+.chat-body {
+  max-height: 240px;
+  overflow-y: auto;
+  padding: 12px;
+  background-color: #f8f8fc;
+}
+
+.message {
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  max-width: 85%;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.message.bot {
+  background-color: #e6e4fa;
+  color: #2d2d2d;
+  align-self: flex-start;
+}
+
+.message.user {
+  background-color: #b929f2ff;
+  color: #fff;
+  align-self: flex-end;
+}
+
+.chat-input-area {
+  display: flex;
+  padding: 10px 12px;
+  border-top: 1px solid #e0e0e0;
+  background-color: #fff;
+}
+
+#chat-input {
+  flex: 1;
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+#chat-input:focus {
+  border-color: #c029f2ff;
+}
+
+#chat-send {
+  margin-left: 8px;
+  background-color: #c029f2ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.1s;
+}
+#chat-send:hover {
+  background-color: #3a21cc;
+}
+#chat-send:active {
+  transform: scale(0.96);
+}
+
+
+/* Responsive Hero */
+@media (max-width: 1200px) {
+  .hero-container {
+    gap: 20px;
+  }
+  .hero-title {
+    font-size: 40px;
+  }
+  .hero-image {
+    width: 550px;
+  }
+  .fab {
+    right: 40px;
+    bottom: 40px;
+  }
+}
+
+@media (max-width: 880px) {
+  .hero-section {
+    padding-top: calc(var(--header-height) + 40px);
+    padding-bottom: 60px;
+    min-height: auto;
+  }
+  .hero-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-content {
+    max-width: 100%;
+    order: 2;
+  }
+  .hero-image-container {
+    order: 1;
+    margin-bottom: 40px;
+  }
+  .hero-image {
+    width: 80%;
+    max-width: 400px;
+  }
+  .hero-actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 32px;
+  }
+  .hero-actions {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .fab {
+    width: 60px;
+    height: 60px;
+    right: 20px;
+    bottom: 20px;
+  }
+}
+
+/* CSS for section section:footer */
+.site-footer {
+  background: linear-gradient(135deg, #9b5de5, #6a4c93); /* Hiệu ứng gradient sang trọng */
+  opacity: 0.98;
+  height: var(--footer-height);
   display: flex;
   align-items: center;
-  opacity: 0.6;
+  border-top: 2px solid rgba(255, 255, 255, 0.2); /* đường viền nhẹ */
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15); /* bóng đổ trên footer */
 }
-.contact-info {
-  gap: 20px;
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 40px; /* tạo khoảng cách 2 bên */
+  opacity: 0.95;
 }
-.contact-info span {
+
+.footer-contact {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.footer-contact span {
   font-weight: 500;
-  font-size: 14px;
-  line-height: 21px;
+  font-size: 15px;
+  color: #ffffff; /* chữ trắng cho sang trọng */
+  letter-spacing: 0.5px; /* giãn chữ nhẹ */
+  transition: color 0.3s ease;
 }
-.social-links {
-  gap: 67px;
-}
-.social-links img {
+
+.footer-contact span:hover {
+    color: #d0a6f7; /* đổi màu tím nhạt khi hover */
+  }
+
+.footer-contact img {
   width: 25px;
   height: 25px;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.4)); /* ánh sáng nhẹ */
+  transition: transform 0.3s ease;
 }
+
+.footer-contact img:hover {
+  transform: rotate(10deg) scale(1.1); /* hiệu ứng xoay nhẹ khi hover */
+}
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.footer-social a {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.25s ease, filter 0.3s ease;
+}
+
+.footer-social a::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  width: 0%;
+  height: 2px;
+  background-color: #d0a6f7;
+  transition: width 0.3s ease;
+}
+
+.footer-social a:hover::after {
+  width: 100%; /* gạch chân xuất hiện khi hover */
+}
+
+.footer-social a:hover {
+  transform: translateY(-4px); /* nâng biểu tượng lên */
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+}
+
+.footer-social img {
+  width: 25px;
+  height: 25px;
+  transition: transform 0.3s ease;
+}
+
+.footer-social img:hover {
+  transform: scale(1.2);
+}
+
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+  .site-footer {
+    height: auto;
+    padding: 20px 0;
+  }
+  .footer-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: #f9f6fc; /* nền sáng tím nhạt */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  flex-direction: column;
+}
+
+.clock-loader {
+  color: #6a0dad; /* tím chính */
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+}
+
+.clock-loader #time {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #6a0dad;
+  letter-spacing: 1px;
+  animation: fadePulse 1.5s infinite;
+}
+
+.clock-loader p {
+  margin-top: 12px;
+  font-size: 1rem;
+  color: #8a2be2; /* tím nhạt hơn */
+  opacity: 0.9;
+  letter-spacing: 1px;
+}
+
+/* Hiệu ứng nhịp nhẹ */
+@keyframes fadePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* Ẩn preloader khi load xong */
+body.loaded #preloader {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+/* Container */
+.hero-title {
+  font-size: 3rem;
+  font-weight: bold;
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.7) 0%,
+    #ffffff 50%,
+    rgba(255,255,255,0.7) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% auto;
+  animation: shimmer 4s linear infinite;
+}
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: #ffffff;
+  text-align: left;
+}
+
+/* Chung cho từng dòng */
+.hero-subtitle .line {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Dòng 1 */
+.hero-subtitle .line1 {
+  border-right: none; /* không có con trỏ nháy */
+  width: 0;
+  animation: typing1 4s steps(60, end) forwards,
+             erase1 0s forwards;
+  animation-delay: 2s, 12s; /* gõ sau 2s, xóa sau 12s */
+}
+
+/* Dòng 2 */
+.hero-subtitle .line2 {
+  border-right: 2px solid rgba(255,255,255,0.75); /* có con trỏ nháy */
+  width: 0;
+  animation: typing2 4s steps(60, end) forwards,
+             blink 0.7s step-end infinite,
+             erase2 2s steps(60, end) forwards;
+  animation-delay: 6.2s, 4.2s, 10s; 
+  /* gõ sau dòng 1, nháy khi gõ xong, xóa sau 10s */
+}
+
+/* Keyframes gõ */
+@keyframes typing1 {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes typing2 {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* Nháy con trỏ */
+@keyframes blink {
+  50% { border-color: transparent }
+}
+
+
   </style>
-  <script src="{% static 'home/global.js' %}" defer></script>
+  <script src="global.js" defer></script>
 </head>
 <body>
-<section id="header-section">
+<section id="section-header">
   <header class="site-header">
-    <div class="container">
-      <a href="#" class="logo">Lucenda</a>
+    <div class="container header-container">
+      <a href="#" class="logo">
+        <img src="{% static 'home/images/24489db95d7c8b23ff71ea38f01643e97c6a9ede.png' %}" alt="Lucenda logo">
+      </a>
       <nav class="main-nav">
         <ul>
-          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="#">Home</a></li>
           <li><a href="{% url 'event_main' %}">Event</a></li>
           <li><a href="{% url 'calendar' %}">Calendar</a></li>
           <li><a href="{% url 'about' %}">About us</a></li>
         </ul>
       </nav>
-      <div class="profile">
-        <a href="{% url 'profile' %}" class="user-profile-link">
-          <span class="profile-name">{{ request.session.username }}</span>
+      <div class="profile-section">
+        <a href="{% url 'profile' %}">
+          {% if haslogin %}
+            <span class="profile-name">{{ haslogin }}</span>
+          {% else %}
+            <span class="profile-name">Login/Signup</span>
+          {% endif %}
           <img src="{% static 'home/images/109_23730.svg' %}" alt="User avatar" class="profile-avatar">
         </a>
       </div>
     </div>
   </header>
 </section>
-<section id="hero-section">
-  <div class="container">
+<section id="section-hero" class="hero-section">
+  <div class="container hero-container">
     <div class="hero-content">
       <h1 class="hero-title">Master Your Time, Own Your Life</h1>
-      <p class="hero-subtitle">Stay on top of your schedule with a smart personal time manager designed to boost productivity and simplify your life.</p>
+      <p class="hero-subtitle">
+        <span class="line line1">Stay on top of your schedule with a smart personal time</span>
+        <br>
+        <span class="line line2">manager designed to boost productivity and simplify your life.</span>
+      </p>
       <div class="hero-actions">
-        <a href="#" class="btn btn-primary">
+        <a href="{% url 'event_main' %}" class="btn btn-primary">
           <span>New event</span>
-          <img src="{% static 'home/images/I38_55693_2_85399.svg' %}" alt="Add new event icon">
+          <img src="{% static 'home/images/I38_55693_2_85399.svg' %}" alt="plus icon">
         </a>
-        <a href="#" class="btn btn-secondary">
+        <a href="{% url 'calendar' %}" class="btn btn-watch">
           <img src="{% static 'home/images/38_55714.svg' %}" alt="Play icon">
           <span>Watch Calendars</span>
         </a>
       </div>
     </div>
-    <div class="hero-image">
-      <img src="{% static 'home/images/45b23ce33e28629ee6d4fab80d3bee2bdc36a0ad.png' %}" alt="Illustration of people relaxing and working around a giant clock">
+    <div class="hero-image-container">
+      <img src="{% static 'home/images/Image (2).png' %}" alt="Illustration of people managing time around a large clock" class="hero-image">
     </div>
   </div>
-  <a href="#" class="fab">
-    <img src="{% static 'home/images/185_23625.svg' %}" alt="Chat icon">
-  </a>
+  <!-- Nút mở chat -->
+  <button class="fab" id="chat-toggle">
+    <img src="{% static 'home/images/185_23625.svg' %}" alt="Open chat">
+  </button>
+
+  <!-- Khung chat -->
+  <div class="chat-widget" id="chat-box">
+    <div class="chat-header">
+      LucendaBot
+      <button id="chat-close">&times;</button>
+    </div>
+    <div class="chat-body">
+      <div class="message bot">Hi, how can I assist you today?</div>
+      <!-- Tin nhắn sẽ được thêm vào đây -->
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="chat-input" placeholder="Type your message..." maxlength="200">
+      <button id="chat-send">Send</button>
+    </div>
+  </div>
+<!-- Preloader -->
+<div id="preloader">
+  <div class="clock-loader">
+    <span id="time"></span>
+    <p>Welcome to Lucenda. Loading Calendar...</p>
+  </div>
+</div>
 </section>
-<section id="footer-section">
+<section id="section-footer">
   <footer class="site-footer">
-    <div class="container">
-      <div class="contact-info">
+    <div class="container footer-container">
+      <div class="footer-contact">
         <img src="{% static 'home/images/32_23178.svg' %}" alt="Phone icon">
         <span>+84 912 991 873</span>
       </div>
-      <div class="social-links">
-        <a href="#" aria-label="Facebook"><img src="{% static 'home/images/32_23173.svg' %}" alt="Facebook"></a>
-        <a href="#" aria-label="Mail"><img src="{% static 'home/images/32_23175.svg' %}" alt="Mail"></a>
-        <a href="#" aria-label="Github"><img src="{% static 'home/images/32_23174.svg' %}" alt="Github"></a>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/" aria-label="Facebook"><img src="{% static 'home/images/32_23173.svg' %}" alt="Facebook"></a>
+        <a href="mailto:dai.isu152@gmail.com" aria-label="Mail"><img src="{% static 'home/images/32_23175.svg' %}" alt="Mail"></a>
+        <a href="https://github.com/MinhQuang02/Lucenda/tree/main" aria-label="Github"><img src="{% static 'home/images/32_23174.svg' %}" alt="Github"></a>
       </div>
     </div>
   </footer>
 </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const chatToggle = document.getElementById("chat-toggle");
+    const chatBox = document.getElementById("chat-box");
+    const chatClose = document.getElementById("chat-close");
+    const chatSend = document.getElementById("chat-send");
+    const chatInput = document.getElementById("chat-input");
+    const chatBody = document.querySelector(".chat-body");
+
+    // Mở chat
+    if (chatToggle) {
+        chatToggle.addEventListener("click", () => {
+            chatBox.style.display = "block";
+            chatInput.focus();
+        });
+    }
+
+    // Đóng chat
+    if (chatClose) {
+        chatClose.addEventListener("click", () => {
+            chatBox.style.display = "none";
+        });
+    }
+
+    // Hàm thêm tin nhắn
+    function appendMessage(sender, text) {
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add("message", sender);
+        messageDiv.textContent = text;
+        chatBody.appendChild(messageDiv);
+        chatBody.scrollTop = chatBody.scrollHeight; 
+    }
+
+    // Hàm gửi tin nhắn
+    async function sendMessage() {
+        const message = chatInput.value.trim();
+        if (!message) return;
+
+        appendMessage("user", message); 
+        chatInput.value = "";
+
+        try {
+            const response = await fetch("/chat-api/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": getCSRFToken()
+                },
+                body: JSON.stringify({ message })
+            });
+
+            if (!response.ok) {
+                appendMessage("bot", "⚠ Lỗi máy chủ: " + response.status);
+                return;
+            }
+
+            const data = await response.json();
+
+            if (data.reply) {
+                appendMessage("bot", data.reply);
+            } else {
+                appendMessage("bot", "⚠ Không nhận được phản hồi!");
+            }
+        } catch (error) {
+            appendMessage("bot", "⚠ Không thể kết nối máy chủ!");
+            console.error(error);
+        }
+    }
+
+    // Gửi khi bấm nút
+    if (chatSend) {
+        chatSend.addEventListener("click", sendMessage);
+    }
+
+    // Gửi khi nhấn Enter
+    if (chatInput) {
+        chatInput.addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    }
+
+    // Lấy CSRF token từ cookie
+    function getCSRFToken() {
+        const name = "csrftoken";
+        const cookies = document.cookie.split(";");
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name + "=")) {
+                return decodeURIComponent(cookie.substring(name.length + 1));
+            }
+        }
+        return "";
+    }
+});
+function updateTime() {
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString("en-GB"); // 24h format
+  document.getElementById("time").textContent = timeStr;
+}
+setInterval(updateTime, 1000);
+updateTime();
+
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    document.body.classList.add("loaded");
+  }, 2000);
+});
+</script>
+
+
 </body>
 </html>

@@ -1,8 +1,8 @@
 import pyodbc
 
 conn_str = (
-    "DRIVER={ODBC Driver 18 for SQL Server};"
-    "SERVER=DESKTOP-KOBL8E0,1433;"
+    "DRIVER={ODBC Driver 17 for SQL Server};"
+    "SERVER=localhost;"
     "DATABASE=lucenda_database;"
     "Trusted_Connection=yes;"
     "Encrypt=no;"

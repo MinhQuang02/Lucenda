@@ -1,365 +1,1333 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile - Lucenda</title>
-  <link rel="icon" type="image/png" href="../images/logo.png">
+  <link rel="icon" type="image/png" href="{% static 'images/logo.svg' %}">
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>User Profile</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="global.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'profile/global.css' %}">
   <style id="sections-styles">
 /* CSS for section section:header */
 .site-header {
-    background-color: var(--header-bg);
-    opacity: 0.96;
-    padding-top: 19px;
-    padding-bottom: 19px;
-  }
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background: linear-gradient(to left, rgba(220, 140, 216, 0.96), rgba(232, 150, 249, 0.96));
+  height: var(--header-height);
+}
 
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  left: 20px;
+  top: -27px;
+  width: 129px;
+  height: 129px;
+  z-index: 11;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+  transform-origin: center center; /* phóng từ giữa ảnh */
+  cursor: pointer;
+}
+
+.logo img:hover {
+  transform: scale(1.05); /* phóng to ra ngoài, không bị cắt */
+}
+.main-nav {
+  flex-grow: 1;
+  margin-left: 165px; /* Space for the absolute positioned logo */
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 40px;
+}
+
+.main-nav a {
+  font-size: 18px;
+  font-weight: 500;
+  color: #1f1f1f; /* chữ trắng tím nhạt */
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: #b62db6ff;
+  transition: width 0.3s ease;
+}
+
+.main-nav a:hover {
+  color: #b62db6ff; /* tím nhạt sáng hơn khi hover */
+}
+
+.main-nav a:hover::after {
+  width: 100%; /* gạch chân tím khi hover */
+}
+
+.profile-section a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #1f1f1f;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.profile-section a:hover {
+  color: #b62db6ff;
+  transform: translateY(-1px); /* nổi nhẹ khi hover */
+}
+
+.profile-name {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.profile-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #b62db6ff;
+  padding: 2px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.profile-avatar:hover {
+  transform: scale(1.1);
+}
+
+.btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+
+.btn-danger {
+  background: #420b56ff;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-save, .btn-cancel {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  transition: background 0.2s, transform 0.1s;
+}
+.btn-danger:hover {
+  background: #b91c1c;
+}
+
+.btn-save {
+  background: linear-gradient(135deg, #8e44ff, #7b3fe4);
+  color: white;
+}
+.btn-save:hover {
+  background: linear-gradient(135deg, #7b3fe4, #5b1dc5);
+  transform: scale(1.05);
+}
+
+.btn-cancel {
+  background: #f1f1f1;
+  color: #444;
+}
+.btn-cancel:hover {
+  background: #e0e0e0;
+  transform: scale(1.05);
+}
+
+/* Lỗi */
+.error-msg {
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #72138dff;
+  text-align: center;
+}
+
+.input-error {
+  border: 1px solid #72138dff !important;
+  box-shadow: 0 0 6px rgba(114, 19, 141, 0.5) !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal {
+  display: none; /* JS sẽ toggle */
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(2px);
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 12px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.modal-actions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.modal-content h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.modal-content p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Modal actions */
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.mobile-nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 12;
+}
+
+.mobile-nav-toggle .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #1f1f1f;
+}
+
+/* Responsive Header */
+@media (max-width: 1024px) {
+  .main-nav {
+    margin-left: 180px;
+  }
+  .main-nav ul {
     gap: 20px;
   }
+}
 
+@media (max-width: 880px) {
+  .main-nav, .profile-section {
+    display: none; /* Hide for mobile, to be handled by JS */
+  }
+  .mobile-nav-toggle {
+    display: block;
+  }
+  .header-container {
+    justify-content: flex-end;
+  }
   .logo {
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--brand-color);
+    left: 30px;
+    width: 100px;
+    height: 100px;
+    top: -10px;
   }
+}
 
-  .main-nav {
-    display: flex;
-    gap: 40px;
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--text-on-dark-bg);
-  }
-
-  .user-profile-link {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--text-on-dark-bg);
-  }
-
-  .user-avatar-small {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: var(--avatar-bg);
-  }
-
-  @media (max-width: 768px) {
-    .header-container {
-      flex-direction: column;
-    }
-    .main-nav {
-      gap: 20px;
-      font-size: 18px;
-    }
-  }
 
 /* CSS for section section:profile */
 .profile-section {
-    padding-top: 86px;
-    padding-bottom: 86px;
-    background-image: url('images/32_23096.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
+  padding-top: 80px;
+  padding-bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+}
+.user-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 35px;
+}
+.main-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: var(--avatar-bg);
+  margin-bottom: 20px;
+}
+.user-name {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--text-dark);
+  margin: 0;
+}
+.user-email, .user-id span {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-accent);
+  margin: 0;
+}
+.user-id {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+#copy-icon.copied {
+  filter: brightness(0) saturate(100%) invert(14%) sepia(71%) saturate(2000%) hue-rotate(270deg) brightness(90%);
+  /* Tím đậm hơn */
+}
+#save-password-btn {
+    background: linear-gradient(135deg, #a855f7, #c084fc); /* Tím sáng gradient */
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(168, 85, 247, 0.4);
+    transition: all 0.25s ease;
+}
 
-  .profile-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 60px;
-  }
+#save-password-btn:hover {
+    background: linear-gradient(135deg, #9333ea, #a855f7); /* Tím đậm hơn khi hover */
+    box-shadow: 0 4px 10px rgba(168, 85, 247, 0.6);
+    transform: translateY(-2px);
+}
 
-  .profile-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
-  }
+#save-password-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(168, 85, 247, 0.4);
+}
 
-  .profile-avatar-large {
+.copy-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  border-radius: 6px; /* bo góc để khi hover highlight nhìn đẹp hơn */
+  transition: all 0.25s ease;
+}
+
+.copy-btn:hover {
+  background-color: rgba(142, 68, 173, 0.1); /* nền tím nhạt */
+  transform: scale(1.1); /* hơi phóng to khi hover */
+}
+
+.copy-btn img {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.25s ease;
+}
+
+.copy-btn:hover img {
+  transform: rotate(-10deg); /* icon nghiêng nhẹ khi hover */
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+  width: 100%;
+}
+.details-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px 100px;
+  width: 100%;
+}
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  width: 200px;
+}
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.detail-card {
+  background: #dbd0dd4a;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  width: 1000px; 
+}
+
+.detail-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.detail-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b6b6b;
+  letter-spacing: 0.5px;
+}
+
+.edit-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.edit-btn:hover {
+  background: rgba(142, 68, 173, 0.1); /* tím nhạt hover */
+}
+
+.edit-btn img {
+  width: 18px;
+  height: 18px;
+}
+
+.detail-value {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  margin-top: 5px;
+}
+
+.wide {
+  grid-column: span 2;
+}
+
+.gender-dropdown {
+  margin-top: 8px;
+  display: none;
+}
+
+.gender-dropdown select {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #cbb6f6;   /* viền tím nhạt */
+  border-radius: 8px;
+  outline: none;
+  background: #f8f5ff;          /* nền tím siêu nhạt */
+  color: #4a3f78;               /* chữ tím đậm */
+  transition: all 0.25s ease;
+  cursor: pointer;
+  appearance: none;             /* bỏ style mặc định của select */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.gender-dropdown select:hover {
+  border-color: #9b5de5;        /* viền tím đậm hơn khi hover */
+  background: #f2e9ff;          /* nền hơi tím hơn */
+}
+
+.gender-dropdown select:focus {
+  border-color: #6a4c93;
+  box-shadow: 0 0 0 3px rgba(155, 93, 229, 0.25); /* hiệu ứng focus glow tím */
+}
+.edit-btn {
+  background: none;       /* Ẩn màu nền */
+  border: none;           /* Ẩn viền */
+  padding: 0;             /* Bỏ khoảng đệm */
+  cursor: pointer;        /* Hiển thị con trỏ dạng tay khi hover */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Nút Save + Cancel */
+.edit-actions {
+  display: flex;
+  justify-content: center;  /* căn giữa nút */
+  gap: 150px;
+}
+
+.edit-btn img {
+  width: 20px;  /* Điều chỉnh kích thước icon nếu cần */
+  height: 20px;
+}
+
+.edit-btn img:hover {
+  transform: scale(1.2);
+}
+
+/* Khung edit username */
+.edit-box {
+  margin-top: 15px;
+  padding: 16px;
+  border: 1px solid #d3b3f7;
+  border-radius: 12px;
+  background: #faf5ff;
+  box-shadow: 0 4px 10px rgba(123, 63, 228, 0.1);
+  animation: fadeIn 0.3s ease;
+  text-align: center; /* căn giữa nội dung */
+}
+
+.edit-box input {
+  width: 80%;              /* nhỏ lại để cân đối */
+  max-width: 280px;        /* không quá dài */
+  display: block;
+  margin: 0 auto 12px auto; /* căn giữa + khoảng cách dưới */
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #b085f5;
+  outline: none;
+  transition: all 0.2s;
+  font-size: 15px;
+}
+.edit-box input:focus {
+  border: 1px solid #7b3fe4;
+  box-shadow: 0 0 6px rgba(123, 63, 228, 0.4);
+}
+
+.eye-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+  color: #333;
+}
+
+.password-item {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.username-item {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.detail-item img {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 8px;
+}
+.detail-label {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-dark);
+  margin: 0;
+}
+.detail-value {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-accent);
+  margin: 0;
+}
+
+.password-edit {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 40px;
+  margin-top: 6px;
+}
+
+#password-input {
+    padding: 6px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    text-align: center; /* Căn giữa chữ */
     width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    background-color: var(--avatar-bg);
-    margin-bottom: 28px;
-  }
+    outline: none; /* Bỏ viền mặc định khi focus */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
 
-  .user-name, .user-email, .user-id span {
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--text-light);
-  }
-  .user-name {
-    color: var(--text-dark);
-  }
+#password-input:focus {
+    border-color: #a855f7; /* Tím sáng khi focus */
+    box-shadow: 0 0 6px rgba(168, 85, 247, 0.5);
+}
 
-  .user-id {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
 
-  .copy-btn {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-  }
+#username-input {
+  margin-left: 375px;
+  margin-top: 6px;
+  padding: 4px 8px;
+  font-size: 15px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  outline: none;
+  background-color: transparent;
+  color: #4629f2;
+  width: 200px;
+  transition: border-color 0.2s;
+}
 
+#username-input:focus {
+  border-color: #4629f2;
+}
+
+#datepicker {
+  margin-left: 40px;
+  margin-top: 6px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 15px;
+  color: #4629f2;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-bottom: 1px solid #ccc;
+  transition: border-color 0.2s;
+}
+
+#datepicker:focus {
+  border-color: #4629f2;
+}
+
+.profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 70px;
+  margin-top: 40px;
+
+
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+}
+
+.action-button img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Delete Account button */
+.action-danger {
+  background: #fff0f3;
+  color: #d62828;
+  border: 1px solid #f5c2c7;
+}
+.action-danger:hover {
+  background: #ffccd5;
+  border-color: #e63946;
+}
+
+/* Logout button */
+.action-logout {
+  background: #f8f5ff;
+  color: #6a4c93;
+  border: 1px solid #d0bdf4;
+}
+.action-logout:hover {
+  background: #ece4ff;
+  border-color: #9b5de5;
+}
+
+@media (max-width: 1024px) {
+  .details-row {
+    gap: 40px 60px;
+  }
+}
+@media (max-width: 768px) {
+  .profile-section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    gap: 40px;
+  }
   .profile-details {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 169px 38px; /* row-gap, column-gap */
-    width: 100%;
-    max-width: 1100px;
-    justify-items: center;
+    gap: 40px;
   }
-
-  .info-item {
-    position: relative;
-    display: flex;
+  .details-row {
     flex-direction: column;
     align-items: center;
-    text-align: center;
-    gap: 8px;
-    width: 100%;
+    gap: 40px;
   }
-
-  .edit-btn {
-    position: absolute;
-    top: -33px;
-    right: 0;
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-  }
-
-  .info-label {
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--text-dark);
-  }
-
-  .info-value {
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--text-light);
-  }
-
   .profile-actions {
-    display: flex;
-    gap: 80px;
-    margin-top: 60px;
-  }
-
-  .action-link {
-    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 16px;
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--text-dark);
+    gap: 20px;
   }
-  
-  @media (max-width: 1200px) {
-    .profile-details {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 100px 40px;
-    }
-    .info-item:nth-child(4), .info-item:nth-child(5) {
-      grid-column: span 1;
-    }
-    .info-item:nth-child(5) {
-      justify-self: start;
-      margin-left: 25%;
-    }
-     .info-item:nth-child(4) {
-      justify-self: end;
-      margin-right: 25%;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .profile-details {
-      grid-template-columns: 1fr;
-      gap: 60px;
-    }
-    .info-item:nth-child(5), .info-item:nth-child(4) {
-      justify-self: center;
-      margin: 0;
-    }
-    .profile-actions {
-      flex-direction: column;
-      gap: 30px;
-    }
-  }
+}
 
 /* CSS for section section:footer */
 .site-footer {
-    background-color: var(--footer-bg);
-    opacity: 0.96;
-    color: var(--text-on-dark-bg);
-    padding-top: 16px;
-    padding-bottom: 16px;
+  background: linear-gradient(135deg, #9b5de5, #6a4c93); /* Hiệu ứng gradient sang trọng */
+  opacity: 0.98;
+  height: var(--footer-height);
+  display: flex;
+  align-items: center;
+  border-top: 2px solid rgba(255, 255, 255, 0.2); /* đường viền nhẹ */
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15); /* bóng đổ trên footer */
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 40px; /* tạo khoảng cách 2 bên */
+  opacity: 0.95;
+}
+
+.footer-contact {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.footer-contact span {
+  font-weight: 500;
+  font-size: 15px;
+  color: #ffffff; /* chữ trắng cho sang trọng */
+  letter-spacing: 0.5px; /* giãn chữ nhẹ */
+  transition: color 0.3s ease;
+}
+
+.footer-contact span:hover {
+    color: #d0a6f7; /* đổi màu tím nhạt khi hover */
   }
 
+.footer-contact img {
+  width: 25px;
+  height: 25px;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.4)); /* ánh sáng nhẹ */
+  transition: transform 0.3s ease;
+}
+
+.footer-contact img:hover {
+  transform: rotate(10deg) scale(1.1); /* hiệu ứng xoay nhẹ khi hover */
+}
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.footer-social a {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.25s ease, filter 0.3s ease;
+}
+
+.footer-social a::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  width: 0%;
+  height: 2px;
+  background-color: #d0a6f7;
+  transition: width 0.3s ease;
+}
+
+.footer-social a:hover::after {
+  width: 100%; /* gạch chân xuất hiện khi hover */
+}
+
+.footer-social a:hover {
+  transform: translateY(-4px); /* nâng biểu tượng lên */
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+}
+
+.footer-social img {
+  width: 25px;
+  height: 25px;
+  transition: transform 0.3s ease;
+}
+
+.footer-social img:hover {
+  transform: scale(1.2);
+}
+
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+  .site-footer {
+    height: auto;
+    padding: 20px 0;
+  }
   .footer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
+    flex-direction: column;
+    gap: 20px;
   }
+}
 
-  .footer-contact {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    font-size: 14px;
-    font-weight: 500;
-    opacity: 0.6;
-  }
 
-  .footer-social {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    opacity: 0.6;
-  }
-
-  .footer-social img {
-    width: 25px;
-    height: 25px;
-  }
-
-  @media (max-width: 768px) {
-    .footer-container {
-      flex-direction: column;
-      justify-content: center;
-    }
-  }
   </style>
   <script src="global.js" defer></script>
 </head>
 <body>
-<header id="section-header" class="site-header">
-  <div class="container header-container">
-    <a href="../home/index.html" class="logo">Lucenda</a>
-    <nav class="main-nav">
-      <a href="../home/index.html">Home</a>
-      <a href="../event/main-event/index.html">Event</a>
-      <a href="../calendar/day-view/index.html">Calendar</a>
-      <a href="../aboutus/index.html">About us</a>
-    </nav>
-    <div class="user-profile">
-      <a href="../profile/index.html" class="user-profile-link">
-        <span>mphanquang</span>
-        <img src="images/109_23947.svg" alt="User Avatar" class="user-avatar-small">
+<section id="section-header">
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="{% url 'home' %}" class="logo">
+        <img src="{% static 'profile/images/24489db95d7c8b23ff71ea38f01643e97c6a9ede.png' %}" alt="Lucenda Logo" class="logo-img">
       </a>
-    </div>
-  </div>
-</header>
-<main id="section-profile" class="profile-section">
-  <div class="container">
-    <div class="profile-card">
-      <div class="profile-header">
-        <img src="images/109_24297.svg" alt="User Avatar" class="profile-avatar-large">
-        <h2 class="user-name">Phan Quang Minh</h2>
-        <p class="user-email">mphanquang06@gmail.com</p>
-        <div class="user-id">
-          <span>Your ID: U001</span>
-          <button class="copy-btn" aria-label="Copy ID">
-            <img src="images/186_29036.svg" alt="Copy Icon">
-          </button>
-        </div>
-      </div>
-
-      <div class="profile-details">
-        <div class="info-item">
-          <button class="edit-btn" aria-label="Edit Gender">
-            <img src="images/186_47362.svg" alt="Edit Icon">
-          </button>
-          <span class="info-label">Gender</span>
-          <span class="info-value">Male</span>
-        </div>
-        <div class="info-item">
-          <button class="edit-btn" aria-label="Edit Language">
-            <img src="images/186_47377.svg" alt="Edit Icon">
-          </button>
-          <span class="info-label">Language</span>
-          <span class="info-value">English</span>
-        </div>
-        <div class="info-item">
-          <button class="edit-btn" aria-label="Edit Date of Birth">
-            <img src="images/186_47372.svg" alt="Edit Icon">
-          </button>
-          <span class="info-label">Date of Birth</span>
-          <span class="info-value">02/11/2005</span>
-        </div>
-        <div class="info-item">
-          <button class="edit-btn" aria-label="Edit Username">
-            <img src="images/186_47346.svg" alt="Edit Icon">
-          </button>
-          <span class="info-label">Username</span>
-          <span class="info-value">minhpquang</span>
-        </div>
-        <div class="info-item">
-          <button class="edit-btn" aria-label="Edit Password">
-            <img src="images/186_47352.svg" alt="Edit Icon">
-          </button>
-          <span class="info-label">Password</span>
-          <span class="info-value">minhpquang0211</span>
-        </div>
-      </div>
-
-      <div class="profile-actions">
-        <a href="#" class="action-link">
-          <img src="images/189_23700.svg" alt="Delete Account Icon">
-          <span>Detete Account</span>
-        </a>
-        <a href="#" class="action-link">
-          <img src="images/189_23718.svg" alt="Log out Icon">
-          <span>Log out</span>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'event_main' %}">Event</a></li>
+          <li><a href="{% url 'calendar' %}">Calendar</a></li>
+          <li><a href="{% url 'about' %}">About us</a></li>
+        </ul>
+      </nav>
+      <div class="profile-section">
+        <a href="{% url 'profile' %}">
+          {% if haslogin %}
+            <span class="profile-name">{{ haslogin }}</span>
+          {% else %}
+            <span class="profile-name">Login/Signup</span>
+          {% endif %}
+          <img src="{% static 'profile/images/299_23831.svg' %}" alt="User avatar" class="profile-avatar">
         </a>
       </div>
     </div>
-  </div>
-</main>
-<footer id="section-footer" class="site-footer">
-  <div class="container footer-container">
-    <div class="footer-contact">
-      <img src="images/109_24001.svg" alt="Phone Icon">
-      <span>+84 912 991 873</span>
+  </header>
+</section>
+<section id="profile">
+  <main class="profile-section container">
+    <div class="user-summary">
+      <img src="{% static 'profile/images/109_24297.svg' %}" alt="User Avatar" class="main-avatar">
+      <h1 class="user-name">{{ haslogin }}</h1>
+      <p class="user-email">{{ email }}</p>
+      
+      <div class="user-id">
+        <span id="user-id-text">Your ID: {{ id_user }}</span>
+        <button class="copy-btn" aria-label="Copy ID" onclick="copyUserId()" id="copy-btn">
+          <img src="{% static 'profile/images/186_29036.svg' %}" alt="Copy Icon" id="copy-icon">
+        </button>
+        <span id="copy-status" style="display:none; color:purple; font-size:14px; margin-left:6px;">
+          Copied!
+        </span>
+      </div>
     </div>
-    <div class="footer-social">
-      <a href="#" aria-label="Facebook">
-        <img src="images/109_23996.svg" alt="Facebook">
+
+    <div class="profile-details modern-details">
+      <div class="details-grid">
+        <!-- Gender -->
+        <div class="detail-card wide">
+          <div class="detail-header">
+            <p class="detail-label">Gender</p>
+            <button class="edit-btn" onclick="toggleGenderDropdown()">
+              <img src="{% static 'profile/images/186_47362.svg' %}" alt="Edit">
+            </button>
+          </div>
+          <p class="detail-value" id="gender-value">{{ gender }}</p>
+          <div class="gender-dropdown" id="gender-dropdown">
+            <select onchange="updateGender(this.value)">
+              <option value="Male">Male</option>
+              <option value="Fmale">Fmale</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Language -->
+        <div class="detail-card wide">
+          <div class="detail-header">
+            <p class="detail-label">Language</p>
+            <button class="edit-btn lang-toggle" aria-label="Toggle Language">
+              <img src="{% static 'profile/images/186_47377.svg' %}" alt="Edit">
+            </button>
+          </div>
+          <p class="detail-value" id="language-label">{{ language }}</p>
+        </div>
+
+        <!-- DOB -->
+        <div class="detail-card wide">
+          <div class="detail-header">
+            <p class="detail-label">Date of Birth</p>
+            <button class="edit-btn dob-toggle" tabindex="0">
+              <img src="{% static 'profile/images/186_47372.svg' %}" alt="Edit">
+            </button>
+          </div>
+          <p class="detail-value" id="dob-display">{{ dob|date:"d/m/Y" }}</p>
+          <input type="date" id="dob-picker" style="display: none; margin-top: 5px;" />
+        </div>
+
+        <!-- Username -->
+        <div class="detail-card wide">
+          <div class="detail-header">
+            <p class="detail-label">Username</p>
+            <button class="edit-btn" id="edit-username-btn" aria-label="Edit Username">
+              <img src="{% static 'profile/images/186_47346.svg' %}" alt="Edit">
+            </button>
+          </div>
+          <p class="detail-value" id="username-value">{{ haslogin }}</p>
+
+          <div id="username-edit" class="edit-box" style="display: none;">
+            <input type="text" id="username-input" maxlength="30" placeholder="Enter new username" />
+            <div class="edit-actions">
+              <button id="save-username" class="btn-save">Save</button>
+              <button id="cancel-username" class="btn-cancel">Cancel</button>
+            </div>
+            <p id="username-error" class="error-msg"></p>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="detail-card wide">
+          <div class="detail-header">
+            <p class="detail-label">Password</p>
+            <button class="edit-btn" id="edit-password-btn" aria-label="Edit Password">
+              <img src="{% static 'profile/images/186_47352.svg' %}" alt="Edit">
+            </button>
+          </div>
+          <p class="detail-value" id="password-value">**********</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-actions">
+      <!-- Delete Account -->
+      <a href="#" class="action-button action-danger" id="delete-account-btn">
+        <img src="{% static 'profile/images/189_23700.svg' %}" alt="">
+        <span>Delete Account</span>
       </a>
-      <a href="#" aria-label="Mail">
-        <img src="images/109_23998.svg" alt="Mail">
-      </a>
-      <a href="#" aria-label="Github">
-        <img src="images/109_23997.svg" alt="Github">
+
+      <!-- Modal xác nhận -->
+      <div id="delete-modal" class="modal">
+        <div class="modal-content">
+          <h3>Confirm Deletion</h3>
+          <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+          <div class="modal-actions">
+            <button id="confirm-delete" class="btn btn-danger">Yes, Delete</button>
+            <button id="cancel-delete" class="btn btn-cancel">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logout -->
+      <a href="{% url 'logout' %}" class="action-button action-logout">
+        <img src="{% static 'profile/images/189_23718.svg' %}" alt="">
+        <span>Log out</span>
       </a>
     </div>
-  </div>
-</footer>
+
+  </main>
+</section>
+<section id="section-footer">
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-contact">
+        <img src="{% static 'profile/images/109_24001.svg' %}" alt="Phone icon">
+        <span>+84 912 991 873</span>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/" aria-label="Facebook"><img src="{% static 'profile/images/109_23996.svg' %}" alt="Facebook"></a>
+        <a href="mailto:dai.isu152@gmail.com" aria-label="Mail"><img src="{% static 'profile/images/109_23998.svg' %}" alt="Mail"></a>
+        <a href="https://github.com/MinhQuang02/Lucenda/tree/main" aria-label="Github"><img src="{% static 'profile/images/109_23997.svg' %}" alt="Github"></a>
+      </div>
+    </div>
+  </footer>
+</section>
+<script>
+  // Copy ID Button Functionality
+function copyUserId() {
+  const fullText = document.getElementById("user-id-text").textContent;
+  const id = fullText.split(":")[1].trim();
+
+  navigator.clipboard.writeText(id)
+    .then(() => {
+      const status = document.getElementById("copy-status");
+      const icon = document.getElementById("copy-icon");
+
+      // Hiện chữ "Copied!"
+      status.style.display = "inline";
+      // Đổi màu icon
+      icon.classList.add("copied");
+
+      // Sau 2 giây ẩn lại chữ và reset icon
+      setTimeout(() => {
+        status.style.display = "none";
+        icon.classList.remove("copied");
+      }, 2000);
+    })
+    .catch(err => {
+      console.error("Copy failed:", err);
+    });
+}
+
+  // Change gender
+    function toggleGenderDropdown() {
+    const dropdown = document.getElementById("gender-dropdown");
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+  }
+
+  function updateGender(value) {
+    document.getElementById("gender-value").textContent = value;
+    document.getElementById("gender-dropdown").style.display = "none";
+
+    fetch("{% url 'update_gender_sql' %}", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCookie("csrftoken")
+      },
+      body: JSON.stringify({ gender: value })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === "success") {
+        console.log("Gender updated in DB (SQL)");
+      } else {
+        console.error(data.message);
+      }
+    });
+  }
+
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let cookie of cookies) {
+        cookie = cookie.trim();
+        if (cookie.startsWith(name + "=")) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  // Đổi ngôn ngữ
+  document.querySelector('.lang-toggle').addEventListener('click', function () {
+      const langLabel = document.getElementById('language-label');
+      // Chuyển ngôn ngữ mới
+      const newLanguage = langLabel.textContent === 'English' ? 'Vietnamese' : 'English';
+      langLabel.textContent = newLanguage;
+
+      // Gửi request POST lên server để cập nhật database
+      fetch("{% url 'update_language_sql' %}", {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': getCookie('csrftoken')  // Django CSRF token
+          },
+          body: JSON.stringify({ language: newLanguage })
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.status !== 'success') {
+              alert('Failed to update language: ' + data.message);
+          }
+      })
+      .catch(err => console.error('Error:', err));
+  });
+
+  // Hàm lấy CSRF token từ cookie
+  function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let cookie of cookies) {
+              cookie = cookie.trim();
+              if (cookie.startsWith(name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+
+
+  // Chỉnh sửa ngày sinh
+  const toggleBtn = document.querySelector('.dob-toggle');
+  const datePicker = document.getElementById('dob-picker');
+  const dobDisplay = document.getElementById('dob-display');
+
+  toggleBtn.addEventListener('click', (event) => {
+      event.preventDefault();
+      // Toggle hiển thị lịch
+      datePicker.style.display = datePicker.style.display === 'none' ? 'block' : 'none';
+  });
+
+  datePicker.addEventListener('change', () => {
+      const date = new Date(datePicker.value);
+      const formattedDate = date.toLocaleDateString('en-GB'); // dd/mm/yyyy
+      dobDisplay.textContent = formattedDate;
+      datePicker.style.display = 'none'; // Ẩn lại sau khi chọn
+
+      // Gửi request POST lên server để update database
+      fetch("{% url 'update_dob_sql' %}", {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': getCookie('csrftoken')  // Django CSRF token
+          },
+          body: JSON.stringify({ dob: datePicker.value }) // gửi dạng yyyy-mm-dd
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.status !== 'success') {
+              alert('Failed to update Date of Birth: ' + data.message);
+          }
+      })
+      .catch(err => console.error('Error:', err));
+  });
+
+  // Hàm lấy CSRF token từ cookie
+  function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let cookie of cookies) {
+              cookie = cookie.trim();
+              if (cookie.startsWith(name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+
+  document.getElementById("edit-password-btn").addEventListener("click", function() {
+      const passwordValueEl = document.getElementById("password-value");
+      const realPassword = "{{ password }}"; // Django render
+
+      // Tạo input để nhập mật khẩu mới
+      const input = document.createElement("input");
+      input.type = "text";
+      input.value = realPassword;
+      input.id = "password-input";
+
+      // Tạo nút lưu
+      const saveBtn = document.createElement("button");
+      saveBtn.innerText = "Save";
+      saveBtn.id = "save-password-btn";
+      saveBtn.style.marginLeft = "5px";
+
+      // Căn giữa
+      passwordValueEl.style.textAlign = "center";
+
+      // Xóa nội dung cũ và thêm input + nút save
+      passwordValueEl.innerHTML = "";
+      passwordValueEl.appendChild(input);
+      passwordValueEl.appendChild(saveBtn);
+
+      // Sự kiện lưu
+      saveBtn.addEventListener("click", function() {
+          const newPassword = document.getElementById("password-input").value;
+
+          fetch("{% url 'update_password' %}", {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+                  "X-CSRFToken": getCookie("csrftoken"), // Lấy CSRF token
+              },
+              body: JSON.stringify({ password: newPassword })
+          })
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error("Có lỗi khi lưu mật khẩu!");
+              }
+              return response.json();
+          })
+          .then(data => {
+              console.log("Server response:", data);
+              // Sau khi lưu xong, refresh lại trang
+              window.location.reload();
+          })
+          .catch(error => {
+              console.error(error);
+              alert("Không thể lưu mật khẩu!");
+          });
+      });
+  });
+
+  // Hàm lấy CSRF token từ cookie (bắt buộc với Django POST)
+  function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== "") {
+          const cookies = document.cookie.split(";");
+          for (let cookie of cookies) {
+              cookie = cookie.trim();
+              if (cookie.startsWith(name + "=")) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+
+  // Chỉnh sửa tên người dùng
+document.addEventListener("DOMContentLoaded", () => {
+  const editBtn = document.getElementById("edit-username-btn");
+  const editBox = document.getElementById("username-edit");
+  const input = document.getElementById("username-input");
+  const saveBtn = document.getElementById("save-username");
+  const cancelBtn = document.getElementById("cancel-username");
+  const errorMsg = document.getElementById("username-error");
+
+  // Mở khung edit
+  editBtn.addEventListener("click", () => {
+    editBox.style.display = "block";
+    input.value = document.getElementById("username-value").textContent.trim();
+    input.classList.remove("input-error");
+    errorMsg.textContent = "";
+    input.focus();
+  });
+
+  // Cancel
+  cancelBtn.addEventListener("click", () => {
+    editBox.style.display = "none";
+    input.classList.remove("input-error");
+    errorMsg.textContent = "";
+  });
+
+  // Save (gửi request lên Django)
+  saveBtn.addEventListener("click", () => {
+    const newUsername = input.value.trim();
+    if (!newUsername) {
+      errorMsg.textContent = "Username cannot be empty.";
+      input.classList.add("input-error");
+      return;
+    }
+
+    fetch("/update-username/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCookie("csrftoken"), // cần cho Django
+      },
+      body: JSON.stringify({ username: newUsername }),
+    })
+      .then(res => res.json().then(data => ({ status: res.status, body: data })))
+      .then(result => {
+        if (result.status === 200) {
+          location.reload(); // F5 lại trang
+        } else if (result.status === 409 && result.body.username_exists) {
+          errorMsg.textContent = "Username already exists. Please choose another.";
+          input.classList.add("input-error");
+        } else {
+          errorMsg.textContent = result.body.error || "Failed to update username.";
+          input.classList.add("input-error");
+        }
+      })
+      .catch(() => {
+        errorMsg.textContent = "Error connecting to server.";
+        input.classList.add("input-error");
+      });
+  });
+
+  // Lấy CSRF token từ cookie
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let cookie of cookies) {
+        cookie = cookie.trim();
+        if (cookie.startsWith(name + "=")) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+});
+
+  // Kiểm tra xem có tài khoản đăng nhập không
+  document.addEventListener("DOMContentLoaded", () => {
+  const deleteBtn = document.getElementById("delete-account-btn");
+  const modal = document.getElementById("delete-modal");
+  const confirmBtn = document.getElementById("confirm-delete");
+  const cancelBtn = document.getElementById("cancel-delete");
+
+  deleteBtn.addEventListener("click", (e) => {
+    e.preventDefault(); // chặn chuyển trang ngay
+    modal.style.display = "block";
+  });
+
+  cancelBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  confirmBtn.addEventListener("click", () => {
+    window.location.href = "{% url 'delacc' %}";
+  });
+
+  // Click bên ngoài modal cũng đóng
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+});
+</script>
 </body>
 </html>

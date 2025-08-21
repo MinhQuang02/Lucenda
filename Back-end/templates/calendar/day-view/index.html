@@ -1,513 +1,2698 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calendar - Lucenda</title>
-  <link rel="icon" type="image/png" href="../../images/logo.png">
+  <link rel="icon" type="image/png" href="{% static 'images/logo.svg' %}">
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lucenda Calendar</title>
+<title>Event Detail</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Inter:wght@400&family=Roboto:wght@400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="global.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@275;400;500;600;700&family=Roboto:wght@400&family=Inter:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'calendar/day-view/global.css' %}">
   <style id="sections-styles">
 /* CSS for section section:header */
-.main-header {
-  background-color: var(--primary-bg);
-  opacity: 0.96;
-  padding: 13px 41px;
-}
-.header-content {
-  display: flex;
-  align-items: center;
-  gap: 48px;
-}
-.logo {
-  font-family: var(--font-poppins);
-  font-weight: 700;
-  font-size: 32px;
-  color: var(--text-light);
-  margin-right: 25px;
-}
-.main-nav {
-  display: flex;
-  gap: 42px;
-  flex-grow: 1;
-}
-.nav-link {
-  font-family: var(--font-poppins);
-  font-weight: 500;
-  font-size: 20px;
-  color: var(--text-light);
-}
-.user-profile {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.username {
-  font-family: var(--font-poppins);
-  font-weight: 500;
-  font-size: 20px;
-  color: var(--text-light);
-}
-.avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
-.mobile-menu-toggle {
-    display: none;
-}
-
-@media (max-width: 1024px) {
-    .main-nav, .user-profile {
-        display: none;
-    }
-    .mobile-menu-toggle {
-        display: block;
-        margin-left: auto;
-        background-color: var(--bg-white);
-        border-radius: 50%;
-        padding: 8px;
-    }
-    .header-content {
-        justify-content: space-between;
-    }
-}
-
-/* CSS for section section:calendar-app */
-.calendar-app-container {
-  display: flex;
-  flex-grow: 1;
-  border-top: 1px solid var(--border-color);
-}
-.sidebar {
-  width: 262px;
-  flex-shrink: 0;
-  border-right: 1px solid var(--border-color);
-  background-color: var(--bg-white);
-  padding-top: 24px;
-  display: flex;
-  flex-direction: column;
-}
-.sidebar-section {
-  padding-left: 12px;
-  padding-right: 12px;
-}
-.icon {
-  width: 24px;
-  height: 24px;
-}
-.year {
-  font-family: var(--font-inter);
-  font-weight: 400;
-}
-.mini-calendar-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 10px 16px;
-}
-.month-year {
-  font-size: 18px;
-  font-weight: 500;
-  margin: 0;
-}
-.mini-calendar {
-  padding: 10px;
-}
-.weekdays, .days {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  justify-items: center;
-  row-gap: 4px;
-}
-.weekdays {
-  font-size: 10px;
-  font-weight: 500;
-  opacity: 0.7;
-  margin-bottom: 10px;
-}
-.days {
-  row-gap: 4px;
-}
-.day {
-  font-size: 10px;
-  font-weight: 500;
-  width: 26px;
-  height: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 99px;
-}
-.day.active {
-  background-color: var(--primary-color);
-  color: var(--text-light);
-}
-.day.other-month {
-  opacity: 0.3;
-}
-.calendars-list-section {
-  margin-top: 34px;
-}
-.calendars-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-left: 18px;
-}
-.calendars-header h3 {
-  font-size: 18px;
-  font-weight: 500;
-  margin: 0;
-}
-.calendars-list {
-  margin-top: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding-left: 12px;
-  padding-right: 12px;
-}
-.calendars-list li {
-  font-family: var(--font-inter);
-  font-size: 12px;
-  padding: 10px 13px;
-  border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.calendars-list li.active {
-  background-color: var(--bg-light-gray);
-}
-.add-new-calendar {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  font-family: var(--font-inter);
-  font-size: 12px;
-  margin-top: 12px;
-  padding: 10px 25px;
-}
-.recycle-bin-section {
-  margin-top: auto;
-  padding-bottom: 24px;
-}
-.divider {
-  border: none;
-  border-top: 1px solid var(--border-color);
-  margin: 0 0 16px;
-}
-.recycle-bin-link {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 18px;
-  font-weight: 500;
-  padding-left: 18px;
-}
-.main-view {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--bg-white);
-}
-.view-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 24px;
-  border-bottom: 1px solid var(--border-color);
-  flex-wrap: wrap;
-  gap: 16px;
-}
-.view-controls-left, .view-controls-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.icon-button {
-  background-color: var(--bg-white);
-  border-radius: 999px;
-  width: 35px;
-  height: 35px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.current-date {
-  font-size: 30px;
-  font-weight: 500;
-  margin: 0;
-}
-.dropdown-button {
-  border: 1px solid var(--primary-color);
-  border-radius: 3px;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--primary-color);
-}
-.date-nav {
-  display: flex;
-  align-items: center;
-}
-.search-bar {
-  background-color: #ece6f0;
-  border-radius: 28px;
-  padding: 5px 12px 5px 24px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  font-family: var(--font-roboto);
-  font-size: 16px;
-  color: var(--text-secondary);
-  opacity: 0.8;
-}
-.add-event-button {
-  background-color: var(--primary-color);
-  color: var(--text-light);
-  border-radius: 3px;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 12px;
-  font-weight: 500;
-}
-.calendar-grid-wrapper {
-  flex-grow: 1;
-  overflow-y: auto;
-}
-.calendar-grid {
-  display: flex;
-}
-.time-column {
-  width: 54px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-}
-.time-slot {
-  height: 80.9px;
-  position: relative;
-}
-.time-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-primary);
+.site-header {
   position: absolute;
   top: 0;
-  right: 10px;
-  transform: translateY(-50%);
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background: linear-gradient(to left, rgba(220, 140, 216, 0.96), rgba(232, 150, 249, 0.96));
+  height: var(--header-height);
 }
-.time-slot:first-child .time-label {
-    display: none;
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
 }
-.events-column {
+
+.logo {
+  position: absolute;
+  left: 20px;
+  top: -27px;
+  width: 129px;
+  height: 129px;
+  z-index: 11;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+  transform-origin: center center; /* phóng từ giữa ảnh */
+  cursor: pointer;
+}
+
+.logo img:hover {
+  transform: scale(1.05); /* phóng to ra ngoài, không bị cắt */
+}
+.main-nav {
   flex-grow: 1;
+  margin-left: 165px; /* Space for the absolute positioned logo */
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 40px;
+}
+
+.main-nav a {
+  /* style_27 */
+  font-size: 20px;
+  font-weight: 500;
+  /* NOTE: Text color from JSON is #ffffff, which has poor contrast on the light header background. Using a darker color for visibility based on the image. */
+  color: #1f1f1f;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+}
+
+.profile-section a {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* khoảng cách giữa chữ và ảnh */
+  text-decoration: none;
+  color: inherit;
+}
+
+.profile-name {
+  /* style_26 */
+  font-size: 20px;
+  font-weight: 500;
+  /* NOTE: Text color from JSON is #ffffff. Using a darker color for visibility. */
+  color: #1f1f1f;
+}
+
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* style_25 */
+}
+
+.mobile-nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 12;
+}
+
+.mobile-nav-toggle .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #1f1f1f;
+}
+
+/* Responsive Header */
+@media (max-width: 1024px) {
+  .main-nav {
+    margin-left: 180px;
+  }
+  .main-nav ul {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 880px) {
+  .main-nav, .profile-section {
+    display: none; /* Hide for mobile, to be handled by JS */
+  }
+  .mobile-nav-toggle {
+    display: block;
+  }
+  .header-container {
+    justify-content: flex-end;
+  }
+  .logo {
+    left: 30px;
+    width: 100px;
+    height: 100px;
+    top: -10px;
+  }
+}
+
+/* --- Modal Background --- */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- Modal Content --- */
+.modal-content {
+  background: #ffffff;
+  padding: 24px;
+  width: 420px;
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(103, 58, 183, 0.25); /* tím mờ chuyên nghiệp */
+  animation: fadeIn 0.3s ease;
+  font-family: "Segoe UI", "Roboto", sans-serif;
+}
+
+.modal-content h3 {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  color: #3c2f4a; /* tím xám đậm */
+}
+
+/* --- Input Group --- */
+/* --- Input Group --- */
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+
+.input-group input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #d2c2f0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-group input:focus {
+  border-color: #9b6ef3;
+  box-shadow: 0 0 0 3px rgba(155, 110, 243, 0.15);
+  outline: none;
+}
+
+.input-group button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #9b6ef3, #7e57c2); /* tím gradient */
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.1s;
+}
+.input-group button:hover {
+  background: linear-gradient(135deg, #8e5ae6, #6b46c1);
+  transform: translateY(-1px);
+}
+
+/* --- Table --- */
+#shareTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+#shareTable th, 
+#shareTable td {
+  border: 1px solid #e0d6f5;
+  padding: 10px;
+  text-align: center;
+}
+
+#shareTable th {
+  background: #f3eef8;
+  color: #4b3d63;
+  font-weight: 600;
+}
+
+/* --- Action Buttons (Save & Close) --- */
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+/* Nút Save */
+.modal-actions .primary {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #9b6ef3, #7e57c2); /* tím gradient */
+  color: #fff;
+  transition: background 0.25s, transform 0.1s;
+}
+
+.modal-actions .primary:hover {
+  background: linear-gradient(135deg, #8e5ae6, #6b46c1);
+  transform: translateY(-1px);
+}
+
+/* Nút Close */
+.modal-actions .secondary {
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  background: #f3eef8;              /* tím nhạt */
+  color: #4b3d63;                   /* tím xám đậm */
+  border: 1px solid #d6c9f5;
+  transition: background 0.25s, transform 0.1s;
+}
+
+.modal-actions .secondary:hover {
+  background: #e8def7;
+  transform: translateY(-1px);
+}
+
+.modal-actions button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.1s;
+}
+
+/* Save button */
+.modal-actions .save-btn {
+  background: linear-gradient(135deg, #9b6ef3, #7e57c2);
+  color: #fff;
+}
+
+.modal-actions .save-btn:hover {
+  background: linear-gradient(135deg, #8e5ae6, #6b46c1);
+  transform: translateY(-1px);
+}
+
+/* Close button */
+.modal-actions .close-btn {
+  background: #f3eef8;
+  color: #4b3d63;
+  border: 1px solid #d6c9f5;
+}
+
+.modal-actions .close-btn:hover {
+  background: #e8def7;
+  transform: translateY(-1px);
+}
+
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background: linear-gradient(to left, rgba(220, 140, 216, 0.96), rgba(232, 150, 249, 0.96));
+  height: var(--header-height);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  left: 20px;
+  top: -27px; /* Hangs off the top based on Figma coordinates */
+  width: 129px;
+  height: 129px;
+  z-index: 11;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.main-nav {
+  flex-grow: 1;
+  margin-left: 165px; /* Space for the absolute positioned logo */
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 40px;
+}
+
+.main-nav a {
+  font-size: 18px;
+  font-weight: 500;
+  color: #1f1f1f; /* chữ trắng tím nhạt */
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: #b62db6ff;
+  transition: width 0.3s ease;
+}
+
+.main-nav a:hover {
+  color: #b62db6ff; /* tím nhạt sáng hơn khi hover */
+}
+
+.main-nav a:hover::after {
+  width: 100%; /* gạch chân tím khi hover */
+}
+
+.profile-section a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #1f1f1f;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.profile-section a:hover {
+  color: #b62db6ff;
+  transform: translateY(-1px); /* nổi nhẹ khi hover */
+}
+
+.profile-name {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.profile-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #b62db6ff;
+  padding: 2px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.profile-avatar:hover {
+  transform: scale(1.1);
+}
+
+
+.mobile-nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 12;
+}
+
+.mobile-nav-toggle .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #1f1f1f;
+}
+
+/* Responsive Header */
+@media (max-width: 1024px) {
+  .main-nav {
+    margin-left: 180px;
+  }
+  .main-nav ul {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 880px) {
+  .main-nav, .profile-section {
+    display: none; /* Hide for mobile, to be handled by JS */
+  }
+  .mobile-nav-toggle {
+    display: block;
+  }
+  .header-container {
+    justify-content: flex-end;
+  }
+  .logo {
+    left: 30px;
+    width: 100px;
+    height: 100px;
+    top: -10px;
+  }
+}
+
+/* CSS for section section:event-view */
+.event-view-wrapper {
+    display: flex;
+    min-height: calc(100vh - 86px); /* Full height minus header */
+    margin-top: 82px;
+  }
+
+  .sidebar {
+    width: 262px;
+    flex-shrink: 0;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .sidebar-top {
+    padding: 27px 20px 0;
+  }
+
+  .calendar-widget {
+    padding-bottom: 27px;
+  }
+
+  .calendar-header {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 10px;
+  }
+
+  .calendar-header h2 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-light);
+    margin: 0;
+  }
+
+  .calendar-header .year {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px 4px;
+    text-align: center;
+  }
+
+  .day-name {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-light);
+    opacity: 0.7;
+    text-transform: capitalize;
+  }
+
+  .date-num {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-light);
+    padding: 5px;
+    border-radius: 99px;
+  }
+
+  .date-num.today {
+    background: linear-gradient(135deg, #e4d4f8, #c1a3e7); /* tím nhạt -> tím đậm */
+    color: white;
+    font-weight: bold;
+  }
+
+  .date-num.active {
+    background-color: var(--primary-color);
+    color: var(--text-white);
+  }
+
+  .date-num.dimmed  {
+    opacity: 0.3;
+  }
+
+  .events-section {
+    padding-top: 27px;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .events-footer {
+    display: flex;         /* hoặc display: grid */
+    flex-direction: column; /* xếp dọc */
+    gap: 20px;             /* khoảng cách giữa các phần tử con */
+    padding-top: 0px;
+  }
+
+  .events-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .events-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .events-title h3 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-light);
+    margin: 0;
+  }
+
+  .event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    max-height: 520px; /* Chiều cao tối đa của vùng cuộn */
+    overflow-y: auto;  /* Cho phép cuộn khi vượt quá */
+    scrollbar-gutter: stable; /* Giữ chỗ cố định cho thanh cuộn (nếu được hỗ trợ) */
+  }
+
+  .event-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 4px;
+    border-radius: 3px;
+  }
+
+.event-list li.active {
+  background: linear-gradient(135deg, #d6c9f5be, #b39ddb8f); /* tím nhạt → tím trung tính */
+  color: var(--text-white);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(179, 157, 219, 0.25); /* bóng nhẹ */
+  transition: all 0.3s ease;
+}
+
+
+
+
+  .event-list .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .event-list::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+
+
+
+  .sidebar-bottom {
+    border-top: 1px solid var(--border-color);
+    padding: 16px 20px;
+  }
+
+  .recycle-bin-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+  }
+
+  .recycle-bin-link img {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.25s ease, filter 0.25s ease;
+  }
+
+  .recycle-bin-link:hover {
+    background-color: #f0f0ff;         /* nền tím nhạt khi hover */
+    color: #4629f2;                   /* chữ đổi sang tím chủ đạo */
+    transform: translateX(4px);       /* trượt nhẹ sang phải */
+  }
+
+  .recycle-bin-link:hover img {
+    transform: rotate(-10deg) scale(1.1);  /* icon nghiêng nhẹ và to lên chút */
+    filter: hue-rotate(25deg) brightness(1.1);
+  }
+
+  .main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 24px 20px 24px;
+  }
+
+  .content-body {
+    flex-grow: 1;
+  }
+
+  .event-title-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 21px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .event-title-header h1 {
+    font-size: 26px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .notification-toggle {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  .event-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 21px 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .event-time {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 275;
+  }
+
+  .dropdown-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 4px;
+    background-color: white;
+    border: 1px solid var(--primary-color);
+    border-radius: 3px;
+    list-style: none;
+    padding: 4px 0;
+    display: none;
+    z-index: 1000;
+    width: 100px;
+    font-size: 12px;
+  }
+
+  .dropdown-menu li {
+    padding: 8px 12px;
+    cursor: pointer;
+    color: var(--primary-color);
+  }
+
+  .dropdown-menu li:hover {
+    background-color: var(--primary-color);
+    color: white;
+  }
+
+
+  .each-week-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 500;
+    background: white;
+    cursor: pointer;
+  }
+
+  .dropdown-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+    background-color: white;
+    border: 1px solid #ccc;
+    min-width: 150px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    padding: 5px 0;
+  }
+
+  .dropdown-options div {
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+
+  .dropdown-options div:hover {
+    background-color: #f0f0f0;
+  }
+
+  .custom-day-input {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    border-top: 1px solid #ccc;
+  }
+
+  .custom-day-input input {
+    width: 50px;
+    padding: 4px;
+  }
+
+  .custom-day-input button {
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .date-created {
+    margin-left: auto;
+    font-size: 16px;
+    font-weight: 275;
+  }
+
+  .event-sharing {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 21px 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .share-search-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #ece6f0;
+    padding: 11px 16px;
+    border-radius: 28px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #49454f;
+  }
+
+  .avatar-group {
+    display: flex;
+    align-items: center;
+  }
+
+  .avatar, .avatar-overflow {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    border: 2px solid var(--background-light);
+  }
+  
+  .avatar:not(:first-child), .avatar-overflow:not(:first-child) {
+    margin-left: -8px;
+  }
+
+  .avatar {
+    background-color: var(--avatar-bg);
+    color: var(--avatar-text);
+  }
+
+  .avatar-overflow {
+    background-color: #f5f5f5;
+    color: #757575;
+  }
+
+  .event-details-section {
+    padding-top: 21px;
+  }
+
+  .event-details-section h2 {
+    font-size: 26px;
+    font-weight: 600;
+    margin: 0 0 13px 0;
+  }
+
+  .event-details-textarea {
+    width: 100%;
+    height: 525px;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    resize: vertical; /* Cho phép kéo chiều cao */
+    font-family: inherit;
+  }
+
+
+  .content-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    margin-top: auto; /* Pushes footer to the bottom */
+  }
+
+  .delete-btn {
+  padding: 6px 12px;
+  background: linear-gradient(135deg, #9b6ef3, #7e57c2);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.25s, transform 0.1s, box-shadow 0.2s;
+  }
+
+  .delete-btn:hover {
+  background: linear-gradient(135deg, #8150e4ff, #6337afff);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(192, 43, 182, 0.35);
+  }
+
+  .delete-btn:active {
+  transform: scale(0.95); /* nhấn xuống */
+  }
+
+  .save-btn {
+    font-size: 22px;
+    font-weight: 700;
+    color: #4e3f77;
+  }
+  /* --- Actions --- */
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .modal-actions button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  /* --- Animation --- */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @media (max-width: 1200px) {
+    .event-meta {
+      flex-wrap: wrap;
+    }
+    .date-created {
+      margin-left: 0;
+      width: 100%;
+      text-align: right;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .event-view-wrapper {
+      flex-direction: column;
+    }
+    .sidebar {
+      width: 100%;
+      border-right: none;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .main-content {
+      padding: 20px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header-container {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .site-header {
+      height: auto;
+      padding: 10px;
+    }
+    .logo img {
+      width: 80px;
+      height: 80px;
+      margin-top: 0;
+    }
+    .main-nav ul {
+      gap: 20px;
+    }
+    .main-nav a, .profile-name {
+      font-size: 16px;
+    }
+    .profile-section {
+      align-self: flex-end;
+    }
+    .event-meta, .event-sharing {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .date-created {
+      text-align: left;
+    }
+  }
+
+.calendar-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.calendar-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+}
+
+.calendar-list li:hover {
+  background-color: rgba(120, 100, 150, 0.06);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  transform: translateY(-1px);
+}
+
+.calendar-list li a {
+  flex-grow: 1;
+  text-decoration: none;
+  color: #2c2c2c;
+  font-weight: 500;
+  transition: color 0.25s ease;
+}
+
+.calendar-list li:hover a {
+  color: #5c3d8c; /* tím nhã nhặn khi hover */
+}
+
+.calendar-list li button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 12px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.25s ease, transform 0.2s ease;
+}
+
+.calendar-list li button:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.calendar-list li button img {
+  width: 18px;
+  height: 18px;
+}
+
+
+  /* --- Main View --- */
+  .calendar-view {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .calendar-view-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border-color);
+    height: 72px;
+  }
+  .header-left, .header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .sidebar-toggle {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-light);
+  }
+  .calendar-view-header h2 {
+    font-size: 30px;
+    font-weight: 500;
+    margin: 0;
+  }
+  .calendar-view-header h2 span {
+    font-family: var(--font-inter);
+    font-weight: 400;
+  }
+  .view-switcher {
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: 3px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .nav-arrows img {
+    display: block;
+  }
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #ece6f0;
+    border-radius: 28px;
+    opacity: 0.8;
+    padding: 4px;
+  }
+  .search-bar input {
+    border: none;
+    background: transparent;
+    padding: 4px 16px;
+    font-family: var(--font-roboto);
+    font-size: 16px;
+  }
+  .search-bar input:focus {
+    outline: none;
+  }
+  .search-bar button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .add-event-btn {
+    background: linear-gradient(135deg, #e4d4f8, #c1a3e7); 
+    color: var(--text-light);
+    border-radius: 3px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .add-event-btn:hover {
+    background: linear-gradient(135deg, #c1a3e7, #e4d4f8); /* đảo chiều gradient */
+    color: var(--text-white);
+    box-shadow: 0 4px 12px rgba(193, 163, 231, 0.6);
+    transform: translateY(-2px) scale(1.02);
+    transition: all 0.3s ease;
+  }
+
+
+  /* --- Calendar Grid --- */
+  .calendar-grid-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    border-left: 1px solid var(--border-color);
+  }
+  .grid-header {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .grid-header-cell {
+    flex: 1;
+    text-align: center;
+    padding: 12px 0;
+    font-size: 12px;
+    font-weight: 500;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  .grid-header-cell.spacer {
+    flex: 0 0 54px;
+  }
+  .grid-header-cell.weekend {
+    background-color: var(--bg-alt);
+  }
+  .grid-header-cell img {
+    width: 15px;
+    height: 15px;
+  }
+  .grid-body {
+    display: flex;
+  }
+  .time-column {
+    width: 54px;
+    flex-shrink: 0;
+  }
+  .time-label-slot {
+    height: 80.9px;
+    position: relative;
+  }
+  .time-label-slot span {
+    position: absolute;
+    top: -0.5em;
+    right: 10px;
+    font-size: 12px;
+    color: var(--text-primary);
+  }
+  .day-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border-color);
+  }
+  .day-column.weekend {
+    background-color: var(--bg-alt);
+  }
+  .time-slot {
+    height: 80.9px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  @media (max-width: 768px) {
+    .sidebar {
+      display: none; /* Hidden on mobile */
+    }
+    .calendar-view-header {
+      flex-wrap: wrap;
+      height: auto;
+      gap: 10px;
+    }
+    .calendar-grid-container {
+      overflow-x: auto;
+    }
+    .grid-body, .grid-header {
+      min-width: 800px;
+    }
+  }
+
+  /* SEARCH BAR và SUGGESTIONS */
+  /* SEARCH BAR */
+  .search-bar {
+    position: relative;
+    width: fit-content;
+    z-index: 99999; /* tạo stacking context cao */
+  }
+
+  /* SEARCH INPUT */
+  .search-input-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: #f3eef8;
+    border-radius: 20px;
+    padding: 0 10px;
+    width: 280px;
+    position: relative;
+    z-index: 99999; /* để không bị phần tử khác che */
+  }
+
+
+  .search-input-wrapper input {
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    padding: 10px 10px 10px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+    width: 100%;
+  }
+
+  .search-input-wrapper button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .search-input-wrapper img {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* SUGGESTIONS */
+  .search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    list-style: none;
+    margin-top: 4px;
+    padding: 0;
+    z-index: 2147483647; /* MAX z-index an toàn (trên cả quảng cáo/iframe) */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    max-height: 250px;
+    overflow-y: auto;
+  }
+
+  .search-suggestions li {
+    padding: 10px 15px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .search-suggestions li:hover {
+    background-color: #f3eef8;
+  }
+
+  .grid-body-scroll-wrapper {
+    height: 850px; /* bạn có thể thay đổi chiều cao tùy ý */
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .grid-body-scroll-wrapper::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .grid-body-scroll-wrapper::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+  }
+
+  .grid-body-scroll-wrapper::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+  }
+
+.month-grid {
   display: flex;
   flex-direction: column;
 }
-.event-slot {
-  height: 80.9px;
-  border-top: 1px solid var(--border-color);
-  border-left: 1px solid var(--border-color);
+
+.week-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-bottom: 1px solid #ddd;
 }
 
-@media (max-width: 768px) {
-  .calendar-app-container {
-    flex-direction: column;
+.day-cell {
+  height: 300px;
+  border-right: 1px solid #ddd;
+  padding: 5px;
+  position: relative;
+}
+
+.day-cell .day-number {
+  position: absolute;
+  top: 12px;
+  left: 15px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
+}
+
+.year-view-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  padding: 20px;
+}
+
+.month-block {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fdfdfd;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 10px;
+  height: 265px;
+  display: flex;
+  flex-direction: column;
+}
+
+.month-title {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #3c1e59; /* tuỳ màu sắc chủ đề */
+}
+
+.month-content {
+  flex-grow: 1;
+  background-color: #f7f7fa;
+  border: 1px dashed #ccc;
+  border-radius: 4px;
+  padding: 5px;
+  overflow: auto;
+}
+
+.popup-menu {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  border: 1px solid #e6e0f5; /* viền tím nhạt */
+  box-shadow: 0 8px 28px rgba(102, 51, 153, 0.15); /* bóng tím mờ */
+  z-index: 999;
+  padding: 24px;
+  border-radius: 14px;
+  min-width: 300px;
+  font-family: "Segoe UI", "Roboto", sans-serif;
+  color: #3c2f4a; /* tím xám đậm để dễ đọc */
+}
+
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.popup-option {
+  padding: 12px 16px;
+  background-color: #f7f3fb; /* nền tím nhạt */
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1px solid #e0d6f5;
+  transition: background 0.25s, transform 0.1s;
+  font-size: 15px;
+  color: #4b3d63;
+}
+
+.popup-option:hover {
+  background: linear-gradient(135deg, #ede7f6, #dcd0f7); /* tím gradient tinh tế */
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(102, 51, 153, 0.15);
+}
+
+#popupCloseBtn {
+  margin-top: 16px;
+  padding: 10px 16px;
+  background: #f3eef8; /* tím nhạt */
+  border: 1px solid #d6c9f5;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #4a3a63;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+#popupCloseBtn:hover {
+  background: #e8def7;
+  box-shadow: 0 2px 6px rgba(102, 51, 153, 0.2);
+}
+
+.popup-menu input,
+.popup-menu textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #d2c2f0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.popup-menu input:focus,
+.popup-menu textarea:focus {
+  border-color: #9b6ef3; /* tím chính */
+  box-shadow: 0 0 0 3px rgba(155, 110, 243, 0.25);
+  outline: none;
+}
+
+
+.new-calendar-btn {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  background-color: transparent;
+  color: #2c2c2c;
+  font-weight: 600;
+  border: 1px solid rgba(120, 100, 150, 0.25);
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.25s ease;
+}
+
+.new-calendar-btn:hover {
+  background-color: rgba(120, 100, 150, 0.06);
+  border-color: rgba(120, 100, 150, 0.5);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transform: translateY(-1px);
+}
+
+
+.new-calendar-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(100, 80, 130, 0.1);
+}
+
+#calendar {
+  margin-top: 20px;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background: #fff;
+  border-radius: 10px;
+  padding: 8px 0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  min-width: 160px;
+  overflow: hidden;
+  transform: translateY(10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s ease;
+  z-index: 1000;
+}
+
+.dropdown-menu.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dropdown-menu li {
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #444;
+  transition: all 0.2s ease;
+}
+
+.dropdown-menu li:hover {
+  background: linear-gradient(135deg, #e4d4f8, #c1a3e7);
+  color: white;
+  transform: translateX(4px);
+}
+
+.confirm-modal {
+  display: none; /* Ẩn mặc định */
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirm-content {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  width: 360px;
+  text-align: center;
+  box-shadow: 0 10px 28px rgba(103, 58, 183, 0.25);
+  animation: fadeIn 0.3s ease;
+}
+
+.confirm-content h3 {
+  margin-bottom: 12px;
+  font-size: 18px;
+  color: #3c2f4a;
+}
+
+.confirm-content p {
+  margin-bottom: 20px;
+  font-size: 15px;
+  color: #4a3a63;
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.confirm-actions .btn-danger {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #d946ef, #a21caf);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.confirm-actions .btn-danger:hover {
+  background: linear-gradient(135deg, #c026d3, #86198f);
+  transform: translateY(-1px);
+}
+
+.confirm-actions .btn-secondary {
+  padding: 8px 16px;
+  background: #f3eef8;
+  border: 1px solid #d6c9f5;
+  color: #4b3d63;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.confirm-actions .btn-secondary:hover {
+  background: #e8def7;
+  transform: translateY(-1px);
+}
+
+/* Container giữ toast */
+#toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;         /* đưa sang góc phải */
+  z-index: 9999;
+}
+
+/* Nội dung toast */
+.toast-message {
+  background: linear-gradient(135deg, #e4d4f8, #c1a3e7);
+  color: #fff;
+  padding: 12px 20px;
+  margin-top: 10px;
+  border-radius: 8px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  font-size: 14px;
+  font-weight: 500;
+  animation: slideInRight 0.5s ease, fadeOut 0.5s ease 3s forwards;
+}
+
+/* Hiệu ứng xuất hiện từ dưới phải */
+@keyframes slideInRight {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
   }
-  .sidebar {
-    width: 100%;
-    border-right: none;
-    border-bottom: 1px solid var(--border-color);
-    padding-top: 16px;
-  }
-  .view-header {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .view-controls-left, .view-controls-right {
-    justify-content: space-between;
-  }
-  .current-date {
-    font-size: 24px;
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
+
+/* Biến mất dần */
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/* Tuỳ biến highlight ngày hôm nay */
+.fc .fc-day-today {
+  background: linear-gradient(135deg, #e4d4f8, #c1a3e7); 
+  color: #3c1053 !important;   /* đổi màu chữ trong ngày hiện tại */
+  font-weight: bold;
+}
+
+.fc .fc-highlight {
+  background: linear-gradient(135deg, #e4d4f87e, #c1a3e774) !important;
+}
+
+/* Hover hiệu ứng đẹp */
+.fc .fc-daygrid-day:hover {
+  background: #f3eef8;
+  cursor: pointer;
+}
+.event-modal {
+  display: none; /* ẩn mặc định */
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(60, 0, 90, 0.4); /* tím mờ */
+  backdrop-filter: blur(4px); /* làm mờ nền */
+}
+
+.event-modal-content {
+  background: linear-gradient(135deg, #f3e7ff, #e9d6ff); /* gradient tím nhạt */
+  margin: 8% auto;
+  padding: 24px 32px;
+  border-radius: 20px;
+  width: 450px;
+  max-width: 90%;
+  box-shadow: 0 10px 25px rgba(100, 50, 150, 0.3);
+  animation: fadeIn 0.35s ease;
+  font-family: 'Segoe UI', sans-serif;
+  color: #3b2d60;
+  position: relative;
+}
+
+.event-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  color: #5a3a8e;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.event-modal-close:hover {
+  color: #d63384; /* tím hồng */
+}
+
+/* Tiêu đề sự kiện */
+#eventTitle {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  color: #4a2975;
+}
+
+/* Sub-title hoặc tên tác giả kèm sau title */
+.event-subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #7a5ca0;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+/* Các thông tin sự kiện */
+.event-info p {
+  margin: 10px 0;
+  font-size: 15px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.event-info strong {
+  color: #4a2975;
+}
+  
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(-25px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
   </style>
   <script src="global.js" defer></script>
 </head>
 <body>
-<header id="section-header" class="main-header">
-  <div class="header-content">
-    <a href="../../home/index.html" class="logo">Lucenda</a>
-    <nav class="main-nav">
-      <a href="../../home/index.html" class="nav-link">Home</a>
-      <a href="../../event/main-event/index.html" class="nav-link">Event</a>
-      <a href="" class="nav-link active">Calendar</a>
-      <a href="../../aboutus/index.html" class="nav-link">About us</a>
-    </nav>
-    <div class="user-profile">
-      <a href="../../profile/index.html" class="user-profile">
-        <span class="user-name">mphanquang</span>
-        <img src="images/109_23887.svg" alt="User Avatar" class="user-avatar">
+<section id="section-header">
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="{% url 'home' %}" class="logo">
+        <img src="{% static 'calendar/day-view/images/24489db95d7c8b23ff71ea38f01643e97c6a9ede.png' %}" alt="Lucenda Logo" class="logo-img">
       </a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'event_main' %}">Event</a></li>
+          <li><a href="{% url 'calendar' %}">Calendar</a></li>
+          <li><a href="{% url 'about' %}">About us</a></li>
+        </ul>
+      </nav>
+      <div class="profile-section">
+        <a href="{% url 'profile' %}">
+          {% if haslogin %}
+            <span class="profile-name">{{ haslogin }}</span>
+          {% else %}
+            <span class="profile-name">Login/Signup</span>
+          {% endif %}
+          <img src="{% static 'calendar/day-view/images/299_23747.svg' %}" alt="User avatar" class="profile-avatar">
+        </a>
+      </div>
     </div>
-
-    <button class="mobile-menu-toggle">
-        <img src="images/I5_106464_1_43894_17_1821.svg" alt="Menu">
-    </button>
-  </div>
-</header>
-<div id="section-calendar-app" class="calendar-app-container">
+  </header>
+</section>
+<div class="event-view-wrapper">
   <aside class="sidebar">
-    <div class="sidebar-section">
-      <div class="mini-calendar-header">
-        <img src="images/5_106666.svg" alt="Calendar Icon" class="icon">
-        <p class="month-year">
-          <span>August </span><span class="year">2025</span>
-        </p>
+    <div class="sidebar-top">
+    <div class="calendar-widget">
+      <div class="calendar-header">
+        <img src="{% static 'calendar/day-view/images/38_56003.svg' %}" alt="Calendar icon">
+        <h2 id="month-name">Month <span class="year">Year</span></h2>
       </div>
-      <div class="mini-calendar">
-        <div class="weekdays">
-          <span>m</span><span>t</span><span>w</span><span>t</span><span>f</span><span>s</span><span>s</span>
-        </div>
-        <div class="days">
-          <button class="day">01</button>
-          <button class="day active">02</button>
-          <button class="day">03</button>
-          <button class="day">04</button>
-          <button class="day">05</button>
-          <button class="day">06</button>
-          <button class="day">07</button>
-          <button class="day">08</button>
-          <button class="day">09</button>
-          <button class="day">10</button>
-          <button class="day">11</button>
-          <button class="day">12</button>
-          <button class="day">13</button>
-          <button class="day">14</button>
-          <button class="day">15</button>
-          <button class="day">16</button>
-          <button class="day">17</button>
-          <button class="day">18</button>
-          <button class="day">19</button>
-          <button class="day">20</button>
-          <button class="day">21</button>
-          <button class="day">22</button>
-          <button class="day">23</button>
-          <button class="day">24</button>
-          <button class="day">25</button>
-          <button class="day">26</button>
-          <button class="day">27</button>
-          <button class="day">28</button>
-          <button class="day">29</button>
-          <button class="day">30</button>
-          <button class="day">31</button>
-          <button class="day other-month">01</button>
-          <button class="day other-month">02</button>
-          <button class="day other-month">03</button>
-          <button class="day other-month">04</button>
-        </div>
+      <div class="calendar-grid">
+        <div class="day-name">m</div>
+        <div class="day-name">t</div>
+        <div class="day-name">w</div>
+        <div class="day-name">t</div>
+        <div class="day-name">f</div>
+        <div class="day-name">s</div>
+        <div class="day-name">s</div>
+        <!-- Dates will be inserted by JS -->
       </div>
     </div>
-    <div class="sidebar-section calendars-list-section">
-      <div class="calendars-header">
-        <img src="images/5_106659.svg" alt="List Icon" class="icon">
-        <h3>Calendars</h3>
+      <div class="events-section">
+        <div class="events-header">
+          <div class="events-title">
+            <img src="{% static 'calendar/day-view/images/38_55997.svg' %}" alt="List icon">
+            <h3>Calendars</h3>
+          </div>
+        </div>
+        <div class="events-footer">
+            <ul class="event-list scrollable">
+              <ul class="calendar-list" id="calendarList">
+                <!-- dữ liệu từ server sẽ render vào đây -->
+              </ul>
+            </ul>
+            <div id="popupMenu" class="popup-menu" style="display: none;">
+              <div class="popup-content">
+                <div class="popup-option" id="renameOption">Rename</div>
+                <div class="popup-option" id="shareOption">Share with ID</div>
+                <div class="popup-option" id="deleteOption">Delete</div>
+                <button id="popupCloseBtn">Close</button>
+              </div>
+            </div>
+
+            <!-- Modal chia sẻ -->
+            <div id="shareModal" class="modal">
+              <div class="modal-content">
+                <h3>Share Calendar</h3>
+                
+                <!-- Input để nhập ID -->
+                <div class="input-group">
+                  <input id="shareInput" type="text" placeholder="Enter ID to share">
+                  <button id="addShareBtn" type="button">Add</button>
+                </div>
+                
+                <!-- Bảng hiển thị danh sách ID -->
+                <table id="shareTable">
+                  <thead>
+                    <tr>
+                      <th>Shared ID</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+                
+                <!-- Nút control -->
+                <div class="modal-actions">
+                  <button id="saveShareBtn" type="button" class="primary">Save</button>
+                  <button id="closeShareBtn" type="button" class="secondary">Close</button>
+                </div>
+              </div>
+            </div>
+
+            <button id="addCalendarBtn" class="new-calendar-btn">➕ &nbsp;&nbsp;New Calendar</button>
+          </div>
       </div>
-      <ul class="calendars-list">
-        <li class="active">My Calendar <img src="images/5_107475.svg" alt="options"></li>
-        <li>Vacation Plan <img src="images/14_2251.svg" alt="options"></li>
-        <li>Learning Calendar <img src="images/14_2256.svg" alt="options"></li>
-        <li>Work Calendar <img src="images/14_2261.svg" alt="options"></li>
-        <li>Vacation With Team <img src="images/14_2266.svg" alt="options"></li>
-      </ul>
-      <button class="add-new-calendar">
-        <img src="images/14_2271.svg" alt="add">
-        <span>Add new calendar</span>
-      </button>
     </div>
-    <div class="sidebar-section recycle-bin-section">
-      <hr class="divider">
-      <a href="../recycle-bin/index.html" class="recycle-bin-link">
-        <img src="images/5_106654.svg" alt="Trash Icon" class="icon">
+    <div class="sidebar-bottom">
+      <a href="{% url 'calendar_recycle' %}" class="recycle-bin-link">
+        <img src="{% static 'calendar/day-view/images/38_55975.svg' %}" alt="Trash can icon">
         <span>Recycle Bin</span>
       </a>
     </div>
   </aside>
-  <main class="main-view">
-    <header class="view-header">
-      <div class="view-controls-left">
-        <button class="icon-button">
-          <img src="images/I5_106464_1_43894_17_1821.svg" alt="Menu">
+<main class="calendar-view">
+  <header class="calendar-view-header">
+    <div class="header-left">
+      <button class="sidebar-toggle">
+        <img src="{% static 'calendar/day-view/images/I14_2748_1_43894_17_1821.svg' %}" alt="Toggle Sidebar">
+      </button>
+
+      <h2 id="dateRange">01-07 January <span>2022</span></h2>
+      
+      <div class="dropdown">
+        <button class="view-switcher" id="viewSwitcherBtn">
+          <span id="currentView">Week</span>
+          <img src="{% static 'calendar/day-view/images/I14_2750_2_85414.svg' %}" alt="Dropdown">
         </button>
-        <h1 class="current-date">
-          <span>01 August </span><span class="year">2025</span>
-        </h1>
-        <button class="dropdown-button">
-          <span>Day</span>
-          <img src="images/I5_106466_2_85414.svg" alt="dropdown">
-        </button>
-        <div class="date-nav">
-          <img src="images/5_106642.svg" alt="Previous and Next Day">
-        </div>
+        <ul class="dropdown-menu" id="viewDropdown">
+          <li data-view="timeGridDay">Day</li>
+          <li data-view="timeGridWeek">Week</li>
+          <li data-view="dayGridMonth">Month</li>
+        </ul>
       </div>
-      <div class="view-controls-right">
-        <div class="search-bar">
-          <span>Search event</span>
-          <img src="images/I185_25634_52977_33954_57994_10133_57994_9720.svg" alt="Search">
-        </div>
-        <button class="add-event-button">
-          <span>Add event</span>
-          <img src="images/I5_106478_2_85399.svg" alt="add">
+      
+      <div class="nav-arrows">
+        <button id="prevDayBtn">
+          <img src="{% static 'calendar/day-view/images/14_2401_left.svg' %}" alt="Previous Day">
         </button>
-      </div>
-    </header>
-    <div class="calendar-grid-wrapper">
-      <div class="calendar-grid">
-        <div class="time-column">
-          <div class="time-slot"><span class="time-label">00:00</span></div>
-          <div class="time-slot"><span class="time-label">00:00</span></div>
-          <div class="time-slot"><span class="time-label">00:00</span></div>
-          <div class="time-slot"><span class="time-label">00:00</span></div>
-          <div class="time-slot"><span class="time-label">00:00</span></div>
-          <div class="time-slot"><span class="time-label">00:00</span></div>
-          <div class="time-slot"><span class="time-label">00:00</span></div>
-          <div class="time-slot"><span class="time-label">00:00</span></div>
-          <div class="time-slot"><span class="time-label">00:00</span></div>
-          <div class="time-slot"><span class="time-label">00:00</span></div>
-          <div class="time-slot"><span class="time-label">00:00</span></div>
-          <div class="time-slot"><span class="time-label">00:00</span></div>
-        </div>
-        <div class="events-column">
-          <div class="event-slot"></div>
-          <div class="event-slot"></div>
-          <div class="event-slot"></div>
-          <div class="event-slot"></div>
-          <div class="event-slot"></div>
-          <div class="event-slot"></div>
-          <div class="event-slot"></div>
-          <div class="event-slot"></div>
-          <div class="event-slot"></div>
-          <div class="event-slot"></div>
-          <div class="event-slot"></div>
-          <div class="event-slot"></div>
-        </div>
+        <button id="nextDayBtn">
+          <img src="{% static 'calendar/day-view/images/14_2401_right.svg' %}" alt="Next Day">
+        </button>
       </div>
     </div>
-  </main>
+
+    <div class="header-right">
+      <form id="searchForm" class="search-bar">
+        <div class="search-input-wrapper">
+          <input type="text" id="searchInput" placeholder="Search event" autocomplete="off">
+          <button type="submit">
+            <img src="{% static 'calendar/day-view/images/I185_26280_52977_33954_57994_10133_57994_9720.svg' %}" alt="Search">
+          </button>
+        </div>
+        <ul class="search-suggestions" id="suggestions"></ul>
+      </form>
+
+      <button class="add-event-btn" id="addEventBtn">
+        <span>Add event</span>
+        <img src="{% static 'calendar/day-view/images/I14_2406_2_85399.svg' %}" alt="Add">
+      </button>
+
+      <!-- Modal Confirm -->
+      <div id="toast"></div>
+      <div id="confirmModal" class="confirm-modal">
+        <div class="confirm-content">
+          <h3>Confirm Action</h3>
+          <p id="confirmMessage">Do you really want to delete this calendar?</p>
+          <div class="confirm-actions">
+            <button id="confirmYes" class="btn-danger">Delete</button>
+            <button id="confirmNo" class="btn-secondary">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal hiển thị sự kiện -->
+      <div id="eventModal" class="event-modal">
+        <div class="event-modal-content">
+          <span class="event-modal-close">&times;</span>
+          <h2 id="eventTitle"></h2>
+          <div class="event-info">
+            <p><strong>ID:</strong> <span id="eventId"></span></p>
+            <p><strong>Start Time:</strong> <span id="eventStart"></span></p>
+            <p><strong>End Time:</strong> <span id="eventEnd"></span></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- Calendar hiển thị ở đây -->
+  <div id="calendar"></div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+
 </div>
 </body>
+<script>
+
+  // Calendar generation script
+  let calendar;
+  let id_calendar_now = null;
+  function generateCalendar() {
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth();
+    const currentDate = today.getDate();
+
+    const monthNames = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+
+    const monthTitle = document.getElementById("month-name");
+    monthTitle.innerHTML = `${monthNames[currentMonth]} <span class="year">${currentYear}</span>`;
+
+    const firstDay = new Date(currentYear, currentMonth, 1);
+    const startDay = (firstDay.getDay() + 6) % 7; // Monday = 0
+    const lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+    const prevLastDate = new Date(currentYear, currentMonth, 0).getDate();
+
+    const calendarGrid = document.querySelector(".calendar-grid");
+
+    // Xóa các ngày cũ
+    document.querySelectorAll(".date-num").forEach(el => el.remove());
+
+    // Tổng cộng 35 ô
+    for (let i = 0; i < 35; i++) {
+      const dateEl = document.createElement("div");
+      dateEl.classList.add("date-num");
+
+      const dateNum = i - startDay + 1;
+
+      if (i < startDay) {
+        // Ngày của tháng trước
+        dateEl.textContent = prevLastDate - (startDay - i - 1);
+        dateEl.classList.add("dimmed");
+      } else if (dateNum > lastDate) {
+        // Ngày của tháng sau
+        dateEl.textContent = String(dateNum - lastDate).padStart(2, '0');
+        dateEl.classList.add("dimmed");
+      } else {
+        // Ngày của tháng hiện tại
+        dateEl.textContent = String(dateNum).padStart(2, '0');
+        if (dateNum === currentDate) {
+          dateEl.classList.add("today");
+        }
+      }
+
+      calendarGrid.appendChild(dateEl);
+    }
+  }
+
+  generateCalendar();
+
+  // Tìm kiếm sự kiện và thêm sự kiện mới
+  let events = [];
+
+  // Gọi API để lấy toàn bộ sự kiện
+  fetch("/api/events-1/")
+    .then(response => response.json())
+    .then(data => {
+      // Ghi dữ liệu server trả về vào mảng events
+      events = data;
+
+      console.log("Events đã load:", events);
+    })
+    .catch(error => console.error("Lỗi khi lấy events:", error));
+
+  const searchInput = document.getElementById("searchInput");
+  const suggestions = document.getElementById("suggestions");
+  const form = document.getElementById("searchForm");
+  const addBtn = document.getElementById("addEventBtn");
+
+  let selectedEvent = "";
+
+  function showSuggestions(value) {
+    const filtered = events.filter(event =>
+      event.toLowerCase().startsWith(value)
+    );
+
+    suggestions.innerHTML = "";
+
+    if (filtered.length === 0) {
+      const li = document.createElement("li");
+      li.textContent = "No matches found";
+      li.style.color = "#aaa";
+      suggestions.appendChild(li);
+      return;
+    }
+
+    filtered.forEach(match => {
+      const li = document.createElement("li");
+      li.textContent = match;
+      li.addEventListener("click", () => {
+        searchInput.value = match;
+        selectedEvent = match;
+        suggestions.innerHTML = "";
+      });
+      suggestions.appendChild(li);
+    });
+  }
+
+  searchInput.addEventListener("input", () => {
+    const value = searchInput.value.toLowerCase().trim();
+    if (value) {
+      showSuggestions(value);
+    } else {
+      suggestions.innerHTML = "";
+    }
+  });
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const value = searchInput.value.trim();
+    if (value) {
+      selectedEvent = value;
+      showToast(`You searched for: ${value}`);
+      suggestions.innerHTML = "";
+    }
+  });
+
+
+  function showToast(message) {
+    const toastContainer = document.getElementById("toast");
+    const toast = document.createElement("div");
+    toast.className = "toast-message";
+    toast.innerText = message;
+
+    toastContainer.appendChild(toast);
+
+    // Xóa sau khi animation kết thúc
+    setTimeout(() => {
+      toast.remove();
+    }, 3500);
+  }
+
+  addBtn.addEventListener("click", async () => {
+    const value = searchInput.value.trim();
+
+    if (!value) {
+      showToast("Please enter an event name before adding.");
+      return;
+    }
+
+    // Kiểm tra id_calendar_now
+    if (id_calendar_now === null) {
+      showToast("Please select a calendar before adding an event.");
+      return;
+    }
+
+    selectedEvent = value;
+
+    try {
+      const response = await fetch("/add-event", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          eventName: selectedEvent,
+          calendarId: id_calendar_now
+        })
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        showToast(`Event "${result.eventTitle}" has been added to calendar ${result.calendarId}.`);
+      } else {
+        showToast(`Failed: ${result.error || "Unable to add event."}`);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      showToast("An error occurred while adding the event.");
+    }
+
+    // Reset UI
+    searchInput.value = "";
+    selectedEvent = "";
+    suggestions.innerHTML = "";
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!form.contains(e.target)) {
+      suggestions.innerHTML = "";
+    }
+  });
+
+
+  // Lựa chọn lịch
+  // Lấy tất cả các mục lịch (li)
+  const calendarItems = document.querySelectorAll(".calendar-list li");
+  function enableCalendarClick() {
+    const calendarItems = document.querySelectorAll("#calendarList li");
+
+    calendarItems.forEach(item => {
+      item.addEventListener("click", () => {
+        // Bỏ class 'active' khỏi tất cả
+        calendarItems.forEach(el => el.classList.remove("active"));
+
+        // Thêm class 'active' vào item được click
+        item.classList.add("active");
+
+        // Lấy class dạng "ID-tên"
+        const className = item.querySelector("a");
+        if (className) {
+          const text = className.textContent.trim();
+          const idPart = text.split("-")[0]; // tách ID
+          id_calendar_now = idPart;
+
+          // Gọi lại fullcalendar để nạp dữ liệu mới
+          if (calendar) {
+            calendar.refetchEvents();
+          }
+        }
+      });
+    });
+  }
+
+  // Chỉnh sửa thông tin của lịch
+  const popupMenu = document.getElementById("popupMenu");
+  const renameOption = document.getElementById("renameOption");
+  const shareOption = document.getElementById("shareOption");
+  const deleteOption = document.getElementById("deleteOption");
+  const popupCloseBtn = document.getElementById("popupCloseBtn");
+
+  let currentItem = null; // lưu lịch đang thao tác
+
+  // Event delegation: lắng nghe click trên danh sách lịch
+  document.querySelector(".calendar-list").addEventListener("click", (e) => {
+    if (e.target.closest(".options-btn")) {
+      e.stopPropagation();
+      currentItem = e.target.closest("li");
+      popupMenu.style.display = "block";
+    }
+  });
+
+  // Đóng popup
+  popupCloseBtn.addEventListener("click", () => {
+    popupMenu.style.display = "none";
+    currentItem = null;
+  });
+
+// --- Đổi tên lịch ---
+renameOption.addEventListener("click", () => {
+  if (!currentItem) return;
+
+  const nameLink = currentItem.querySelector("a");
+  if (!nameLink) return;
+
+  const oldName = nameLink.textContent.trim(); // ví dụ: "123 - Sinh nhật Minh"
+  const parts = oldName.split(" - ");
+  const calendarId = parts[0].trim();
+  const oldTitle = parts.slice(1).join(" - ").trim();
+
+  // Tạo input thay thế
+  const input = document.createElement("input");
+  input.type = "text";
+  input.value = oldTitle;
+  input.style.width = "100%";
+  input.style.padding = "4px";
+
+  nameLink.replaceWith(input);
+  input.focus();
+
+  let saved = false; // flag đảm bảo chỉ lưu một lần
+
+  function saveName() {
+    if (saved) return; // nếu đã lưu rồi thì bỏ qua
+    saved = true;
+
+    const newTitle = input.value.trim() || oldTitle;
+
+    fetch("/api/rename-calendar/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCookie("csrftoken"),
+      },
+      body: JSON.stringify({
+        old_name: `${calendarId} - ${oldTitle}`,
+        new_name: newTitle,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          renderName(`${calendarId} - ${oldTitle}`); // rollback
+          showToast("Error: " + data.error);
+        } else {
+          renderName(`${calendarId} - ${newTitle}`);
+        }
+      })
+      .catch((err) => {
+        console.error("Rename error:", err);
+        renderName(`${calendarId} - ${oldTitle}`);
+        showToast("Error occurred while renaming.");
+      })
+      .finally(() => {
+        popupMenu.style.display = "none";
+        currentItem = null;
+      });
+  }
+
+  function renderName(name) {
+    const newLink = document.createElement("a");
+    newLink.href = "#";
+    newLink.textContent = name;
+    input.replaceWith(newLink);
+  }
+
+  // chỉ gọi saveName một lần
+  input.addEventListener("blur", saveName);
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      saveName();
+    }
+  });
+});
+
+// --- CSRF ---
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === name + "=") {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+
+// --- Chia sẻ lịch ---
+const shareTableBody = document.querySelector("#shareTable tbody");
+const shareModal = document.getElementById("shareModal");
+const shareInput = document.getElementById("shareInput");
+const addShareBtn = document.getElementById("addShareBtn");
+const saveShareBtn = document.getElementById("saveShareBtn");
+const closeShareBtn = document.getElementById("closeShareBtn");
+
+let sharedIDs = []; // lưu tạm danh sách ID được share
+
+// Mở modal Share
+shareOption.addEventListener("click", () => {
+  if (!currentItem) return;
+
+  // Lấy tên hiện tại trong <a>, ví dụ "123 - Lịch học"
+  const nameLink = currentItem.querySelector("a");
+  if (!nameLink) return;
+  currentItem.dataset.calendarName = nameLink.textContent.trim();
+
+  shareModal.style.display = "flex";
+  popupMenu.style.display = "none";
+  renderTable();
+});
+
+// Đóng modal
+closeShareBtn.addEventListener("click", () => {
+  shareModal.style.display = "none";
+});
+
+// Thêm ID
+addShareBtn.addEventListener("click", () => {
+  const id = shareInput.value.trim();
+  if (!id) return showToast("Enter your ID!");
+  if (sharedIDs.includes(id)) return showToast("This ID already exists!");
+
+  sharedIDs.push(id);
+  shareInput.value = "";
+  renderTable();
+});
+
+// Xóa ID trong bảng
+function deleteID(index) {
+  sharedIDs.splice(index, 1);
+  renderTable();
+}
+
+// Hiển thị bảng
+function renderTable() {
+  shareTableBody.innerHTML = "";
+  sharedIDs.forEach((id, index) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${id}</td>
+      <td><button class="delete-btn" onclick="deleteID(${index})">Delete</button></td>
+    `;
+    shareTableBody.appendChild(row);
+  });
+}
+
+// Lưu danh sách
+saveShareBtn.addEventListener("click", () => {
+  if (!currentItem || !currentItem.dataset.calendarName) {
+    showToast("Can not save the calendar!");
+    return;
+  }
+
+  const calendarName = currentItem.dataset.calendarName; // vd: "123 - Lịch học"
+
+  fetch("/api/share-calendar/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": getCookie("csrftoken"),
+    },
+    body: JSON.stringify({
+      calendar_id: calendarName,
+      shared_list: sharedIDs,
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.status === "success") {
+        shareModal.style.display = "none";
+        showToast(`Shared successfully with IDs: ${sharedIDs.join(", ")}`);
+      } else {
+        showToast("Error: " + (data.message || data.error));
+      }
+    })
+    .catch((err) => {
+      console.error("Error:", err);
+      showToast("Error occurred while sharing calendar!");
+    });
+});
+
+// --- CSRF ---
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === name + "=") {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+function showConfirm(message, onConfirm) {
+  const modal = document.getElementById("confirmModal");
+  const msg = document.getElementById("confirmMessage");
+  const yesBtn = document.getElementById("confirmYes");
+  const noBtn = document.getElementById("confirmNo");
+
+  msg.textContent = message;
+  modal.style.display = "flex"; // mở modal
+
+  // Nếu click Xóa
+  yesBtn.onclick = () => {
+    modal.style.display = "none";
+    onConfirm(); // chạy callback
+  };
+
+  // Nếu click Hủy
+  noBtn.onclick = () => {
+    modal.style.display = "none";
+  };
+}
+
+  // DELETE
+  deleteOption.addEventListener("click", () => {
+    if (!currentItem) return;
+
+    const calendarName = currentItem.querySelector("a")?.textContent.trim();
+    if (!calendarName) return;
+
+    showConfirm(
+      `Do you really want to delete "${calendarName}"?`,
+      () => {
+        fetch("/api/delete-calendar/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCookie("csrftoken"), // nếu bạn dùng CSRF
+          },
+          body: JSON.stringify({ name: calendarName }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.error) {
+              showToast("Error: " + data.error);
+            } else {
+              // Xóa trên giao diện nếu backend xóa thành công
+              showToast(`The "${calendarName}" has been deleted successfully.`);
+              currentItem.remove();
+            }
+          })
+          .catch((err) => {
+            console.error("Delete error:", err);
+            showToast("Error occurred while deleting.");
+          })
+          .finally(() => {
+            popupMenu.style.display = "none";
+            currentItem = null;
+          });
+      }
+    );
+  });
+
+
+  // Hàm lấy CSRF (nếu đang bật CSRF protection)
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === name + "=") {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+
+
+  // Thêm lịch mới
+  const addCalendarBtn = document.getElementById("addCalendarBtn");
+  const calendarList = document.querySelector(".calendar-list");
+
+  addCalendarBtn.addEventListener("click", () => {
+    const newItem = document.createElement("li");
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.value = "New Calendar";
+    input.style.width = "100%";
+    input.style.padding = "4px";
+
+    const optionBtn = document.createElement("button");
+    optionBtn.classList.add("options-btn");
+    optionBtn.innerHTML = `<img src="{% static 'calendar/day-view/images/185_26344.svg' %}" alt="Options">`;
+
+    newItem.appendChild(input);
+    newItem.appendChild(optionBtn);
+    calendarList.appendChild(newItem);
+
+    input.focus();
+
+    let isSaved = false; // flag để tránh gọi 2 lần
+
+    async function saveNewCalendarName() {
+      if (isSaved) return;
+      isSaved = true;
+
+      const name = input.value.trim() || "New Calendar";
+
+      try {
+        const response = await fetch("/api/create-calendar/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCookie("csrftoken"),
+          },
+          body: JSON.stringify({ name }),
+        });
+
+        const data = await response.json();
+
+        if (data.status === "success") {
+          const link = document.createElement("a");
+          link.href = "#";
+          link.textContent = name;
+          input.replaceWith(link);
+          // Refresh trang
+          location.reload();
+        } else {
+          showToast("Create failed: " + data.message);
+          newItem.remove();
+        }
+      } catch (err) {
+        console.error("Error creating calendar:", err);
+        newItem.remove();
+      }
+    }
+
+    input.addEventListener("blur", saveNewCalendarName);
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        saveNewCalendarName();
+        input.blur(); // ép blur nhưng không gọi lại vì flag đã true
+      }
+    });
+  });
+
+  // Hàm lấy CSRF token
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === name + "=") {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+  // Đọc lịch từ trên máy chủ và hiển thị lại
+  // Sau khi load dữ liệu từ server thì gọi lại hàm này
+  async function loadCalendars() {
+    try {
+      const response = await fetch("/api/calendars/");
+      const calendars = await response.json();
+
+      const list = document.getElementById("calendarList");
+      list.innerHTML = ""; 
+
+      calendars.forEach(item => {
+        const li = document.createElement("li");
+
+        const link = document.createElement("a");
+        link.href = "#";
+        link.textContent = item.name_calendar;
+
+        const button = document.createElement("button");
+        button.classList.add("options-btn");
+
+        const img = document.createElement("img");
+        img.src = "{% static 'calendar/day-view/images/185_26344.svg' %}";
+        img.alt = "Options";
+
+        button.appendChild(img);
+        li.appendChild(link);
+        li.appendChild(button);
+
+        list.appendChild(li);
+      });
+
+      // Kích hoạt chọn lịch
+      enableCalendarClick();
+
+    } catch (err) {
+      console.error("Error loading calendars:", err);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", loadCalendars);
+
+  // Kết nối api xem lịch
+  
+  document.addEventListener('DOMContentLoaded', function () {
+  let calendarEl = document.getElementById('calendar');
+
+  calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'timeGridWeek',
+    headerToolbar: false,
+    selectable: true,
+    eventClick: function(info) {
+      // Lấy modal và các phần tử bên trong
+      var modal = document.getElementById("eventModal");
+      var spanClose = document.getElementsByClassName("event-modal-close")[0];
+
+      // Gán dữ liệu sự kiện
+      document.getElementById("eventTitle").innerText = info.event.title || "None of title";
+      document.getElementById("eventId").innerText = info.event.id || "N/A";
+      document.getElementById("eventStart").innerText = info.event.start ? info.event.start.toLocaleString() : "N/A";
+      document.getElementById("eventEnd").innerText = info.event.end ? info.event.end.toLocaleString() : "N/A";
+
+      // Hiện modal
+      modal.style.display = "block";
+
+      // Đóng khi click nút X
+      spanClose.onclick = function() {
+        modal.style.display = "none";
+      };
+
+      // Đóng khi click ra ngoài modal
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+    },
+    events: function(fetchInfo, successCallback, failureCallback) {
+      // Thêm id_calendar_now vào query string
+      let url = `/api/event-calendar/?start=${fetchInfo.startStr}&end=${fetchInfo.endStr}`;
+      if (id_calendar_now) {
+        url += `&calendar_id=${id_calendar_now}`;
+      }
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => successCallback(data))
+        .catch(error => failureCallback(error));
+    }
+  });
+
+  calendar.render();
+
+  // gọi hàm enable click sau khi DOM load
+  enableCalendarClick();
+
+    // Hàm update text hiển thị ngày
+    function updateDateRange() {
+      const viewType = calendar.view.type;
+      const start = new Date(calendar.view.currentStart);
+      const endExclusive = new Date(calendar.view.currentEnd);
+      const end = new Date(endExclusive.getTime() - 1); // end inclusive
+
+      const monthName = (d) => d.toLocaleString('en-US', { month: 'long' });
+      const dd = (d) => String(d.getDate()).padStart(2, '0');
+
+      let text;
+
+      if (viewType === 'dayGridMonth') {
+        // Month view: "January 2022"
+        text = `${monthName(start)} ${start.getFullYear()}`;
+      } else if (viewType === 'timeGridDay') {
+        // Day view: "01 August 2025"
+        text = `${dd(start)} ${monthName(start)} ${start.getFullYear()}`;
+      } else {
+        // Week / multi-day range
+        if (start.getFullYear() === end.getFullYear()) {
+          if (start.getMonth() === end.getMonth()) {
+            // Same month, same year: "01 – 07 January 2022"
+            text = `${dd(start)} – ${dd(end)} ${monthName(start)} ${start.getFullYear()}`;
+          } else {
+            // Different months, same year: "29 January – 04 February 2025"
+            text = `${dd(start)} ${monthName(start)} – ${dd(end)} ${monthName(end)} ${start.getFullYear()}`;
+          }
+        } else {
+          // Different years: "30 December 2025 – 05 January 2026"
+          text = `${dd(start)} ${monthName(start)} ${start.getFullYear()} – ${dd(end)} ${monthName(end)} ${end.getFullYear()}`;
+        }
+      }
+
+      const el = document.getElementById('dateRange');
+      el.textContent = text; // dùng textContent để tránh rối HTML/span
+    }
+
+    // Update lần đầu
+    updateDateRange();
+
+    // Nút đổi view
+    const viewDropdown = document.getElementById('viewDropdown');
+    document.getElementById('viewSwitcherBtn').addEventListener('click', () => {
+      viewDropdown.classList.toggle('show');
+    });
+
+    viewDropdown.querySelectorAll('li').forEach(li => {
+      li.addEventListener('click', () => {
+        let viewName = li.dataset.view;
+        calendar.changeView(viewName);
+        document.getElementById('currentView').textContent = li.textContent;
+        viewDropdown.classList.remove('show');
+        updateDateRange();
+      });
+    });
+
+    // Nút prev / next
+    document.getElementById('prevDayBtn').addEventListener('click', () => {
+      calendar.prev();
+      updateDateRange();
+    });
+    document.getElementById('nextDayBtn').addEventListener('click', () => {
+      calendar.next();
+      updateDateRange();
+    });
+  });
+
+
+  </script>
+
 </html>

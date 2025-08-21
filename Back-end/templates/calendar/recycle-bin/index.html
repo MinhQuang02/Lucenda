@@ -1,374 +1,1030 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recycle Bin - Calendars</title>
-  <link rel="icon" type="image/png" href="../../images/logo.png">
+  <title>Recycle Bin - Lucenda</title>
+  <link rel="icon" type="image/png" href="{% static 'images/logo.svg' %}">
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Recycle Bin - Calendars</title>
+<title>Event Detail</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Inter:wght@400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="global.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@275;400;500;600;700&family=Roboto:wght@400&family=Inter:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'event/recycle-bin-event/global.css' %}">
   <style id="sections-styles">
 /* CSS for section section:header */
 .site-header {
-  background-color: var(--primary-bg);
-  opacity: 0.96;
-  padding: 12px 0;
-}
-.header-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0 42px;
-}
-.logo {
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--text-light);
-}
-.main-nav ul {
-  display: flex;
-  gap: 42px;
-}
-.main-nav a {
-  font-size: 20px;
-  font-weight: 500;
-  color: var(--text-light);
-}
-.user-profile {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  font-size: 20px;
-  font-weight: 500;
-  color: var(--text-light);
-}
-.avatar-container {
-  position: relative;
-  width: 40px;
-  height: 40px;
-}
-.avatar-container img {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 10;
+  background: linear-gradient(to left, rgba(220, 140, 216, 0.96), rgba(232, 150, 249, 0.96));
+  height: var(--header-height);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   height: 100%;
-  border-radius: 50%;
-}
-.avatar-img {
-  z-index: 2;
-}
-.avatar-svg {
-  z-index: 1;
+  position: relative;
 }
 
-@media (max-width: 768px) {
-    .main-nav {
-        display: none;
-    }
-    .header-container {
-        padding: 0 20px;
-    }
+.logo {
+  position: absolute;
+  left: 20px;
+  top: -27px;
+  width: 129px;
+  height: 129px;
+  z-index: 11;
 }
 
-/* CSS for section section:main */
-.main-content {
-  display: flex;
-  min-height: calc(100vh - 86px);
+.logo img {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+  transform-origin: center center; /* phóng từ giữa ảnh */
+  cursor: pointer;
 }
-.sidebar {
-  width: 262px;
-  flex-shrink: 0;
-  border-right: 1px solid var(--border-color);
-  display: flex;
-  flex-direction: column;
+
+.logo img:hover {
+  transform: scale(1.05); /* phóng to ra ngoài, không bị cắt */
 }
-.sidebar-section {
-  padding: 24px 14px;
-}
-.mini-calendar-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 0 12px 10px;
-}
-.month-year {
-  font-size: 18px;
-  font-weight: 500;
-  color: var(--text-dark);
-  margin: 0;
-}
-.month-year .year {
-  font-family: var(--font-inter);
-  font-weight: 400;
-}
-.mini-calendar {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
-  font-size: 10px;
-  font-weight: 500;
-  text-align: center;
-}
-.mini-calendar .day {
-  opacity: 0.7;
-  text-transform: capitalize;
-}
-.mini-calendar .date {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-}
-.mini-calendar .date.active {
-  background-color: var(--highlight-color);
-  color: var(--text-light);
-}
-.mini-calendar .date.other-month {
-  opacity: 0.3;
-}
-.calendars-list-section {
+
+.main-nav {
   flex-grow: 1;
-  padding-top: 0;
+  margin-left: 165px; /* Space for the absolute positioned logo */
 }
-.calendars-header {
+
+.main-nav ul {
+  display: flex;
+  gap: 40px;
+}
+
+.main-nav a {
+  /* style_27 */
+  font-size: 20px;
+  font-weight: 500;
+  /* NOTE: Text color from JSON is #ffffff, which has poor contrast on the light header background. Using a darker color for visibility based on the image. */
+  color: #1f1f1f;
+}
+
+.profile-section {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
 }
-.calendars-header h2 {
+
+.profile-section a {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* khoảng cách giữa chữ và ảnh */
+  text-decoration: none;
+  color: inherit;
+}
+
+.profile-name {
+  /* style_26 */
+  font-size: 20px;
+  font-weight: 500;
+  /* NOTE: Text color from JSON is #ffffff. Using a darker color for visibility. */
+  color: #1f1f1f;
+}
+
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* style_25 */
+}
+
+.mobile-nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 12;
+}
+
+.mobile-nav-toggle .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #1f1f1f;
+}
+
+/* Responsive Header */
+@media (max-width: 1024px) {
+  .main-nav {
+    margin-left: 180px;
+  }
+  .main-nav ul {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 880px) {
+  .main-nav, .profile-section {
+    display: none; /* Hide for mobile, to be handled by JS */
+  }
+  .mobile-nav-toggle {
+    display: block;
+  }
+  .header-container {
+    justify-content: flex-end;
+  }
+  .logo {
+    left: 30px;
+    width: 100px;
+    height: 100px;
+    top: -10px;
+  }
+}
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background: linear-gradient(to left, rgba(220, 140, 216, 0.96), rgba(232, 150, 249, 0.96));
+  height: var(--header-height);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  left: 20px;
+  top: -27px; /* Hangs off the top based on Figma coordinates */
+  width: 129px;
+  height: 129px;
+  z-index: 11;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.main-nav {
+  flex-grow: 1;
+  margin-left: 165px; /* Space for the absolute positioned logo */
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 40px;
+}
+
+.main-nav a {
   font-size: 18px;
   font-weight: 500;
-  margin: 0;
-  color: var(--text-dark);
+  color: #1f1f1f; /* chữ trắng tím nhạt */
+  position: relative;
+  transition: color 0.3s ease;
 }
-.calendar-list {
+
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: #b62db6ff;
+  transition: width 0.3s ease;
+}
+
+.main-nav a:hover {
+  color: #b62db6ff; /* tím nhạt sáng hơn khi hover */
+}
+
+.main-nav a:hover::after {
+  width: 100%; /* gạch chân tím khi hover */
+}
+
+.profile-section a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #1f1f1f;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.profile-section a:hover {
+  color: #b62db6ff;
+  transform: translateY(-1px); /* nổi nhẹ khi hover */
+}
+
+.profile-name {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.profile-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #b62db6ff;
+  padding: 2px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.profile-avatar:hover {
+  transform: scale(1.1);
+}
+
+.mobile-nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 12;
+}
+
+.mobile-nav-toggle .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #1f1f1f;
+}
+
+/* Responsive Header */
+@media (max-width: 1024px) {
+  .main-nav {
+    margin-left: 180px;
+  }
+  .main-nav ul {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 880px) {
+  .main-nav, .profile-section {
+    display: none; /* Hide for mobile, to be handled by JS */
+  }
+  .mobile-nav-toggle {
+    display: block;
+  }
+  .header-container {
+    justify-content: flex-end;
+  }
+  .logo {
+    left: 30px;
+    width: 100px;
+    height: 100px;
+    top: -10px;
+  }
+}
+
+/* CSS for section section:event-view */
+.event-view-wrapper {
+    display: flex;
+    min-height: calc(100vh - 86px); /* Full height minus header */
+    margin-top: 82px;
+  }
+
+  .sidebar {
+    width: 262px;
+    flex-shrink: 0;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .sidebar-top {
+    padding: 27px 20px 0;
+  }
+
+  .calendar-widget {
+    padding-bottom: 27px;
+  }
+
+  .calendar-header {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 10px;
+  }
+
+  .calendar-header h2 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-light);
+    margin: 0;
+  }
+
+  .calendar-header .year {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px 4px;
+    text-align: center;
+  }
+
+  .day-name {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-light);
+    opacity: 0.7;
+    text-transform: capitalize;
+  }
+
+  .date-num {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-light);
+    padding: 5px;
+    border-radius: 99px;
+  }
+
+  .date-num.today {
+    background: linear-gradient(135deg, #e4d4f8, #c1a3e7); /* tím nhạt -> tím đậm */
+    color: white;
+    font-weight: bold;
+  }
+
+  .date-num.active {
+    background-color: var(--primary-color);
+    color: var(--text-white);
+  }
+
+  .date-num.dimmed  {
+    opacity: 0.3;
+  }
+
+  .events-section {
+    border-top: 1px solid var(--border-color);
+  }
+
+  .events-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .events-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .events-title h3 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-light);
+    margin: 0;
+  }
+
+  .new-event-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background-color: var(--primary-color);
+    color: var(--text-white);
+    padding: 8px;
+    border-radius: 3px;
+    font-size: 8px;
+    font-weight: 500;
+  }
+
+  .event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    max-height: 520px; /* Chiều cao tối đa của vùng cuộn */
+    overflow-y: auto;  /* Cho phép cuộn khi vượt quá */
+    scrollbar-gutter: stable; /* Giữ chỗ cố định cho thanh cuộn (nếu được hỗ trợ) */
+  }
+
+  .event-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 4px;
+    border-radius: 3px;
+  }
+
+  .event-list li:hover {
+    background-color: #f0f0f0;
+  }
+
+  .event-list li.active {
+    background-color: var(--primary-color);
+    color: var(--text-white);
+  }
+
+  .event-list .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .event-list li.active .dot {
+    background-color: #fff !important;
+  }
+
+  .event-list::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+
+
+  .sidebar-bottom {
+    border-top: 1px solid var(--border-color);
+    padding: 16px 20px;
+  }
+
+  .recycle-bin-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+  }
+
+  .recycle-bin-link img {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.25s ease, filter 0.25s ease;
+  }
+
+  .recycle-bin-link:hover {
+    background-color: #f0f0ff;         /* nền tím nhạt khi hover */
+    color: #4629f2;                   /* chữ đổi sang tím chủ đạo */
+    transform: translateX(4px);       /* trượt nhẹ sang phải */
+  }
+
+  .recycle-bin-link:hover img {
+    transform: rotate(-10deg) scale(1.1);  /* icon nghiêng nhẹ và to lên chút */
+    filter: hue-rotate(25deg) brightness(1.1);
+  }
+
+  .content-panel {
+    flex-grow: 1;
+    padding: 14px 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .content-header {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding-left: 30px;
+    padding-top: 10px;
+  }
+  .content-header h1 {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+  }
+  .empty-state {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .empty-state p {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+  }
+
+.recycle-event-list {
+  padding: 20px 30px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 24px;
+  background-color: #fafafa;
+  border-radius: 10px;
 }
-.calendar-item {
+
+/* --- Item Event --- */
+.recycle-event {
+  background-color: #ffffff;
+  border: 1px solid #e1e1e1;
+  border-left: 5px solid #6a4c93;
+  padding: 16px 20px;
+  border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 12px;
-  border-radius: 10px;
-  font-family: var(--font-inter);
-  font-size: 12px;
-  color: var(--text-black);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.25s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
-.calendar-item.active {
-  background-color: var(--active-bg);
+
+.recycle-event:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  border-color: #b39ddb;
 }
-.add-new-calendar {
+
+/* --- Info --- */
+.recycle-event-info {
+  font-size: 16px;
+  font-weight: 500;
+  color: #2e2e2e;
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: 24px;
-  padding: 8px 12px;
-  font-family: var(--font-inter);
-  font-size: 12px;
-  color: var(--text-black);
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  transition: color 0.3s ease;
 }
-.sidebar-footer {
-  border-top: 1px solid var(--border-color);
-  padding: 16px 32px;
+
+.recycle-event:hover .recycle-event-info {
+  color: #4527a0; /* đổi màu chữ nhấn mạnh */
 }
-.recycle-bin-link {
+
+.event-color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  border: 1px solid #ddd;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  transition: transform 0.25s ease, box-shadow 0.3s ease;
+}
+
+.recycle-event:hover .event-color-dot {
+  transform: scale(1.2);
+  box-shadow: 0 0 6px rgba(106, 76, 147, 0.4);
+}
+
+/* --- Buttons --- */
+.recycle-buttons {
   display: flex;
-  align-items: center;
   gap: 12px;
-  font-size: 18px;
+}
+
+.recycle-buttons button {
+  padding: 7px 16px;
+  font-size: 14px;
   font-weight: 500;
-  color: var(--text-dark);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
 }
-.content-area {
-  flex-grow: 1;
-  padding: 28px 43px;
-  display: flex;
-  flex-direction: column;
+
+.recycle-buttons button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
 }
-.content-header {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  margin-bottom: 309px; /* 9245 - 8936 */
+
+/* Restore Button */
+.restore-btn {
+  background-color: #ede7f6;
+  color: #4527a0;
 }
-.content-header h1 {
-  font-size: 18px;
-  font-weight: 500;
-  margin: 0;
-  color: var(--text-dark);
+
+.restore-btn:hover {
+  background-color: #d1c4e9;
+  color: #311b92;
 }
-.content-body {
-  flex-grow: 1;
-  display: flex;
+
+/* Delete Button */
+.perma-delete-btn {
+  background-color: #f3e5f5;
+  color: #6a1b9a;
+}
+
+.perma-delete-btn:hover {
+  background-color: #e1bee7;
+  color: #4a148c;
+}
+
+/* Modal nền */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(4px);
+  background-color: rgba(0, 0, 0, 0.45);
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+  animation: modalFadeIn 0.25s ease forwards;
 }
-.content-body p {
-  font-size: 20px;
+
+/* Khung modal */
+.modal-content {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 26px 24px;
+  width: 340px;
+  text-align: center;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+  animation: scaleUp 0.3s ease;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+.modal-content h3 {
+  margin-bottom: 12px;
+  font-size: 19px;
+  font-weight: 600;
+  color: #2c2c2c;
+}
+
+.modal-content p {
+  margin-bottom: 22px;
+  font-size: 14.5px;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* Hành động */
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.modal-actions button {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 14.5px;
   font-weight: 500;
-  color: var(--text-black);
-  margin: 0;
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
-@media (max-width: 1024px) {
-    .content-area {
-        padding: 20px;
-    }
-    .content-header {
-        margin-bottom: 100px;
-    }
+/* Nút Cancel */
+#cancelBtn {
+  background: #f1f1f1;
+  color: #333;
 }
 
-@media (max-width: 768px) {
-    .main-content {
-        flex-direction: column;
-    }
-    .sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid var(--border-color);
-    }
-    .content-body {
-        align-items: center;
-        padding: 40px 0;
-    }
+#cancelBtn:hover {
+  background: #e0e0e0;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
+
+/* Nút Confirm */
+#confirmDeleteBtn {
+  background: linear-gradient(135deg, #6a1b9a, #9c27b0);
+  color: #fff;
+}
+
+#confirmDeleteBtn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 12px rgba(156, 39, 176, 0.35);
+}
+
+/* Hiệu ứng hiện modal */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Hiệu ứng scale khi popup */
+@keyframes scaleUp {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+
   </style>
   <script src="global.js" defer></script>
 </head>
 <body>
-<header class="site-header">
-    <div class="header-container">
-        <a href="../../home/index.html" class="logo">Lucenda</a>
-        <nav class="main-nav">
-            <ul>
-                <li><a href="../../home/index.html">Home</a></li>
-                <li><a href="../../event/main-event/index.html">Event</a></li>
-                <li><a href="../../calendar/day-view/index.html">Calendar</a></li>
-                <li><a href="../../aboutus/index.html">About us</a></li>
-            </ul>
-        </nav>
-        <div class="user-profile">
-            <a href="../../profile/index.html" class="user-profile">
-                <span class="user-name">mphanquang</span>
-                <img src="images/109_23827.svg" alt="User Avatar" class="user-avatar">
-            </a>
-        </div>
+<section id="section-header">
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="{% url 'home' %}" class="logo">
+        <img src="{% static 'event/recycle-bin-event/images/24489db95d7c8b23ff71ea38f01643e97c6a9ede.png' %}" alt="Lucenda Logo" class="logo-img">
+      </a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'event_main' %}">Event</a></li>
+          <li><a href="{% url 'calendar' %}">Calendar</a></li>
+          <li><a href="{% url 'about' %}">About us</a></li>
+        </ul>
+      </nav>
+      <div class="profile-section">
+        <a href="{% url 'profile' %}">
+          {% if haslogin %}
+            <span class="profile-name">{{ haslogin }}</span>
+          {% else %}
+            <span class="profile-name">Login/Signup</span>
+          {% endif %}
+          <img src="{% static 'event/recycle-bin-event/images/299_23747.svg' %}" alt="User avatar" class="profile-avatar">
+        </a>
+      </div>
     </div>
-</header>
-<main class="main-content">
-    <aside class="sidebar">
-        <div class="sidebar-section">
-            <div class="mini-calendar-header">
-                <img src="images/185_27022.svg" alt="Calendar Icon" width="24" height="24">
-                <p class="month-year"><span>August </span><span class="year">2025</span></p>
-            </div>
-            <div class="mini-calendar">
-                <div class="day">m</div>
-                <div class="day">t</div>
-                <div class="day">w</div>
-                <div class="day">t</div>
-                <div class="day">f</div>
-                <div class="day">s</div>
-                <div class="day">s</div>
-                <div class="date">01</div>
-                <div class="date active">02</div>
-                <div class="date">03</div>
-                <div class="date">04</div>
-                <div class="date">05</div>
-                <div class="date">06</div>
-                <div class="date">07</div>
-                <div class="date">08</div>
-                <div class="date">09</div>
-                <div class="date">10</div>
-                <div class="date">11</div>
-                <div class="date">12</div>
-                <div class="date">13</div>
-                <div class="date">14</div>
-                <div class="date">15</div>
-                <div class="date">16</div>
-                <div class="date">17</div>
-                <div class="date">18</div>
-                <div class="date">19</div>
-                <div class="date">20</div>
-                <div class="date">21</div>
-                <div class="date">22</div>
-                <div class="date">23</div>
-                <div class="date">24</div>
-                <div class="date">25</div>
-                <div class="date">26</div>
-                <div class="date">27</div>
-                <div class="date">28</div>
-                <div class="date">29</div>
-                <div class="date">30</div>
-                <div class="date">31</div>
-                <div class="date other-month">01</div>
-                <div class="date other-month">02</div>
-                <div class="date other-month">03</div>
-                <div class="date other-month">04</div>
-            </div>
+  </header>
+</section>
+<div class="event-view-wrapper">
+  <aside class="sidebar">
+  <div class="sidebar-top">
+    <div class="calendar-widget">
+      <div class="calendar-header">
+        <img src="{% static 'event/main-event/images/38_56003.svg' %}" alt="Calendar icon">
+        <h2 id="month-name">Month <span class="year">Year</span></h2>
+      </div>
+      <div class="calendar-grid">
+        <div class="day-name">m</div>
+        <div class="day-name">t</div>
+        <div class="day-name">w</div>
+        <div class="day-name">t</div>
+        <div class="day-name">f</div>
+        <div class="day-name">s</div>
+        <div class="day-name">s</div>
+        <!-- Dates will be inserted by JS -->
+      </div>
+    </div>
+    <div class="events-section">
+    </div>
+    </div>
+
+    <div class="sidebar-bottom">
+      <a href="#" class="recycle-bin-link">
+        <img src="{% static 'event/recycle-bin-event/images/38_55975.svg' %}" alt="Trash can icon">
+        <span>Recycle Bin</span>
+      </a>
+    </div>
+  </aside>
+    <main class="content-panel" id="recycle-bin">
+      <div class="content-header">
+        <img src="{% static 'event/recycle-bin-event/images/38_55975.svg' %}" alt="Recycle Bin Icon">
+        <h1>Recycle Bin</h1>
+      </div>
+
+      <div id="confirmModal" class="modal">
+        <div class="modal-content">
+          <h3>Are you sure?</h3>
+          <p>This event will be permanently deleted.</p>
+          <div class="modal-actions">
+            <button id="cancelBtn">Cancel</button>
+            <button id="confirmDeleteBtn">Delete</button>
+          </div>
         </div>
-        <div class="sidebar-section calendars-list-section">
-            <div class="calendars-header">
-                <img src="images/185_27016.svg" alt="List Icon" width="24" height="24">
-                <h2>Calendars</h2>
-            </div>
-            <ul class="calendar-list">
-                <li class="calendar-item active">
-                    <span>My Calendar</span>
-                    <button><img src="images/185_27013.svg" alt="More options" width="12" height="12"></button>
-                </li>
-                <li class="calendar-item">
-                    <span>Vacation Plan</span>
-                    <button><img src="images/185_27010.svg" alt="More options" width="12" height="12"></button>
-                </li>
-                <li class="calendar-item">
-                    <span>Learning Calendar</span>
-                    <button><img src="images/185_27007.svg" alt="More options" width="12" height="12"></button>
-                </li>
-                <li class="calendar-item">
-                    <span>Work Calendar</span>
-                    <button><img src="images/185_27004.svg" alt="More options" width="12" height="12"></button>
-                </li>
-                <li class="calendar-item">
-                    <span>Vacation With Team</span>
-                    <button><img src="images/185_27001.svg" alt="More options" width="12" height="12"></button>
-                </li>
-            </ul>
-            <button class="add-new-calendar">
-                <img src="images/185_26997.svg" alt="Add new" width="12" height="12">
-                <span>Add new calendar</span>
-            </button>
-        </div>
-        <div class="sidebar-footer">
-            <a href="#" class="recycle-bin-link">
-                <img src="images/185_26993.svg" alt="Recycle Bin" width="24" height="24">
-                <span>Recycle Bin</span>
-            </a>
-        </div>
-    </aside>
-    <section class="content-area">
-        <div class="content-header">
-            <img src="images/31_22937.svg" alt="Recycle Bin Icon" width="24" height="24">
-            <h1>Recycle Bin</h1>
-        </div>
-        <div class="content-body">
-            <p>No calendars in Recycle Bin</p>
-        </div>
-    </section>
-</main>
+      </div>
+
+  <div class="recycle-event-list" id="recycleEventList">
+    <!-- Nội dung sẽ được cập nhật bằng script -->
+  </div>
+    </main>
+
+</div>
 </body>
+
+<script>
+  // Calendar generation script
+  function generateCalendar() {
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth();
+    const currentDate = today.getDate();
+
+    const monthNames = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+
+    const monthTitle = document.getElementById("month-name");
+    monthTitle.innerHTML = `${monthNames[currentMonth]} <span class="year">${currentYear}</span>`;
+
+    const firstDay = new Date(currentYear, currentMonth, 1);
+    const startDay = (firstDay.getDay() + 6) % 7; // Monday = 0
+    const lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+    const prevLastDate = new Date(currentYear, currentMonth, 0).getDate();
+
+    const calendarGrid = document.querySelector(".calendar-grid");
+
+    // Xóa các ngày cũ
+    document.querySelectorAll(".date-num").forEach(el => el.remove());
+
+    // Tổng cộng 35 ô
+    for (let i = 0; i < 35; i++) {
+      const dateEl = document.createElement("div");
+      dateEl.classList.add("date-num");
+
+      const dateNum = i - startDay + 1;
+
+      if (i < startDay) {
+        // Ngày của tháng trước
+        dateEl.textContent = prevLastDate - (startDay - i - 1);
+        dateEl.classList.add("dimmed");
+      } else if (dateNum > lastDate) {
+        // Ngày của tháng sau
+        dateEl.textContent = String(dateNum - lastDate).padStart(2, '0');
+        dateEl.classList.add("dimmed");
+      } else {
+        // Ngày của tháng hiện tại
+        dateEl.textContent = String(dateNum).padStart(2, '0');
+        if (dateNum === currentDate) {
+          dateEl.classList.add("today");
+        }
+      }
+
+      calendarGrid.appendChild(dateEl);
+    }
+  }
+
+  generateCalendar();
+
+// Hàm tải danh sách sự kiện đã xóa
+async function loadDeletedEvents() {
+  const recycleList = document.getElementById("recycleEventList");
+
+  try {
+    const response = await fetch("/api/deleted-events-1/");
+    const events = await response.json();
+
+    recycleList.innerHTML = ""; 
+
+    if (!events || events.length === 0) {
+      recycleList.innerHTML = `<p>There are no deleted calendars.</p>`;
+      return;
+    }
+
+    events.forEach(eventName => {
+      const eventDiv = document.createElement("div");
+      eventDiv.classList.add("recycle-event");
+
+      eventDiv.innerHTML = `
+        <div class="recycle-event-info">
+          <span class="event-color-dot" style="background-color: #7915aeff;"></span>
+          ${eventName}
+        </div>
+        <div class="recycle-buttons">
+          <button class="restore-btn">Restore</button>
+          <button class="perma-delete-btn">Delete Forever</button>
+        </div>
+      `;
+
+      recycleList.appendChild(eventDiv);
+    });
+  } catch (error) {
+    recycleList.innerHTML = `<p style="color:red;">Lỗi khi tải dữ liệu</p>`;
+    console.error("Error loading events:", error);
+  }
+}
+
+// Gọi khi load trang
+document.addEventListener("DOMContentLoaded", loadDeletedEvents);
+
+// ✅ Event delegation cho nút Restore
+// Khôi phục sự kiện đã xóa
+document.getElementById("recycleEventList").addEventListener("click", async function(e) {
+  if (e.target.classList.contains("restore-btn")) {
+    const container = e.target.closest(".recycle-event");
+    const eventInfo = container.querySelector(".recycle-event-info");
+    const eventName = eventInfo.textContent.trim();
+
+    try {
+      const response = await fetch("/restore-event-1/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": getCookie("csrftoken")
+        },
+        body: JSON.stringify({ eventName })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        container.remove();
+      } else {
+        alert("Restore failed: " + (data.error || ""));
+      }
+    } catch (err) {
+      console.error("Error:", err);
+    }
+  }
+});
+
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name + "=")) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+// ✅ Event delegation cho nút Delete Forever
+// Xóa vĩnh viễn sự kiện
+document.getElementById("recycleEventList").addEventListener("click", async function(e) {
+  if (e.target.classList.contains("perma-delete-btn")) {
+    const container = e.target.closest(".recycle-event");
+    const eventInfo = container.querySelector(".recycle-event-info");
+    const eventName = eventInfo.textContent.trim();
+
+    // Lấy modal
+    const modal = document.getElementById("confirmModal");
+    const cancelBtn = document.getElementById("cancelBtn");
+    const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+
+    // Hiển thị modal
+    modal.style.display = "flex";
+
+    // Khi nhấn Cancel → đóng modal
+    cancelBtn.onclick = function () {
+      modal.style.display = "none";
+    };
+
+    confirmDeleteBtn.onclick = async function () {
+      modal.style.display = "none";
+      try {
+        const response = await fetch("/delete-event1-1/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCookie("csrftoken")
+          },
+          body: JSON.stringify({ eventName })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          container.remove();
+        } else {
+          alert("Delete failed: " + (data.error || ""));
+        }
+      } catch (err) {
+        console.error("Error:", err);
+        alert("Có lỗi khi gửi yêu cầu xóa.");
+      }
+    };
+
+    // Khi click ra ngoài modal → đóng modal
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    };  
+  }
+});
+
+// Hàm lấy CSRF token (bạn đã có sẵn)
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(name + "=")) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+</script>
 </html>

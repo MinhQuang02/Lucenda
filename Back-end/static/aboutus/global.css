@@ -1,23 +1,27 @@
 :root {
-  --color-primary-lightest: #8f52d1;         /* dùng cho header background */
-  --color-primary-light: #e1d4f6;            /* có thể dùng cho hero background */
-  --color-primary-medium: #debdfd;           /* dùng cho footer background */
-  --color-white: #ffffff;                    /* dùng cho text màu sáng */
-  --color-text-dark: #333333;                /* dùng cho text đậm */
+  --color-bg-light: #ffeafe;
+  --color-bg-medium: #debdfd;
+  --color-bg-white: #ffffff;
+  --color-text-light: #ffffff;
+  /* NOTE: The design spec provided a light text color (#ffeafe) on a white background for the team members, which has poor contrast. A darker color has been chosen for accessibility. */
+  --color-text-dark: #4a2c6b; 
   --font-family-main: 'Poppins', sans-serif;
-  --color-text-light: #8e7a9e;
-  --color-avatar-bg: #eaddff;
+  --header-height: 86px;
+  --footer-height: 57px;
 }
 
 body {
   margin: 0;
-  font-family: var(--font-family-main);
-  background-color: var(--color-white);
-  color: var(--color-text-dark);
+  font-family: 'Poppins', sans-serif;
+  background-color: #ffffff;
+  color: #3c1053;
+  overflow-x: hidden;
 }
 
-* {
-  box-sizing: border-box;
+.page-wrapper {
+  max-width: 1440px;
+  margin: 0 auto;
+  background-color: var(--color-bg-white);
 }
 
 a {
@@ -31,12 +35,8 @@ ul {
   padding: 0;
 }
 
-.page-container, .container {
-  max-width: 1440px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 24px;
-  overflow: hidden;
+h1, p {
+  margin: 0;
 }
 
 img {
@@ -45,103 +45,25 @@ img {
   display: block;
 }
 
-/* Header (based on profile layout but using about's color vars) */
-.site-header {
-  background-color: var(--color-primary-lightest);
-  opacity: 0.96;
-  padding-top: 19px;
-  padding-bottom: 19px;
+.container {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 52px;
+  padding-right: 36px;
+  box-sizing: border-box;
 }
 
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-}
-
-.logo {
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--color-white);
-}
-
-.main-nav {
-  display: flex;
-  gap: 40px;
-  font-size: 20px;
-  font-weight: 500;
-  color: var(--color-white);
-}
-
-.user-profile-link {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  font-size: 20px;
-  font-weight: 500;
-  color: var(--color-white);
-}
-
-.user-avatar-small {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: var(--color-avatar-bg);
-}
-
-@media (max-width: 768px) {
-  .header-container {
-    flex-direction: column;
-  }
-
-  .main-nav {
-    gap: 20px;
-    font-size: 18px;
+@media (max-width: 1200px) {
+  .container {
+    padding-left: 30px;
+    padding-right: 30px;
   }
 }
 
-/* Footer (based on profile layout but using about's color vars) */
-.site-footer {
-  background-color: var(--color-primary-medium);
-  opacity: 0.96;
-  color: var(--color-white);
-  padding-top: 16px;
-  padding-bottom: 16px;
-}
-
-.footer-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
-.footer-contact {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  font-size: 14px;
-  font-weight: 500;
-  opacity: 0.6;
-}
-
-.footer-social {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  opacity: 0.6;
-}
-
-.footer-social img {
-  width: 25px;
-  height: 25px;
-}
-
 @media (max-width: 768px) {
-  .footer-container {
-    flex-direction: column;
-    justify-content: center;
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
   }
 }

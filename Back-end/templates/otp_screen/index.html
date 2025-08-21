@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OTP Verification - Lucenda</title>
+<link rel="icon" type="image/png" href="{% static 'images/logo.svg' %}">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #e3e6f0, #f7f7f7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.otp-container {
+    background: #fff;
+    padding: 2rem 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.08);
+    text-align: center;
+    width: 340px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+h2 {
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    color: #333;
+}
+p {
+    font-size: 14px;
+    color: #666;
+    margin-top: 0;
+}
+.timer {
+    margin-top: 0.3rem;
+    font-size: 13px;
+    color: #b297f3;
+    font-weight: 500;
+}
+.otp-inputs {
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5rem 0;
+}
+.otp-inputs input {
+    width: 45px;
+    height: 50px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 500;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+.otp-inputs input:focus {
+    outline: none;
+    border-color: #b297f3;
+    box-shadow: 0 0 4px rgba(178,151,243,0.8);
+}
+.btn {
+    width: 100%;
+    background: #b297f3;
+    color: white;
+    border: none;
+    padding: 0.7rem;
+    font-size: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+.btn:hover {
+    background: #9e84f2;
+}
+.resend {
+    margin-top: 1rem;
+    font-size: 13px;
+}
+.resend a {
+    color: #b297f3;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.resend a.disabled {
+    color: gray;
+    pointer-events: none;
+    text-decoration: none;
+}
+.message {
+    margin-top: 0.8rem;
+    font-size: 13px;
+    font-weight: 500;
+}
+</style>
+</head>
+<body>
+<div class="otp-container">
+    <h2>OTP Verification</h2>
+    <p>Enter the 6-digit code we sent to your registered email address.</p>
+    {% if error %}
+        <p style="color: purple; text-align: center;">{{ error }}</p>
+    {% endif %}
+
+    <div class="timer" id="timer">Code expires in: 05:00</div>
+
+    <form action="{% url 'verify_otp' %}" method="POST">
+        {% csrf_token %}
+        <div class="otp-inputs">
+            <input type="text" name="otp1" maxlength="1" inputmode="numeric" required>
+            <input type="text" name="otp2" maxlength="1" inputmode="numeric" required>
+            <input type="text" name="otp3" maxlength="1" inputmode="numeric" required>
+            <input type="text" name="otp4" maxlength="1" inputmode="numeric" required>
+            <input type="text" name="otp5" maxlength="1" inputmode="numeric" required>
+            <input type="text" name="otp6" maxlength="1" inputmode="numeric" required>
+        </div>
+
+        <button type="submit" class="btn">Verify</button>
+    </form>
+
+    <div class="resend">
+        Didn't receive the code? 
+        <a href="{% url 'resend_otp' %}" id="resendLink" class="disabled">Resend</a>
+    </div>
+    <div class="message" id="message"></div>
+</div>
+
+<script>
+const inputs = document.querySelectorAll('.otp-inputs input');
+const resendLink = document.getElementById('resendLink');
+const timerEl = document.getElementById('timer');
+const messageEl = document.getElementById('message');
+let timeLeft = 300; // 5 phút
+
+// Auto move between inputs
+inputs.forEach((input, index) => {
+    input.addEventListener('input', () => {
+        if (input.value.length === 1 && index < inputs.length - 1) {
+            inputs[index + 1].focus();
+        }
+    });
+    input.addEventListener('keydown', (e) => {
+        if (e.key === "Backspace" && !input.value && index > 0) {
+            inputs[index - 1].focus();
+        }
+    });
+});
+
+// Timer
+function startTimer() {
+    updateTimerDisplay();
+    const timer = setInterval(() => {
+        timeLeft--;
+        updateTimerDisplay();
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            messageEl.textContent = "OTP has expired. Please request a new code.";
+            messageEl.style.color = "purple";
+            resendLink.classList.remove('disabled');
+        }
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const minutes = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+    const seconds = String(timeLeft % 60).padStart(2, '0');
+    timerEl.textContent = `Code expires in: ${minutes}:${seconds}`;
+}
+
+startTimer();
+</script>
+</body>
+</html>

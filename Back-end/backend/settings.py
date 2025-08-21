@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,6 +43,8 @@ INSTALLED_APPS = [
     # Thêm vào đây
     'rest_framework',
     'users',
+    'social_django',
+    'django_crontab',
 ]
 
 
@@ -60,11 +63,11 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # Thêm đường dẫn tới thư mục UI
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # đường dẫn templates gốc
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -83,27 +86,27 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': 'lucenda_backend',  # DB mới cho Django
-        'HOST': 'localhost,1433',
+        'NAME': 'lucenda_backend',  # Tên database bạn đã tạo
+        'HOST': 'localhost',
+        'PORT': '',  # Để trống nếu dùng cổng mặc định 1433
         'OPTIONS': {
-            'driver': 'ODBC Driver 18 for SQL Server',
-            'trusted_connection': 'yes',
+            'driver': 'ODBC Driver 17 for SQL Server',
+            'trusted_connection': 'yes',  # Cho phép Windows Auth
             'extra_params': 'Encrypt=no;TrustServerCertificate=yes;',
         },
     },
     'legacy': {
         'ENGINE': 'mssql',
-        'NAME': 'lucenda_database',  # DB gốc chứa Users/Events
-        'HOST': 'localhost,1433',
+        'NAME': 'lucenda_backend',  # Database gốc chứa dữ liệu cũ
+        'HOST': 'localhost',
+        'PORT': '',
         'OPTIONS': {
-            'driver': 'ODBC Driver 18 for SQL Server',
+            'driver': 'ODBC Driver 17 for SQL Server',
             'trusted_connection': 'yes',
             'extra_params': 'Encrypt=no;TrustServerCertificate=yes;',
         },
     }
 }
-
-
 
 
 # Password validation
@@ -141,10 +144,41 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # đường dẫn thư mục static của bạn
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Gmail validation
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'mphanquang06@gmail.com'
+EMAIL_HOST_PASSWORD = 'goracxrutnqrpfrh'  # App password, không dùng mật khẩu Gmail trực tiếp
+
+load_dotenv()  # load biến môi trường từ file .env
+
+OPENAI_API_KEY = os.getenv("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")
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '355823044561-doif0160o5p172jhmbbanksepu3fjvka.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = '/home/'
+LOGOUT_REDIRECT_URL = '/login/'
+
+CRONJOBS = [
+    # Chạy lúc 7h sáng mỗi ngày
+    ('0 7 * * *', 'myapp.views.daily_event_reminder'),
+]
