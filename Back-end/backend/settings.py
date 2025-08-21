@@ -163,15 +163,15 @@ EMAIL_HOST_PASSWORD = 'goracxrutnqrpfrh'  # App password, không dùng mật kh�
 
 load_dotenv()  # load biến môi trường từ file .env
 
-OPENAI_API_KEY = os.getenv("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")
+OPENAI_API_KEY = os.getenv("")
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '355823044561-doif0160o5p172jhmbbanksepu3fjvka.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ''
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
 
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
